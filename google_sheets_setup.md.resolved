@@ -1,0 +1,80 @@
+# Google Sheets Integration Guide
+
+To store your form data in an "Excel-compatible" sheet, follow these steps to set up a Google Apps Script.
+
+## Step 1: Create a Google Sheet
+1. Go to [sheets.new](https://sheets.new) to create a new spreadsheet.
+2. In the first row, create the following headers in columns A, B, C, D, E, and F:
+   - **Timestamp**
+   - **First Name**
+   - **Last Name**
+   - **Email**
+   - **Service**
+   - **Message**
+
+## Step 2: Open the Script Editor
+1. In your Google Sheet, go to **Extensions** > **Apps Script**.
+2. Delete any code in the editor (like `function myFunction() {}`).
+3. Paste the following code:
+
+```javascript
+/**
+ * Google Apps Script to handle form submissions from a web app
+ */
+const SHEET_NAME = 'Sheet1'; // Make sure this matches your sheet name
+
+function doPost(e) {
+  const lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+
+  try {
+    const doc = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = doc.getSheetByName(SHEET_NAME);
+
+    const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    const nextRow = sheet.getLastRow() + 1;
+
+    const newRow = headers.map(function(header) {
+      if (header === 'Timestamp') {
+        return new Date();
+      }
+      return e.parameter[header] || '';
+    });
+
+    sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ 'result': 'success', 'row': nextRow }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  catch (e) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ 'result': 'error', 'error': e }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  finally {
+    lock.releaseLock();
+  }
+}
+```
+
+## Step 3: Deploy the Script
+1. Click the **Deploy** button > **New deployment**.
+2. Select type: **Web app**.
+3. Description: `Contact Form Backend`.
+4. Execute as: **Me**.
+5. Who has access: **Anyone**. (This is necessary to allow the website to post data).
+6. Click **Deploy**.
+7. Copy the **Web App URL** provided.
+
+## Step 4: Update Your Website
+1. Open `index.html`.
+2. Find the line: `const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';`
+3. Replace `'YOUR_GOOGLE_SCRIPT_URL_HERE'` with the URL you just copied.
+
+---
+
+> [!TIP]
+> This setup allows you to collect leads in real-time. You can then go to **File > Download > Microsoft Excel (.xlsx)** whenever you need the data in Excel format.

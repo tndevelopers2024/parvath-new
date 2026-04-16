@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parvath Financial Services | Secure Your Future</title>
-    <meta name="description" content="Trusted financial & insurance solutions by Parvath Financial Services. Expert guidance for retirement, NRI services, and children's education.">
+    <meta name="description"
+        content="Trusted financial & insurance solutions by Parvath Financial Services. Expert guidance for retirement, NRI services, and children's education.">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="parvath_favicon_logo_1776341250865.png">
+
     <!-- Alpine.js for simple interactions -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <script>
         tailwind.config = {
@@ -43,38 +53,82 @@
     </script>
 
     <style>
-        [x-cloak] { display: none !important; }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.8);
+        [x-cloak] {
+            display: none !important;
+        }
+
+        .glass-nav-active {
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
         }
+
         .hero-gradient {
-            background: radial-gradient(circle at top right, rgba(184, 134, 11, 0.05), transparent 400px),
-                        radial-gradient(circle at bottom left, rgba(15, 23, 42, 0.03), transparent 400px);
+            background: linear-gradient(rgba(248, 250, 252, 0.85), rgba(248, 250, 252, 0.85)),
+                url('finance_hero_bg_clean_1776340907377.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
+
         .card-hover {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .card-hover:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
+
         .animate-float {
             animation: float 6s ease-in-out infinite;
         }
+
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        .card-bg-retirement {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.32)), url('bg_retirement_card_1776341748082.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .card-bg-nri {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.42)), url('bg_nri_card_1776341762409.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .card-bg-education {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.32)), url('bg_education_card_retry_1776341852461.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .card-bg-tax {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.12)), url('bg_tax_card_1776341776257.png');
+            background-size: cover;
+            background-position: center;
         }
     </style>
 </head>
+
 <body class="bg-brand-light text-brand-slate font-sans antialiased" x-data="{ mobileMenuOpen: false }">
 
     <!-- 1. NAVBAR -->
-    <nav class="fixed top-0 w-full z-50 glass-nav">
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" 
+         :class="scrollY > 50 ? 'glass-nav-active' : 'bg-transparent py-2'"
+         x-data="{ scrollY: 0 }"
+         @scroll.window="scrollY = window.pageYOffset">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
@@ -82,16 +136,23 @@
                     <span class="text-2xl font-serif font-bold text-brand-deep tracking-tight">
                         Parvath<span class="text-brand-gold">.</span>
                     </span>
-                    <span class="ml-2 text-xs font-bold uppercase tracking-widest text-brand-slate hidden sm:block">Financial Services</span>
+                    <span
+                        class="ml-2 text-xs font-bold uppercase tracking-widest text-brand-slate hidden sm:block">Financial
+                        Services</span>
                 </div>
 
                 <!-- Desktop Links -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="text-sm font-medium text-brand-deep hover:text-brand-gold transition-colors">Home</a>
-                    <a href="#services" class="text-sm font-medium text-brand-deep hover:text-brand-gold transition-colors">Services</a>
-                    <a href="#about" class="text-sm font-medium text-brand-deep hover:text-brand-gold transition-colors">About</a>
-                    <a href="#contact" class="text-sm font-medium text-brand-deep hover:text-brand-gold transition-colors">Contact</a>
-                    <a href="#contact" class="inline-flex items-center px-6 py-2.5 border border-transparent text-sm font-semibold rounded-full text-white bg-brand-deep hover:bg-opacity-90 transition-all shadow-sm hover:shadow-lg">
+                    <a href="#home"
+                        class="text-sm font-medium text-brand-deep hover:text-brand-gold transition-colors">Home</a>
+                    <a href="#services"
+                        class="text-sm font-medium text-brand-deep hover:text-brand-gold transition-colors">Services</a>
+                    <a href="#about"
+                        class="text-sm font-medium text-brand-deep hover:text-brand-gold transition-colors">About</a>
+                    <a href="#contact"
+                        class="text-sm font-medium text-brand-deep hover:text-brand-gold transition-colors">Contact</a>
+                    <a href="#contact"
+                        class="inline-flex items-center px-6 py-2.5 border border-transparent text-sm font-semibold rounded-full text-white bg-brand-deep hover:bg-opacity-90 transition-all shadow-sm hover:shadow-lg">
                         Book Consultation
                     </a>
                 </div>
@@ -107,19 +168,21 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div x-show="mobileMenuOpen" 
-             x-transition:enter="transition ease-out duration-200"
-             x-transition:enter-start="opacity-0 -translate-y-4"
-             x-transition:enter-end="opacity-100 translate-y-0"
-             x-cloak
-             class="md:hidden bg-white border-b border-gray-100 shadow-xl">
+        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+            x-cloak class="md:hidden bg-white border-b border-gray-100 shadow-xl">
             <div class="px-4 pt-2 pb-6 space-y-2">
-                <a href="#home" @click="mobileMenuOpen = false" class="block px-3 py-4 text-base font-medium text-brand-deep border-b border-gray-50">Home</a>
-                <a href="#services" @click="mobileMenuOpen = false" class="block px-3 py-4 text-base font-medium text-brand-deep border-b border-gray-50">Services</a>
-                <a href="#about" @click="mobileMenuOpen = false" class="block px-3 py-4 text-base font-medium text-brand-deep border-b border-gray-50">About</a>
-                <a href="#contact" @click="mobileMenuOpen = false" class="block px-3 py-4 text-base font-medium text-brand-deep">Contact</a>
+                <a href="#home" @click="mobileMenuOpen = false"
+                    class="block px-3 py-4 text-base font-medium text-brand-deep border-b border-gray-50">Home</a>
+                <a href="#services" @click="mobileMenuOpen = false"
+                    class="block px-3 py-4 text-base font-medium text-brand-deep border-b border-gray-50">Services</a>
+                <a href="#about" @click="mobileMenuOpen = false"
+                    class="block px-3 py-4 text-base font-medium text-brand-deep border-b border-gray-50">About</a>
+                <a href="#contact" @click="mobileMenuOpen = false"
+                    class="block px-3 py-4 text-base font-medium text-brand-deep">Contact</a>
                 <div class="pt-4">
-                    <a href="#contact" @click="mobileMenuOpen = false" class="block w-full text-center px-6 py-4 text-base font-bold rounded-xl text-white bg-brand-deep">
+                    <a href="#contact" @click="mobileMenuOpen = false"
+                        class="block w-full text-center px-6 py-4 text-base font-bold rounded-xl text-white bg-brand-deep">
                         Book Consultation
                     </a>
                 </div>
@@ -132,40 +195,46 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="lg:grid lg:grid-cols-12 lg:gap-12 items-center">
                 <div class="lg:col-span-7 mb-12 lg:mb-0">
-                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/20 mb-6">
+                    <div
+                        class="inline-flex items-center px-3 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/20 mb-6">
                         <span class="flex h-2 w-2 rounded-full bg-brand-gold mr-2"></span>
-                        <span class="text-xs font-bold text-brand-gold uppercase tracking-wider">Serving 200+ Families Since 2019</span>
+                        <span class="text-xs font-bold text-brand-gold uppercase tracking-wider">Serving 200+ Families
+                            Since 2019</span>
                     </div>
                     <h1 class="text-5xl lg:text-7xl font-serif font-extrabold text-brand-deep leading-[1.1] mb-6">
                         Secure Your <span class="text-brand-gold">Future</span> with Clarity.
                     </h1>
                     <p class="text-xl text-brand-slate/80 leading-relaxed mb-10 max-w-2xl">
-                        Trusted financial & insurance solutions tailored for middle-class families, professionals, and NRIs. We help you protect what matters and grow what lasts.
+                        Trusted financial & insurance solutions tailored for middle-class families, professionals, and
+                        NRIs. We help you protect what matters and grow what lasts.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#contact" class="inline-flex justify-center items-center px-8 py-4 text-lg font-bold rounded-2xl text-white bg-brand-deep hover:bg-brand-deep/90 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1">
+                        <a href="#contact"
+                            class="inline-flex justify-center items-center px-8 py-4 text-lg font-bold rounded-2xl text-white bg-brand-deep hover:bg-brand-deep/90 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1">
                             Book Free Consultation
                             <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
                         </a>
-                        <a href="#services" class="inline-flex justify-center items-center px-8 py-4 text-lg font-bold rounded-2xl text-brand-deep bg-white border border-gray-200 hover:border-brand-gold/30 hover:bg-gray-50 transition-all">
+                        <a href="#services"
+                            class="inline-flex justify-center items-center px-8 py-4 text-lg font-bold rounded-2xl text-brand-deep bg-white border border-gray-200 hover:border-brand-gold/30 hover:bg-gray-50 transition-all">
                             Explore Services
                         </a>
                     </div>
                 </div>
                 <div class="lg:col-span-5 relative">
                     <div class="relative animate-float">
-                        <img src="assets/images/parvath-finance-image-1.avif" 
-                              alt="Financial Planning Illustration" 
-                              class="w-full h-auto rounded-3xl shadow-2xl">
+                        <img src="assets/images/parvath-finance-image-1.avif" alt="Financial Planning Illustration"
+                            class="w-full h-auto rounded-3xl shadow-2xl">
                         <!-- Decorative elements -->
-                        <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-gray-100 hidden sm:block">
+                        <div
+                            class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-gray-100 hidden sm:block">
                             <div class="flex items-center space-x-4">
                                 <div class="p-3 bg-green-50 rounded-full">
                                     <i data-lucide="shield-check" class="text-green-600 w-6 h-6"></i>
                                 </div>
                                 <div>
                                     <p class="text-sm font-bold text-brand-deep">100% Transparent</p>
-                                    <p class="text-[10px] text-brand-slate uppercase tracking-tighter">No hidden policies</p>
+                                    <p class="text-[10px] text-brand-slate uppercase tracking-tighter">No hidden
+                                        policies</p>
                                 </div>
                             </div>
                         </div>
@@ -181,7 +250,8 @@
             <div class="flex flex-wrap justify-between items-center gap-8 text-center sm:text-left">
                 <div class="flex-1 min-w-[200px]">
                     <p class="text-4xl font-serif font-bold text-white mb-1">200+</p>
-                    <p class="text-brand-goldLight text-xs font-bold uppercase tracking-widest">Happy Families Served</p>
+                    <p class="text-brand-goldLight text-xs font-bold uppercase tracking-widest">Happy Families Served
+                    </p>
                 </div>
                 <div class="flex-1 min-w-[200px]">
                     <p class="text-4xl font-serif font-bold text-white mb-1">5+</p>
@@ -205,27 +275,32 @@
             <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
                 <div class="mb-12 lg:mb-0 relative">
                     <div class="aspect-square rounded-3xl overflow-hidden shadow-2xl">
-                        <img src="assets/images/parvath-finance-image-12avif.avif" 
-                              alt="Independent Financial Consultant" 
-                              class="w-full h-full object-cover">
+                        <img src="assets/images/parvath-finance-image-12avif.avif"
+                            alt="Independent Financial Consultant" class="w-full h-full object-cover">
                     </div>
                     <!-- Experience Tag -->
                     <div class="absolute -bottom-8 right-8 bg-brand-gold p-8 rounded-2xl shadow-xl text-white">
-                        <p class="text-sm font-bold uppercase tracking-widest opacity-80 decoration-white">Founded In</p>
+                        <p class="text-sm font-bold uppercase tracking-widest opacity-80 decoration-white">Founded In
+                        </p>
                         <p class="text-4xl font-serif font-bold">2019</p>
                     </div>
                 </div>
                 <div>
-                    <h2 class="text-brand-gold font-bold uppercase tracking-widest text-sm mb-4">Meet Varalakshmi Sridhar</h2>
-                    <h3 class="text-4xl font-serif font-bold text-brand-deep leading-tight mb-8">
-                        Helping individuals and families bring clarity, confidence, and structure to their financial lives.
+                    <h2 class="text-brand-gold font-bold uppercase tracking-widest text-sm mb-4">Meet </h2>
+                    <h3 class="text-4xl font-serif font-bold text-brand-deep leading-tight mb-4">
+                       Varalakshmi
+                        Sridha
                     </h3>
                     <p class="text-lg font-bold text-brand-deep mb-2">Wealth Creator and Consultant</p>
                     <p class="text-lg text-brand-slate leading-relaxed mb-6 italic">
-                        "We are a dedicated financial and insurance provider helping individuals, families, and businesses achieve stability, security, and growth through personalized solutions and expert guidance."
+                        "We are a dedicated financial and insurance provider helping individuals, families, and
+                        businesses achieve stability, security, and growth through personalized solutions and expert
+                        guidance."
                     </p>
                     <p class="text-lg text-brand-slate leading-relaxed mb-8">
-                        Our approach aligns money with life goals, protects what matters, and creates dependable income for the future. Since 2019, we've focused on building long-term relationships based on trust and radical transparency.
+                        Our approach aligns money with life goals, protects what matters, and creates dependable income
+                        for the future. Since 2019, we've focused on building long-term relationships based on trust and
+                        radical transparency.
                     </p>
                     <div class="grid grid-cols-2 gap-6">
                         <div class="flex items-start space-x-3">
@@ -257,39 +332,43 @@
                 <h2 class="text-brand-gold font-bold uppercase tracking-widest text-sm mb-4">Our Expertise</h2>
                 <h3 class="text-4xl font-serif font-bold text-brand-deep">Financial Solutions for Every Stage</h3>
             </div>
-            
+
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Card 1 -->
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 card-hover shadow-sm">
+                <div class="p-8 rounded-3xl border border-gray-100 card-hover shadow-sm card-bg-retirement">
                     <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-6">
                         <i data-lucide="sunset" class="text-blue-600 w-8 h-8"></i>
                     </div>
                     <h4 class="text-xl font-bold text-brand-deep mb-4">Retirement Planning</h4>
-                    <p class="text-brand-slate/70 leading-relaxed text-sm">Create a dependable passive income stream to enjoy your golden years with total peace of mind.</p>
+                    <p class="text-black leading-relaxed text-sm">Create a dependable passive income stream to
+                        enjoy your golden years with total peace of mind.</p>
                 </div>
                 <!-- Card 2 -->
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 card-hover shadow-sm">
+                <div class="p-8 rounded-3xl border border-gray-100 card-hover shadow-sm card-bg-nri">
                     <div class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center mb-6">
                         <i data-lucide="globe" class="text-indigo-600 w-8 h-8"></i>
                     </div>
                     <h4 class="text-xl font-bold text-brand-deep mb-4">NRI Financial Services</h4>
-                    <p class="text-brand-slate/70 leading-relaxed text-sm">Specialized wealth management and tax advisory for NRIs looking to invest back home in India.</p>
+                    <p class="text-black leading-relaxed text-sm">Specialized wealth management and tax
+                        advisory for NRIs looking to invest back home in India.</p>
                 </div>
                 <!-- Card 3 -->
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 card-hover shadow-sm">
+                <div class="p-8 rounded-3xl border border-gray-100 card-hover shadow-sm card-bg-education">
                     <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mb-6">
                         <i data-lucide="graduation-cap" class="text-amber-600 w-8 h-8"></i>
                     </div>
                     <h4 class="text-xl font-bold text-brand-deep mb-4">Children Education</h4>
-                    <p class="text-brand-slate/70 leading-relaxed text-sm">Strategic planning to ensure your children's future is never limited by financial constraints.</p>
+                    <p class="text-black leading-relaxed text-sm">Strategic planning to ensure your children's
+                        future is never limited by financial constraints.</p>
                 </div>
                 <!-- Card 4 -->
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 card-hover shadow-sm">
+                <div class="p-8 rounded-3xl border border-gray-100 card-hover shadow-sm card-bg-tax">
                     <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6">
                         <i data-lucide="coins" class="text-emerald-600 w-8 h-8"></i>
                     </div>
                     <h4 class="text-xl font-bold text-brand-deep mb-4">Tax & Advisory</h4>
-                    <p class="text-brand-slate/70 leading-relaxed text-sm">Optimize your savings through smart tax planning and expert financial consultation.</p>
+                    <p class="text-black leading-relaxed text-sm">Optimize your savings through smart tax
+                        planning and expert financial consultation.</p>
                 </div>
             </div>
         </div>
@@ -304,36 +383,43 @@
                     <div class="inline-block px-4 py-1 rounded-full bg-red-500/10 border border-red-500/20">
                         <span class="text-xs font-bold text-red-400 uppercase tracking-widest">Common Challenges</span>
                     </div>
-                    <h3 class="text-4xl font-serif font-bold leading-tight">Does your money feel misaligned with your life goals?</h3>
+                    <h3 class="text-4xl font-serif font-bold leading-tight">Does your money feel misaligned with your
+                        life goals?</h3>
                     <ul class="space-y-6">
                         <li class="flex items-start space-x-4">
                             <div class="bg-white/10 p-1.5 rounded-full mt-1">
                                 <i data-lucide="x-circle" class="text-red-400 w-5 h-5"></i>
                             </div>
-                            <p class="text-lg text-white/70">Uncertainty about retirement and long-term income security.</p>
+                            <p class="text-lg text-white/70">Uncertainty about retirement and long-term income security.
+                            </p>
                         </li>
                         <li class="flex items-start space-x-4">
                             <div class="bg-white/10 p-1.5 rounded-full mt-1">
                                 <i data-lucide="x-circle" class="text-red-400 w-5 h-5"></i>
                             </div>
-                            <p class="text-lg text-white/70">Complexity in managing NRI taxes and investments from abroad.</p>
+                            <p class="text-lg text-white/70">Complexity in managing NRI taxes and investments from
+                                abroad.</p>
                         </li>
                         <li class="flex items-start space-x-4">
                             <div class="bg-white/10 p-1.5 rounded-full mt-1">
                                 <i data-lucide="x-circle" class="text-red-400 w-5 h-5"></i>
                             </div>
-                            <p class="text-lg text-white/70">Feeling overwhelmed by too many options and "hidden" policy fine print.</p>
+                            <p class="text-lg text-white/70">Feeling overwhelmed by too many options and "hidden" policy
+                                fine print.</p>
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="bg-white rounded-3xl p-10 lg:p-14 shadow-2xl">
                     <div class="inline-block px-4 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/20 mb-6">
                         <span class="text-xs font-bold text-brand-gold uppercase tracking-widest">The Parvath Way</span>
                     </div>
-                    <h4 class="text-3xl font-serif font-bold text-brand-deep mb-6">We bring the Clarity you deserve.</h4>
+                    <h4 class="text-3xl font-serif font-bold text-brand-deep mb-6">We bring the Clarity you deserve.
+                    </h4>
                     <p class="text-brand-slate mb-8 leading-relaxed">
-                        We don't just sell products; we design financial architectures. By removing the noise and jargon, we provide a roadmap that makes sense for <strong>your</strong> family's unique situation.
+                        We don't just sell products; we design financial architectures. By removing the noise and
+                        jargon, we provide a roadmap that makes sense for <strong>your</strong> family's unique
+                        situation.
                     </p>
                     <div class="space-y-4">
                         <div class="flex items-center space-x-4 p-4 bg-brand-light rounded-2xl">
@@ -357,35 +443,42 @@
                 <h2 class="text-brand-gold font-bold uppercase tracking-widest text-sm mb-4">Why Parvath?</h2>
                 <h3 class="text-4xl font-serif font-bold text-brand-deep">Built on Trust, Driven by Results</h3>
             </div>
-            
+
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-brand-deep rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                        <i data-lucide="users" class="text-brand-goldLight w-8 h-8"></i>
+                    <div
+                        class="w-16 h-16 bg-brand-deep rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i data-lucide="hand-coins" class="text-brand-goldLight w-8 h-8"></i>
                     </div>
                     <h4 class="text-xl font-bold text-brand-deep mb-3">Tailored Plans</h4>
-                    <p class="text-brand-slate/70 text-sm">Every plan is uniquely crafted for your specific needs, never generic.</p>
+                    <p class="text-brand-slate/70 text-sm">Every plan is uniquely crafted for your specific needs, never
+                        generic.</p>
                 </div>
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-brand-deep rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                        <i data-lucide="eye" class="text-brand-goldLight w-8 h-8"></i>
+                    <div
+                        class="w-16 h-16 bg-brand-deep rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i data-lucide="shield-check" class="text-brand-goldLight w-8 h-8"></i>
                     </div>
                     <h4 class="text-xl font-bold text-brand-deep mb-3">Total Transparency</h4>
-                    <p class="text-brand-slate/70 text-sm">Clear pricing and policy disclosures. No fine print surprises.</p>
+                    <p class="text-brand-slate/70 text-sm">Clear pricing and policy disclosures. No fine print
+                        surprises.</p>
                 </div>
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-brand-deep rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <div
+                        class="w-16 h-16 bg-brand-deep rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                         <i data-lucide="headset" class="text-brand-goldLight w-8 h-8"></i>
                     </div>
                     <h4 class="text-xl font-bold text-brand-deep mb-3">24/7 Support</h4>
                     <p class="text-brand-slate/70 text-sm">Always here when you need us, through every market shift.</p>
                 </div>
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-brand-deep rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                        <i data-lucide="heart" class="text-brand-goldLight w-8 h-8"></i>
+                    <div
+                        class="w-16 h-16 bg-brand-deep rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i data-lucide="award" class="text-brand-goldLight w-8 h-8"></i>
                     </div>
                     <h4 class="text-xl font-bold text-brand-deep mb-3">200+ Families</h4>
-                    <p class="text-brand-slate/70 text-sm">A legacy of trust and relationships that span generations.</p>
+                    <p class="text-brand-slate/70 text-sm">A legacy of trust and relationships that span generations.
+                    </p>
                 </div>
             </div>
         </div>
@@ -398,39 +491,49 @@
                 <h2 class="text-brand-gold font-bold uppercase tracking-widest text-sm mb-4">The Journey</h2>
                 <h3 class="text-4xl font-serif font-bold text-brand-deep">How it Works</h3>
             </div>
-            
+
             <div class="relative">
                 <!-- Connect Line -->
-                <div class="absolute left-1/2 top-0 bottom-0 w-px bg-brand-gold/20 hidden md:block -translate-x-1/2"></div>
-                
+                <div class="absolute left-1/2 top-0 bottom-0 w-px bg-brand-gold/20 hidden md:block -translate-x-1/2">
+                </div>
+
                 <div class="space-y-16 relative">
                     <!-- Step 1 -->
                     <div class="flex flex-col md:flex-row items-center">
                         <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
                             <h4 class="text-2xl font-bold text-brand-deep mb-2">Book Consultation</h4>
-                            <p class="text-brand-slate/70">A complimentary discovery call to understand your goals and current financial standing.</p>
+                            <p class="text-brand-slate/70">A complimentary discovery call to understand your goals and
+                                current financial standing.</p>
                         </div>
-                        <div class="z-10 w-12 h-12 bg-brand-gold text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg shrink-0">1</div>
+                        <div
+                            class="z-10 w-12 h-12 bg-brand-gold text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg shrink-0">
+                            1</div>
                         <div class="md:w-1/2 md:pl-12"></div>
                     </div>
-                    
+
                     <!-- Step 2 -->
                     <div class="flex flex-col md:flex-row items-center">
                         <div class="md:w-1/2 md:pr-12"></div>
-                        <div class="z-10 w-12 h-12 bg-white text-brand-gold border-2 border-brand-gold rounded-full flex items-center justify-center font-bold text-xl shadow-lg shrink-0">2</div>
+                        <div
+                            class="z-10 w-12 h-12 bg-white text-brand-gold border-2 border-brand-gold rounded-full flex items-center justify-center font-bold text-xl shadow-lg shrink-0">
+                            2</div>
                         <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
                             <h4 class="text-2xl font-bold text-brand-deep mb-2">Get Personalized Plan</h4>
-                            <p class="text-brand-slate/70">Receive a detailed roadmap aligning your investments and insurance with your future life goals.</p>
+                            <p class="text-brand-slate/70">Receive a detailed roadmap aligning your investments and
+                                insurance with your future life goals.</p>
                         </div>
                     </div>
-                    
+
                     <!-- Step 3 -->
                     <div class="flex flex-col md:flex-row items-center">
                         <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
                             <h4 class="text-2xl font-bold text-brand-deep mb-2">Achieve Stability</h4>
-                            <p class="text-brand-slate/70">Execute the plan with our ongoing support and watch your financial confidence grow.</p>
+                            <p class="text-brand-slate/70">Execute the plan with our ongoing support and watch your
+                                financial confidence grow.</p>
                         </div>
-                        <div class="z-10 w-12 h-12 bg-brand-deep text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg shrink-0">3</div>
+                        <div
+                            class="z-10 w-12 h-12 bg-brand-deep text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg shrink-0">
+                            3</div>
                         <div class="md:w-1/2 md:pl-12"></div>
                     </div>
                 </div>
@@ -447,15 +550,17 @@
                         <path d="M0 100 C 20 0 30 0 50 100 C 70 0 80 0 100 100" stroke="white" fill="transparent" />
                     </svg>
                 </div>
-                
+
                 <h2 class="text-4xl md:text-6xl font-serif font-extrabold text-white mb-8 relative z-10">
                     Let’s Build Your <span class="text-brand-goldLight italic">Secure Tomorrow</span>
                 </h2>
                 <div class="flex flex-col md:flex-row justify-center items-center gap-6 relative z-10">
-                    <a href="#contact" class="px-10 py-5 bg-white text-brand-deep text-xl font-bold rounded-2xl hover:bg-brand-goldLight hover:text-white transition-all shadow-xl">
+                    <a href="#contact"
+                        class="px-10 py-5 bg-white text-brand-deep text-xl font-bold rounded-2xl hover:bg-brand-goldLight hover:text-white transition-all shadow-xl">
                         Book Free Consultation
                     </a>
-                    <a href="tel:9940050798" class="flex items-center text-white text-2xl font-bold hover:text-brand-goldLight transition-colors">
+                    <a href="tel:9940050798"
+                        class="flex items-center text-white text-2xl font-bold hover:text-brand-goldLight transition-colors">
                         <i data-lucide="phone" class="mr-3 w-8 h-8"></i>
                         9940050798
                     </a>
@@ -470,8 +575,9 @@
             <div class="lg:grid lg:grid-cols-2 lg:gap-20">
                 <div>
                     <h2 class="text-brand-gold font-bold uppercase tracking-widest text-sm mb-4">Get In Touch</h2>
-                    <h3 class="text-4xl font-serif font-bold text-brand-deep mb-8">Ready to start your financial journey?</h3>
-                    
+                    <h3 class="text-4xl font-serif font-bold text-brand-deep mb-8">Ready to start your financial
+                        journey?</h3>
+
                     <div class="space-y-8">
                         <div class="flex items-center space-x-6">
                             <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm">
@@ -502,26 +608,62 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="mt-12 lg:mt-0">
-                    <form class="bg-white rounded-3xl p-8 shadow-xl space-y-6">
+                    <form x-data="{ 
+                            submitting: false, 
+                            success: false, 
+                            error: false,
+                            async submitForm() {
+                                this.submitting = true;
+                                this.success = false;
+                                this.error = false;
+                                
+                                const scriptURL = 'https://script.google.com/macros/s/AKfycbzaWL8r8MU0WDMGjQOVFmMztQUYl-FVw5uY_xZl67Mj4-116xV8mnTZDpLgpAzB6ryD/exec';
+                                
+                                try {
+                                    // Use a simpler approach that avoids preflight checks
+                                    await fetch(scriptURL, { 
+                                        method: 'POST', 
+                                        mode: 'no-cors',
+                                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                        body: new URLSearchParams(new FormData(this.$el)).toString()
+                                    });
+                                    
+                                    // Because of 'no-cors', we won't get a 'success' response back properly 
+                                    // but if it didn't throw an error, it usually went through.
+                                    this.success = true;
+                                    this.$el.reset();
+                                    lucide.createIcons(); // Re-render icons if any were in success msg
+                                } catch (e) {
+                                    this.error = true;
+                                    console.error('Submission error:', e);
+                                } finally {
+                                    this.submitting = false;
+                                }
+                            }
+                        }" @submit.prevent="submitForm()" class="bg-white rounded-3xl p-8 shadow-xl space-y-6">
                         <div class="grid grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-bold text-brand-deep mb-2">First Name</label>
-                                <input type="text" placeholder="John" class="w-full px-4 py-3 bg-brand-light border-0 rounded-xl focus:ring-2 focus:ring-brand-gold/50 outline-none transition-all">
+                                <input type="text" name="First Name" required placeholder="Meena"
+                                    class="w-full px-4 py-3 bg-brand-light border-0 rounded-xl focus:ring-2 focus:ring-brand-gold/50 outline-none transition-all">
                             </div>
                             <div>
                                 <label class="block text-sm font-bold text-brand-deep mb-2">Last Name</label>
-                                <input type="text" placeholder="Doe" class="w-full px-4 py-3 bg-brand-light border-0 rounded-xl focus:ring-2 focus:ring-brand-gold/50 outline-none transition-all">
+                                <input type="text" name="Last Name" required placeholder="Kumar"
+                                    class="w-full px-4 py-3 bg-brand-light border-0 rounded-xl focus:ring-2 focus:ring-brand-gold/50 outline-none transition-all">
                             </div>
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-brand-deep mb-2">Email Address</label>
-                            <input type="email" placeholder="john@example.com" class="w-full px-4 py-3 bg-brand-light border-0 rounded-xl focus:ring-2 focus:ring-brand-gold/50 outline-none transition-all">
+                            <input type="email" name="Email" required placeholder="meena@example.com"
+                                class="w-full px-4 py-3 bg-brand-light border-0 rounded-xl focus:ring-2 focus:ring-brand-gold/50 outline-none transition-all">
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-brand-deep mb-2">Service Interested In</label>
-                            <select class="w-full px-4 py-3 bg-brand-light border-0 rounded-xl focus:ring-2 focus:ring-brand-gold/50 outline-none transition-all appearance-none">
+                            <select name="Service"
+                                class="w-full px-4 py-3 bg-brand-light border-0 rounded-xl focus:ring-2 focus:ring-brand-gold/50 outline-none transition-all appearance-none">
                                 <option>Retirement Planning</option>
                                 <option>NRI Services</option>
                                 <option>Children Education</option>
@@ -531,10 +673,36 @@
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-brand-deep mb-2">Message</label>
-                            <textarea rows="4" placeholder="How can we help you?" class="w-full px-4 py-3 bg-brand-light border-0 rounded-xl focus:ring-2 focus:ring-brand-gold/50 outline-none transition-all"></textarea>
+                            <textarea name="Message" rows="4" placeholder="How can we help you?"
+                                class="w-full px-4 py-3 bg-brand-light border-0 rounded-xl focus:ring-2 focus:ring-brand-gold/50 outline-none transition-all"></textarea>
                         </div>
-                        <button type="submit" class="w-full py-5 bg-brand-deep text-white font-bold rounded-2xl hover:bg-brand-deep/90 shadow-lg hover:shadow-xl transition-all">
-                            Send Request
+
+                        <!-- Status Messages -->
+                        <div x-show="success" x-cloak x-transition
+                            class="p-4 bg-green-50 text-green-700 rounded-xl text-sm font-medium border border-green-100 flex items-center">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 mr-3"></i>
+                            Thank you! Your request has been sent successfully. We will get back to you soon.
+                        </div>
+                        <div x-show="error" x-cloak x-transition
+                            class="p-4 bg-red-50 text-red-700 rounded-xl text-sm font-medium border border-red-100 flex items-center">
+                            <i data-lucide="alert-circle" class="w-5 h-5 mr-3"></i>
+                            Something went wrong. Please try again or call us directly.
+                        </div>
+
+                        <button type="submit" :disabled="submitting"
+                            class="w-full py-5 bg-brand-deep text-white font-bold rounded-2xl hover:bg-brand-deep/90 shadow-lg hover:shadow-xl transition-all flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed">
+                            <span x-show="!submitting">Send Request</span>
+                            <span x-show="submitting" class="flex items-center">
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                        stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                    </path>
+                                </svg>
+                                Sending...
+                            </span>
                         </button>
                     </form>
                 </div>
@@ -543,62 +711,189 @@
     </section>
 
     <!-- 11. FOOTER -->
-    <footer class="bg-white border-t border-gray-100 pt-20 pb-10">
+    <footer class="bg-brand-deep text-white pt-24 pb-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-12 mb-16">
-                <div class="col-span-2">
-                    <span class="text-3xl font-serif font-bold text-brand-deep tracking-tight">
+            <!-- Top Footer: Main Columns -->
+            <div class="grid md:grid-cols-12 gap-12 mb-20">
+                <!-- Branding & About -->
+                <div class="md:col-span-4">
+                    <span class="text-3xl font-serif font-bold text-white tracking-tight">
                         Parvath<span class="text-brand-gold">.</span>
                     </span>
-                    <p class="mt-6 text-brand-slate/70 max-w-sm leading-relaxed">
-                        Dedicated financial and insurance providers since 2019. Building generational wealth through trust, transparency, and expert guidance.
+                    <p class="mt-8 text-white/60 leading-relaxed max-w-sm">
+                        Since 2019, Parvath Financial Services has been dedicated to helping families build generational wealth. We bring clarity, transparency, and expert guidance to your financial architecture.
                     </p>
+                    <div class="mt-8 space-y-2 text-white/60 text-sm">
+                        <p>Chennai, India</p>
+                        <p>Tamil Nadu, India</p>
+                    </div>
+                    <div class="flex space-x-4 mt-8">
+                        <a href="https://www.instagram.com/finance.with.lakshmi/" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-brand-gold hover:border-brand-gold transition-all text-white">
+                            <i class="fa-brands fa-instagram text-lg"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-brand-gold hover:border-brand-gold transition-all text-white">
+                            <i class="fa-brands fa-linkedin-in text-lg"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-brand-gold hover:border-brand-gold transition-all text-white">
+                            <i class="fa-brands fa-x-twitter text-lg"></i>
+                        </a>
+                    </div>
                 </div>
-                <div>
-                    <h5 class="text-brand-deep font-bold mb-6">Quick Links</h5>
-                    <ul class="space-y-4 text-sm text-brand-slate/70">
-                        <li><a href="#home" class="hover:text-brand-gold transition-colors">Home</a></li>
-                        <li><a href="#about" class="hover:text-brand-gold transition-colors">About</a></li>
-                        <li><a href="#services" class="hover:text-brand-gold transition-colors">Services</a></li>
-                        <li><a href="#contact" class="hover:text-brand-gold transition-colors">Contact</a></li>
+
+                <!-- Column 2: Our Services -->
+                <div class="md:col-span-2">
+                    <h5 class="text-brand-gold font-bold uppercase tracking-widest text-xs mb-8">Our Services</h5>
+                    <ul class="space-y-4 text-sm text-white/50">
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Retirement Planning</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">NRI Financial Services</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Children Education</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Tax & Wealth Advisory</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Health Insurance</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Mutual Funds</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h5 class="text-brand-deep font-bold mb-6">Support</h5>
-                    <ul class="space-y-4 text-sm text-brand-slate/70">
+
+                <!-- Column 3: Quick Links -->
+                <div class="md:col-span-2">
+                    <h5 class="text-brand-gold font-bold uppercase tracking-widest text-xs mb-8">Quick Links</h5>
+                    <ul class="space-y-4 text-sm text-white/50">
+                        <li><a href="#home" class="hover:text-brand-gold transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-brand-gold transition-colors">About Varalakshmi</a></li>
+                        <li><a href="#services" class="hover:text-brand-gold transition-colors">Services</a></li>
+                        <li><a href="#contact" class="hover:text-brand-gold transition-colors">Contact Us</a></li>
                         <li><a href="#" class="hover:text-brand-gold transition-colors">Privacy Policy</a></li>
                         <li><a href="#" class="hover:text-brand-gold transition-colors">Terms of Service</a></li>
-                        <li><a href="mailto:parvath.finserv@gmail.com" class="hover:text-brand-gold transition-colors">Email Us</a></li>
                     </ul>
                 </div>
-            </div>
-            
-            <div class="pt-8 border-t border-gray-50 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-sm text-brand-slate/50">
-                    &copy; 2024 Parvath Financial Services. All rights reserved.
-                </p>
-                <div class="flex space-x-6">
-                    <a href="https://www.instagram.com/finance.with.lakshmi" class="text-brand-slate/40 hover:text-brand-deep transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                    <a href="#" class="text-brand-slate/40 hover:text-brand-deep transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-                    <a href="#" class="text-brand-slate/40 hover:text-brand-deep transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+
+                <!-- Column 4: Stay Updated & Hours -->
+                <div class="md:col-span-4">
+                    <h5 class="text-brand-gold font-bold uppercase tracking-widest text-xs mb-8">Stay Updated</h5>
+                    <p class="text-white/60 text-sm mb-6">Join our newsletter for exclusive financial insights and market updates.</p>
+                    <div class="flex gap-2 p-1.5 bg-white/5 rounded-2xl border border-white/10 mb-8">
+                        <input type="email" placeholder="Enter your email" class="bg-transparent border-0 flex-1 px-4 py-2 text-sm focus:ring-0 outline-none text-white">
+                        <button class="bg-brand-gold text-white px-6 py-2 rounded-xl text-sm font-bold hover:bg-brand-goldLight transition-all">JOIN</button>
+                    </div>
+
+                    <!-- Office Hours -->
+                    <div class="p-6 bg-white/5 rounded-3xl border border-white/10">
+                        <h6 class="flex items-center text-xs font-bold uppercase tracking-widest text-brand-gold mb-4">
+                            <i class="fa-regular fa-clock mr-2"></i>
+                            OFFICE HOURS
+                        </h6>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-white/40">Mon — Sat</span>
+                                <span class="text-white">10 AM — 7:30 PM</span>
+                            </div>
+                            <div class="flex justify-between border-t border-white/5 pt-3">
+                                <span class="text-white/40">Sunday</span>
+                                <span class="text-white">11 AM — 2 PM</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Middle Footer: Info Bar -->
+            <div class="grid md:grid-cols-4 gap-8 py-10 border-y border-white/5 mb-12">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-brand-gold">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-white/40 uppercase font-bold tracking-widest">Support Line</p>
+                        <p class="text-sm font-bold text-white">9940050798</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-brand-gold">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-white/40 uppercase font-bold tracking-widest">Email Us</p>
+                        <p class="text-sm font-bold text-white break-all">parvath.finserv@gmail.com</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-brand-gold">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-white/40 uppercase font-bold tracking-widest">Our Store</p>
+                        <p class="text-sm font-bold text-white">Chennai, Tamil Nadu</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-brand-gold">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-white/40 uppercase font-bold tracking-widest">Certified Quality</p>
+                        <p class="text-sm font-bold text-white">AMFI Registered</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+                <p class="text-sm text-white/30">
+                    &copy; 2024 Parvath Financial Services. Excellence since 2019.
+                </p>
+                <!-- <div class="flex space-x-4 opacity-30 invert">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" class="h-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" class="h-6">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/UPI-Logo-vector.svg/1200px-UPI-Logo-vector.svg.png" alt="UPI" class="h-4">
+                </div> -->
             </div>
         </div>
     </footer>
 
+    <!-- 12. FLOATING ACTIONS -->
+    <div class="fixed bottom-8 right-8 z-[60] flex flex-col items-center space-y-2" x-data="{ showScrollTop: false }"
+        @scroll.window="showScrollTop = (window.pageYOffset > 500)">
+
+        <!-- Back to Top -->
+        <button @click="window.scrollTo({top: 0, behavior: 'smooth'})" x-show="showScrollTop"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-10"
+            x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-300"
+            x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-10"
+            class="w-11 h-11 bg-brand-gold text-brand-deep rounded-2xl shadow-xl flex items-center justify-center hover:bg-brand-goldLight transition-all transform hover:-translate-y-1 active:scale-95 group"
+            title="Back to Top">
+            <i class="fa-solid fa-chevron-up text-sm"></i>
+        </button>
+
+        <!-- WhatsApp Button -->
+        <a href="https://wa.me/919940050798" target="_blank"
+            class="w-11 h-11 bg-brand-deep text-white rounded-2xl shadow-xl flex items-center justify-center hover:bg-brand-slate transition-all transform hover:-translate-y-1 active:scale-95 relative group"
+            title="WhatsApp Us">
+            <i class="fa-regular fa-comment-dots text-lg"></i>
+            <span
+                class="absolute right-full mr-4 px-3 py-1 bg-brand-deep text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                WhatsApp Us
+            </span>
+        </a>
+
+        <!-- Call Button -->
+        <a href="tel:9940050798"
+            class="w-11 h-11 bg-brand-deep text-white rounded-2xl shadow-xl flex items-center justify-center hover:bg-brand-slate transition-all transform hover:-translate-y-1 active:scale-95 relative group"
+            title="Call Us">
+            <i class="fa-solid fa-phone text-sm"></i>
+            <span
+                class="absolute right-full mr-4 px-3 py-1 bg-brand-deep text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                Call Us
+            </span>
+        </a>
+    </div>
+
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-        
-        // Dynamic Navbar background on scroll
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('shadow-md');
-            } else {
-                nav.classList.remove('shadow-md');
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Lucide icons
+            lucide.createIcons();
+            
+            // Removed redundant scroll listener as it's now handled by Alpine.js
         });
     </script>
 </body>
+
 </html>
