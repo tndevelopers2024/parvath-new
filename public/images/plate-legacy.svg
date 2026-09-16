@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 780" width="1100" height="780" role="img" aria-label="Arcade opening onto light">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0.15" y2="1">
+      <stop offset="0" stop-color="#EBE2CC"/>
+      <stop offset="0.6" stop-color="#D9CCAE"/>
+      <stop offset="1" stop-color="#C7B892"/>
+    </linearGradient>
+    <linearGradient id="opening" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFEFA"/>
+      <stop offset="0.55" stop-color="#FAF4E4"/>
+      <stop offset="1" stop-color="#EADEC2"/>
+    </linearGradient>
+    <radialGradient id="light" cx="0.5" cy="0.63" r="0.42">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.85"/>
+      <stop offset="0.55" stop-color="#FFFCF2" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FFFCF2" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="jmask"><rect width="1100" height="156" fill="url(#fade)"/></mask>
+    <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A8966F" stop-opacity="0"/>
+      <stop offset="1" stop-color="#A8966F" stop-opacity="0.55"/>
+    </linearGradient>
+    <radialGradient id="reflect" cx="0.5" cy="0" r="1">
+      <stop offset="0" stop-color="#FFFBF0" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#FFFBF0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vig" cx="0.5" cy="0.44" r="0.8">
+      <stop offset="0.5" stop-color="#173F35" stop-opacity="0"/>
+      <stop offset="1" stop-color="#173F35" stop-opacity="0.26"/>
+    </radialGradient>
+    <pattern id="jl" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M17 0 L34 17 L17 34 L0 17 Z" fill="none" stroke="#173F35" stroke-width="1"/>
+      <circle cx="17" cy="17" r="6.8" fill="none" stroke="#173F35" stroke-width="1"/>
+    </pattern>
+    <clipPath id="below"><rect y="616.2" width="1100" height="163.8"/></clipPath>
+    <filter id="gr" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+
+  <rect width="1100" height="780" fill="url(#wall)"/>
+  <g mask="url(#jmask)"><rect width="1100" height="156" fill="url(#jl)" opacity="0.18"/></g>
+
+  <rect x="150.4" y="306.12" width="1.25" height="349.08" fill="#A98842" opacity="0.45"/>
+  <rect x="949.6" y="306.12" width="1.25" height="349.08" fill="#A98842" opacity="0.45"/>
+
+  <path d="M 190 655.2 L 190 533.61 A 417.6 417.6 0 0 1 550 120 A 417.6 417.6 0 0 1 910 533.61 L 910 655.2 Z" fill="#AD9868"/>
+  <path d="M 242.2 645.45 L 242.2 545.31 A 357.05 357.05 0 0 1 550 191.67 A 357.05 357.05 0 0 1 857.8 545.31 L 857.8 645.45 Z" fill="#BFAC81"/>
+  <path d="M 242.2 645.45 L 242.2 545.31 A 357.05 357.05 0 0 1 550 191.67 A 357.05 357.05 0 0 1 857.8 545.31 L 857.8 645.45 Z" fill="none" stroke="#A98842" stroke-width="1.75" opacity="0.6"/>
+  <path d="M 294.4 635.7 L 294.4 557.01 A 296.5 296.5 0 0 1 550 263.35 A 296.5 296.5 0 0 1 805.6 557.01 L 805.6 635.7 Z" fill="#D2C29C"/>
+  <path d="M 346.6 625.95 L 346.6 568.71 A 235.94 235.94 0 0 1 550 335.02 A 235.94 235.94 0 0 1 753.4 568.71 L 753.4 625.95 Z" fill="#E4D8BC"/>
+  <path d="M 398.8 616.2 L 398.8 580.41 A 175.39 175.39 0 0 1 550 406.69 A 175.39 175.39 0 0 1 701.2 580.41 L 701.2 616.2 Z" fill="#F3EDDC"/>
+
+  <path d="M 398.8 616.2 L 398.8 580.41 A 175.39 175.39 0 0 1 550 406.69 A 175.39 175.39 0 0 1 701.2 580.41 L 701.2 616.2 Z" fill="url(#opening)"/>
+  <path d="M 398.8 616.2 L 398.8 580.41 A 175.39 175.39 0 0 1 550 406.69 A 175.39 175.39 0 0 1 701.2 580.41 L 701.2 616.2 Z" fill="url(#light)"/>
+  <path d="M 353.44 616.2 L 353.44 573.46 A 27.01 27.01 0 0 0 358.2 527.13 A 27.01 27.01 0 0 0 372.27 482.73 A 27.02 27.02 0 0 0 395.07 442.11 A 27.01 27.01 0 0 0 425.65 406.98 A 27.02 27.02 0 0 0 462.73 378.79 A 27.02 27.02 0 0 0 504.77 358.73 A 27.01 27.01 0 0 0 550 347.63 A 27.01 27.01 0 0 0 595.23 358.73 A 27.02 27.02 0 0 0 637.27 378.79 A 27.02 27.02 0 0 0 674.35 406.98 A 27.01 27.01 0 0 0 704.93 442.11 A 27.02 27.02 0 0 0 727.73 482.73 A 27.01 27.01 0 0 0 741.8 527.13 A 27.01 27.01 0 0 0 746.56 573.46 L 746.56 616.2" fill="none" stroke="#A98842" stroke-width="1.6" opacity="0.8"/>
+
+  <rect y="616.2" width="1100" height="163.8" fill="url(#floorG)"/>
+  <ellipse clip-path="url(#below)" cx="550" cy="616.2" rx="241.92" ry="180.18" fill="url(#reflect)"/>
+  <rect y="616.2" width="1100" height="1.25" fill="#A98842" opacity="0.5"/>
+
+  <rect width="1100" height="780" fill="url(#vig)"/>
+  <rect width="1100" height="780" filter="url(#gr)" opacity="0.05"/>
+</svg>

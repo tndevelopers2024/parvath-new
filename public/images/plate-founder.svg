@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 1025" width="820" height="1025" role="img" aria-label="Arched alcove in warm daylight">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0.15" y2="1">
+      <stop offset="0" stop-color="#EBE2CC"/>
+      <stop offset="0.6" stop-color="#D9CCAE"/>
+      <stop offset="1" stop-color="#C7B892"/>
+    </linearGradient>
+    <linearGradient id="opening" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFEFA"/>
+      <stop offset="0.55" stop-color="#FBF6EA"/>
+      <stop offset="1" stop-color="#EADEC2"/>
+    </linearGradient>
+    <radialGradient id="light" cx="0.5" cy="0.49" r="0.42">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.85"/>
+      <stop offset="0.55" stop-color="#FFFCF2" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FFFCF2" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="jmask"><rect width="820" height="205" fill="url(#fade)"/></mask>
+    <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A8966F" stop-opacity="0"/>
+      <stop offset="1" stop-color="#A8966F" stop-opacity="0.55"/>
+    </linearGradient>
+    <radialGradient id="reflect" cx="0.5" cy="0" r="1">
+      <stop offset="0" stop-color="#FFFBF0" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#FFFBF0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vig" cx="0.5" cy="0.44" r="0.8">
+      <stop offset="0.5" stop-color="#173F35" stop-opacity="0"/>
+      <stop offset="1" stop-color="#173F35" stop-opacity="0.26"/>
+    </radialGradient>
+    <pattern id="jl" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M17 0 L34 17 L17 34 L0 17 Z" fill="none" stroke="#173F35" stroke-width="1"/>
+      <circle cx="17" cy="17" r="6.8" fill="none" stroke="#173F35" stroke-width="1"/>
+    </pattern>
+    <clipPath id="below"><rect y="830.25" width="820" height="194.75"/></clipPath>
+    <filter id="gr" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+
+  <rect width="820" height="1025" fill="url(#wall)"/>
+  <g mask="url(#jmask)"><rect width="820" height="205" fill="url(#jl)" opacity="0.18"/></g>
+
+  <rect x="77" y="325.1" width="1.25" height="556.4" fill="#A98842" opacity="0.45"/>
+  <rect x="743" y="325.1" width="1.25" height="556.4" fill="#A98842" opacity="0.45"/>
+
+  <path d="M 110 881.5 L 110 514.67 A 348 348 0 0 1 410 170 A 348 348 0 0 1 710 514.67 L 710 881.5 Z" fill="#AD9868"/>
+  <path d="M 168 864.42 L 168 535.17 A 280.72 280.72 0 0 1 410 257.14 A 280.72 280.72 0 0 1 652 535.17 L 652 864.42 Z" fill="#BFAC81"/>
+  <path d="M 168 864.42 L 168 535.17 A 280.72 280.72 0 0 1 410 257.14 A 280.72 280.72 0 0 1 652 535.17 L 652 864.42 Z" fill="none" stroke="#A98842" stroke-width="1.75" opacity="0.6"/>
+  <path d="M 226 847.33 L 226 555.67 A 213.44 213.44 0 0 1 410 344.27 A 213.44 213.44 0 0 1 594 555.67 L 594 847.33 Z" fill="#D2C29C"/>
+  <path d="M 284 830.25 L 284 576.17 A 146.16 146.16 0 0 1 410 431.41 A 146.16 146.16 0 0 1 536 576.17 L 536 830.25 Z" fill="#E4D8BC"/>
+
+  <path d="M 284 830.25 L 284 576.17 A 146.16 146.16 0 0 1 410 431.41 A 146.16 146.16 0 0 1 536 576.17 L 536 830.25 Z" fill="url(#opening)"/>
+  <path d="M 284 830.25 L 284 576.17 A 146.16 146.16 0 0 1 410 431.41 A 146.16 146.16 0 0 1 536 576.17 L 536 830.25 Z" fill="url(#light)"/>
+  <path d="M 246.2 830.25 L 246.2 570.38 A 22.51 22.51 0 0 0 250.16 531.77 A 22.51 22.51 0 0 0 261.89 494.77 A 22.51 22.51 0 0 0 280.89 460.93 A 22.52 22.52 0 0 0 306.38 431.65 A 22.51 22.51 0 0 0 337.28 408.16 A 22.51 22.51 0 0 0 372.3 391.44 A 22.51 22.51 0 0 0 410 382.19 A 22.51 22.51 0 0 0 447.7 391.44 A 22.51 22.51 0 0 0 482.72 408.16 A 22.51 22.51 0 0 0 513.62 431.65 A 22.52 22.52 0 0 0 539.11 460.93 A 22.51 22.51 0 0 0 558.11 494.77 A 22.51 22.51 0 0 0 569.84 531.77 A 22.51 22.51 0 0 0 573.8 570.38 L 573.8 830.25" fill="none" stroke="#A98842" stroke-width="1.6" opacity="0.8"/>
+
+  <rect y="830.25" width="820" height="194.75" fill="url(#floorG)"/>
+  <ellipse clip-path="url(#below)" cx="410" cy="830.25" rx="201.6" ry="214.23" fill="url(#reflect)"/>
+  <rect y="830.25" width="820" height="1.25" fill="#A98842" opacity="0.5"/>
+
+  <rect width="820" height="1025" fill="url(#vig)"/>
+  <rect width="820" height="1025" filter="url(#gr)" opacity="0.05"/>
+</svg>

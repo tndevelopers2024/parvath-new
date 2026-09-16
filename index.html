@@ -1,367 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#F8F6F0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Varalakshmi Sridha | Bespoke Wealth Architect</title>
-    
-    <!-- Favicon -->
-    <!-- <link rel="icon" type="image/png" href="parvath_favicon_logo_1776341250865.png"> -->
+    <link rel="icon" href="data:," />
 
-    <!-- Tailwind & Alpine -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
-    <!-- Google Fonts: More expressive pairing -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Parvath Financial Services | Wealth &amp; Financial Planning</title>
+    <meta
+      name="description"
+      content="Parvath Financial Services helps individuals, families and business owners plan, protect and grow their wealth through structured financial planning."
+    />
+    <link rel="canonical" href="https://www.parvathfinancial.com/" />
 
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Parvath Financial Services" />
+    <meta property="og:title" content="Parvath Financial Services | Wealth &amp; Financial Planning" />
+    <meta
+      property="og:description"
+      content="Parvath Financial Services helps individuals, families and business owners plan, protect and grow their wealth through structured financial planning."
+    />
+    <meta property="og:url" content="https://www.parvathfinancial.com/" />
+    <meta property="og:image" content="https://www.parvathfinancial.com/og-image.png" />
+    <meta property="og:locale" content="en_IN" />
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'luxury-gold': '#C5A059',
-                        'luxury-cream': '#F9F7F2',
-                        'luxury-black': '#1A1A1A',
-                        'luxury-slate': '#4A4A4A'
-                    },
-                    fontFamily: {
-                        serif: ['Cormorant Garamond', 'serif'],
-                        sans: ['Montserrat', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Parvath Financial Services | Wealth &amp; Financial Planning" />
+    <meta
+      name="twitter:description"
+      content="Parvath Financial Services helps individuals, families and business owners plan, protect and grow their wealth through structured financial planning."
+    />
+    <meta name="twitter:image" content="https://www.parvathfinancial.com/og-image.png" />
 
-    <style>
-        [x-cloak] { display: none !important; }
-
-        body {
-            background-color: #F9F7F2;
-            color: #1A1A1A;
-            overflow-x: hidden;
-        }
-
-        /* Noise Texture for a handcrafted feel */
-        .noise::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.035;
-            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
-        }
-
-        .reveal-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
-        }
-
-        .reveal-up.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .gold-line {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #C5A059, transparent);
-            width: 100%;
-        }
-
-        .signature {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 2.5rem;
-            color: #C5A059;
-            opacity: 0.8;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #F9F7F2; }
-        ::-webkit-scrollbar-thumb { background: #C5A059; }
-
-        /* Asymmetrical Image Frame */
-        .image-frame {
-            position: relative;
-            clip-path: polygon(0 0, 100% 5%, 95% 100%, 5% 95%);
-        }
-
-        .parallax-bg {
-            transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-        }
-
-        .service-number {
-            font-size: 8rem;
-            font-weight: 200;
-            color: rgba(197, 160, 89, 0.1);
-            position: absolute;
-            top: -2rem;
-            left: -1rem;
-            line-height: 1;
-        }
-    </style>
-</head>
-
-<body class="noise" x-data="{ scrolled: false }" @scroll.window="scrolled = window.pageYOffset > 50">
-
-    <!-- Header / Nav -->
-    <nav class="fixed top-0 w-full z-50 px-6 py-6 transition-all duration-500" :class="scrolled ? 'bg-luxury-cream/90 backdrop-blur-md py-4 shadow-sm' : ''">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="font-serif text-2xl font-semibold tracking-tight">
-                Parvath<span class="text-luxury-gold">.</span>
-            </div>
-            <div class="hidden md:flex space-x-12 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-luxury-slate">
-                <a href="#about" class="hover:text-luxury-gold">Legacy</a>
-                <a href="#services" class="hover:text-luxury-gold">Offerings</a>
-                <a href="#contact" class="hover:text-luxury-gold border-b border-luxury-gold pb-1 text-luxury-gold">Enquire</a>
-            </div>
-            <a href="tel:9940050798" class="text-luxury-gold md:hidden">
-                <i data-lucide="phone" class="w-6 h-6"></i>
-            </a>
-        </div>
-    </nav>
-
-    <!-- Hero Section: Bespoke Layout -->
-    <section class="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-24 relative overflow-hidden">
-        
-        <!-- Large Background Text (Magazine Feel) -->
-        <div class="absolute top-1/4 right-0 text-[15rem] font-serif font-bold text-luxury-gold opacity-[0.03] select-none pointer-events-none hidden lg:block leading-none">
-            LEGACY
-        </div>
-
-        <!-- Image Content (Left) -->
-        <div class="w-full lg:w-[45%] relative reveal-up" id="hero-img">
-            <div class="image-frame bg-luxury-gold/10 p-2">
-                <img src="assets/images/parvath-finance-image-12avif.avif" alt="Varalakshmi Sridha" 
-                     class="w-full h-auto object-cover rounded-sm shadow-2xl relative z-10 transition-transform duration-700 hover:scale-[1.02]">
-            </div>
-            <!-- Floating Stat -->
-            <div class="absolute -bottom-10 -right-10 bg-luxury-black text-white p-8 rounded-none shadow-2xl z-20 hidden md:block">
-                <p class="text-5xl font-serif font-light text-luxury-gold">200+</p>
-                <p class="text-[10px] uppercase tracking-[0.3em] mt-2 opacity-60">Families Founded</p>
-            </div>
-        </div>
-
-        <!-- Text Content (Right) -->
-        <div class="w-full lg:w-[55%] reveal-up" style="transition-delay: 200ms;">
-            <div class="flex items-center space-x-4 mb-6">
-                <div class="w-12 h-px bg-luxury-gold"></div>
-                <span class="font-sans text-[10px] font-bold uppercase tracking-[0.4em] text-luxury-gold">Since 2019</span>
-            </div>
-            <h1 class="font-serif text-6xl lg:text-8xl font-medium mb-8 leading-[1.1] tracking-tighter">
-                Architecture <br> For Your <span class="italic text-luxury-gold font-light">Wealth.</span>
-            </h1>
-            <p class="font-sans text-lg text-luxury-slate leading-relaxed mb-10 max-w-xl">
-                Varalakshmi Sridha brings a decade of discipline and bespoke advisory to middle-class families and international NRIs. We don't just sell plans; we craft generational security.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-8 items-start sm:items-center">
-                <button @click="$dispatch('open-modal')" class="bg-luxury-black text-white px-10 py-5 font-sans text-xs font-bold uppercase tracking-[0.2em] transform transition hover:scale-105 active:scale-95 shadow-xl">
-                    Request Consultation
-                </button>
-                <div class="flex space-x-6 text-luxury-slate">
-                    <a href="https://wa.me/919940050798" class="hover:text-luxury-gold transition-colors">
-                        <i class="fa-brands fa-whatsapp text-2xl"></i>
-                    </a>
-                    <a href="https://www.instagram.com/finance.with.lakshmi/" class="hover:text-luxury-gold transition-colors">
-                        <i class="fa-brands fa-instagram text-2xl"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section: Magazine Columns -->
-    <section id="services" class="py-32 bg-luxury-black text-luxury-cream px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-                <div class="reveal-up">
-                    <h2 class="font-serif text-5xl lg:text-7xl mb-4 italic font-light">Our Specializations</h2>
-                    <p class="font-sans text-[10px] font-bold uppercase tracking-[0.4em] opacity-40">Tailored to your life stage</p>
-                </div>
-                <div class="max-w-xs text-right opacity-60 text-sm reveal-up">
-                    Strategic asset allocation and risk management for portfolios that demand excellence.
-                </div>
-            </div>
-
-            <!-- Services Grid: Asymmetrical -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-y-24 gap-x-12">
-                
-                <!-- Service 1 -->
-                <div class="relative reveal-up">
-                    <span class="service-number">01</span>
-                    <div class="relative z-10 pl-6 border-l border-luxury-gold/30">
-                        <h3 class="font-serif text-3xl mb-4">Retirement Architecture</h3>
-                        <p class="text-luxury-cream/60 text-sm leading-relaxed mb-6 italic">
-                            Constructing a secondary income pipeline that ensures your standard of living never wavers during your golden years.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Service 2 -->
-                <div class="relative reveal-up lg:mt-24" style="transition-delay: 150ms;">
-                    <span class="service-number">02</span>
-                    <div class="relative z-10 pl-6 border-l border-luxury-gold/30">
-                        <h3 class="font-serif text-3xl mb-4">Global NRI Advisory</h3>
-                        <p class="text-luxury-cream/60 text-sm leading-relaxed mb-6 italic">
-                            Specialized management of Indian assets from abroad, ensuring full regulatory compliance and optimized growth.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Service 3 -->
-                <div class="relative reveal-up" style="transition-delay: 300ms;">
-                    <span class="service-number">03</span>
-                    <div class="relative z-10 pl-6 border-l border-luxury-gold/30">
-                        <h3 class="font-serif text-3xl mb-4">Legacy Wealth</h3>
-                        <p class="text-luxury-cream/60 text-sm leading-relaxed mb-6 italic">
-                            Transitioning success from one generation to the next with minimum friction and maximum alignment.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section: Visual Focus -->
-    <section id="about" class="py-32 px-6 max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
-        <div class="order-2 lg:order-1 reveal-up">
-            <h2 class="font-serif text-5xl lg:text-7xl mb-12 leading-tight">A Personal <br><span class="text-luxury-gold italic">Guarantee.</span></h2>
-            <p class="font-sans text-xl text-luxury-slate italic leading-loose mb-12">
-                "Finance isn't about numbers; it's about life's horizons. Since 2019, I have stood as a guardian for those who seek to build something that lasts."
-            </p>
-            <div class="signature">Varalakshmi Sridha</div>
-            <div class="mt-4 font-sans text-[10px] uppercase tracking-[0.3em] font-bold text-luxury-gold">Wealth Architect & Advisor</div>
-        </div>
-        <div class="order-1 lg:order-2 reveal-up">
-            <div class="aspect-[4/5] bg-luxury-gold/5 relative p-4 transition-transform duration-1000">
-                 <img src="assets/images/parvath-finance-image-1.avif" alt="The Vision" class="w-full h-full object-cover">
-                 <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-luxury-cream pointer-events-none"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer: Minimal / Elegant -->
-    <footer class="py-20 bg-luxury-cream border-t border-luxury-gold/10 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
-            <div class="font-serif text-4xl">Parvath<span class="text-luxury-gold">.</span></div>
-            <div class="text-center md:text-right">
-                <p class="font-sans text-[10px] font-bold uppercase tracking-[0.5em] mb-4">Excellence in advisory</p>
-                <p class="text-luxury-slate/60 text-xs">Chennai • Tamil Nadu • Established 2019</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Custom Enquire Modal -->
-    <div x-data="{ open: false }" 
-         @open-modal.window="open = true"
-         x-show="open" 
-         x-cloak
-         class="fixed inset-0 z-[100] overflow-hidden flex items-center justify-center p-4">
-        
-        <!-- Backdrop -->
-        <div class="absolute inset-0 bg-luxury-black/95 backdrop-blur-sm transition-opacity" x-show="open" x-transition.opacity></div>
-
-        <!-- Content -->
-        <div class="bg-luxury-cream w-full max-w-2xl p-12 lg:p-20 relative reveal-up active border border-luxury-gold/20 shadow-2xl overflow-y-auto max-h-[90vh]">
-            <button @click="open = false" class="absolute top-8 right-8 text-luxury-gold hover:text-luxury-black transition-colors">
-                <i data-lucide="x" class="w-10 h-10"></i>
-            </button>
-
-            <h2 class="font-serif text-5xl lg:text-7xl mb-6 italic">Enquire</h2>
-            <p class="font-sans text-xs uppercase tracking-[0.4em] text-luxury-gold mb-12 font-bold">The first step to architecure</p>
-
-            <form x-data="{ 
-                    submitting: false, 
-                    success: false, 
-                    error: false,
-                    async submitForm() {
-                        this.submitting = true;
-                        this.success = false;
-                        this.error = false;
-                        
-                        const scriptURL = 'https://script.google.com/macros/s/AKfycbzaWL8r8MU0WDMGjQOVFmMztQUYl-FVw5uY_xZl67Mj4-116xV8mnTZDpLgpAzB6ryD/exec';
-                        
-                        try {
-                            await fetch(scriptURL, { 
-                                method: 'POST', 
-                                mode: 'no-cors',
-                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                                body: new URLSearchParams(new FormData(this.$el)).toString()
-                            });
-                            this.success = true;
-                            this.$el.reset();
-                            setTimeout(() => { open = false; this.success = false; }, 3000);
-                        } catch (e) {
-                            this.error = true;
-                        } finally {
-                            this.submitting = false;
-                        }
-                    }
-                }" @submit.prevent="submitForm()" class="space-y-8">
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="space-y-2">
-                        <label class="font-sans text-[10px] uppercase font-bold tracking-[0.2em] text-luxury-gold">First Name</label>
-                        <input type="text" name="First Name" required placeholder="Gautam" class="w-full bg-transparent border-b border-luxury-gold/30 py-4 font-serif text-xl focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-slate/20">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="font-sans text-[10px] uppercase font-bold tracking-[0.2em] text-luxury-gold">Last Name</label>
-                        <input type="text" name="Last Name" required placeholder="Seth" class="w-full bg-transparent border-b border-luxury-gold/30 py-4 font-serif text-xl focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-slate/20">
-                    </div>
-                </div>
-
-                <div class="space-y-2">
-                    <label class="font-sans text-[10px] uppercase font-bold tracking-[0.2em] text-luxury-gold">Email Address</label>
-                    <input type="email" name="Email" required placeholder="gautam@portfolio.com" class="w-full bg-transparent border-b border-luxury-gold/30 py-4 font-serif text-xl focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-slate/20">
-                </div>
-
-                <div x-show="success" class="p-6 bg-luxury-gold/10 text-luxury-gold text-xs font-bold uppercase tracking-widest border border-luxury-gold/20">
-                    Enquiry Received. We will speak soon.
-                </div>
-
-                <button type="submit" :disabled="submitting" class="w-full py-6 bg-luxury-black text-white font-sans text-xs font-bold uppercase tracking-[0.3em] hover:bg-luxury-gold transition-colors shadow-2xl">
-                    <span x-show="!submitting">Confirm Request</span>
-                    <span x-show="submitting">Processing...</span>
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            lucide.createIcons();
-
-            // Simple reveal on scroll
-            const observerOptions = {
-                threshold: 0.1
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
-        });
-    </script>
-
-</body>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Roboto:wght@300;400;500;600&display=swap"
+    />
+  </head>
+  <body>
+    <!-- Solid brand screen until the React preloader mounts, so the first paint
+         is never a white flash. -->
+    <div
+      id="boot-preloader"
+      aria-hidden="true"
+      style="position: fixed; inset: 0; z-index: 100; background: #173f35"
+    ></div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

@@ -1,0 +1,247 @@
+@import 'tailwindcss';
+@import 'lenis/dist/lenis.css';
+
+/* ------------------------------------------------------------------ *
+ * Parvath Financial Services — design tokens
+ * Light theme only. No dark mode.
+ * ------------------------------------------------------------------ */
+@theme {
+  --color-ivory: #ffffff;
+  /* Warm alternate ground so consecutive sections read as distinct bands.
+     muted clears 7.2:1 and gold-ink 5.4:1 on it. */
+  --color-cream: #f7f4ec;
+  --color-charcoal: #242522;
+  --color-forest: #173f35;
+  --color-forest-soft: #315b4e;
+  --color-gold: #a98842;
+  /* The decorative gold is 3.1:1 on ivory — enough for a rule or a border to
+     read, not enough for text. Gold *text* uses this deeper tone, which clears
+     5.7:1 on ivory. */
+  --color-gold-ink: #7c5c20;
+  --color-gold-soft: #e4d2a6;
+  --color-line: #cec6b2;
+  --color-muted: #4f4f46;
+
+  /* Raleway: used for both display and heading contexts. */
+  --font-display: 'Raleway', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-heading: 'Raleway', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'Roboto', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --ease-editorial: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --shadow-lift: 0 18px 40px -28px rgb(23 63 53 / 0.35);
+  --shadow-card: 0 1px 2px rgb(36 37 34 / 0.03), 0 12px 30px -24px rgb(36 37 34 / 0.25);
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+    /* Offset for sticky navbar when jumping to #anchors */
+    scroll-padding-top: 6rem;
+  }
+
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-charcoal);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    /* Raleway 600 by default for all headings. */
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--color-forest);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-gold) 30%, transparent);
+    color: var(--color-forest);
+  }
+
+  /* Visible, on-brand focus ring for keyboard users */
+  :focus-visible {
+    outline: 2px solid var(--color-forest);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Keep native number/select chrome consistent with the light theme */
+  select,
+  input,
+  textarea {
+    color-scheme: light;
+  }
+}
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 80rem; /* 1280px */
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .shell {
+      padding-inline: 4rem;
+    }
+  }
+
+  /* Vertical rhythm: balanced spacing between sections */
+  .section {
+    padding-block: 2.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .section {
+      padding-block: 3.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section {
+      padding-block: 4rem;
+    }
+  }
+
+  .section-tight {
+    padding-block: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .section-tight {
+      padding-block: 2.75rem;
+    }
+  }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-gold-ink);
+  }
+
+  .lede {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-muted);
+  }
+
+  @media (min-width: 768px) {
+    .lede {
+      font-size: 1.125rem;
+    }
+  }
+
+  /* Fluid display sizes, capped so nothing overflows at 390px. */
+  .display-1 {
+    /* Hero-scale headline — Raleway 500. */
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.375rem, 5.4vw, 4.25rem);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+  }
+
+  .display-2 {
+    font-weight: 500;
+    font-size: clamp(1.875rem, 3.6vw, 2.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+  }  .stat-figure {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.75rem, 5.4vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--color-forest);
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+}
+
+@layer utilities {
+  .hairline {
+    border-color: var(--color-line);
+  }
+
+  /* Faint warm paper grain — adds craft without a raster asset */
+  .paper {
+    position: relative;
+  }
+
+  .paper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Seamless running marquee strip */
+  @keyframes marquee {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .animate-marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 38s linear infinite;
+  }
+
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Reduced motion — the site must read correctly with motion disabled.
+ * ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

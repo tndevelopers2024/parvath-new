@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 860" width="1280" height="860" role="img" aria-label="Wide arcade opening onto light">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0.15" y2="1">
+      <stop offset="0" stop-color="#EBE2CC"/>
+      <stop offset="0.6" stop-color="#D9CCAE"/>
+      <stop offset="1" stop-color="#C7B892"/>
+    </linearGradient>
+    <linearGradient id="opening" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFEFA"/>
+      <stop offset="0.55" stop-color="#FAF4E4"/>
+      <stop offset="1" stop-color="#EADEC2"/>
+    </linearGradient>
+    <radialGradient id="light" cx="0.5" cy="0.63" r="0.42">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.85"/>
+      <stop offset="0.55" stop-color="#FFFCF2" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FFFCF2" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="jmask"><rect width="1280" height="172" fill="url(#fade)"/></mask>
+    <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A8966F" stop-opacity="0"/>
+      <stop offset="1" stop-color="#A8966F" stop-opacity="0.55"/>
+    </linearGradient>
+    <radialGradient id="reflect" cx="0.5" cy="0" r="1">
+      <stop offset="0" stop-color="#FFFBF0" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#FFFBF0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vig" cx="0.5" cy="0.44" r="0.8">
+      <stop offset="0.5" stop-color="#173F35" stop-opacity="0"/>
+      <stop offset="1" stop-color="#173F35" stop-opacity="0.26"/>
+    </radialGradient>
+    <pattern id="jl" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M17 0 L34 17 L17 34 L0 17 Z" fill="none" stroke="#173F35" stroke-width="1"/>
+      <circle cx="17" cy="17" r="6.8" fill="none" stroke="#173F35" stroke-width="1"/>
+    </pattern>
+    <clipPath id="below"><rect y="679.4" width="1280" height="180.6"/></clipPath>
+    <filter id="gr" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="860" fill="url(#wall)"/>
+  <g mask="url(#jmask)"><rect width="1280" height="172" fill="url(#jl)" opacity="0.18"/></g>
+
+  <rect x="196" y="336.8" width="1.25" height="385.6" fill="#A98842" opacity="0.45"/>
+  <rect x="1084" y="336.8" width="1.25" height="385.6" fill="#A98842" opacity="0.45"/>
+
+  <path d="M 240 722.4 L 240 589.57 A 464 464 0 0 1 640 130 A 464 464 0 0 1 1040 589.57 L 1040 722.4 Z" fill="#AD9868"/>
+  <path d="M 298 711.65 L 298 602.47 A 396.72 396.72 0 0 1 640 209.54 A 396.72 396.72 0 0 1 982 602.47 L 982 711.65 Z" fill="#BFAC81"/>
+  <path d="M 298 711.65 L 298 602.47 A 396.72 396.72 0 0 1 640 209.54 A 396.72 396.72 0 0 1 982 602.47 L 982 711.65 Z" fill="none" stroke="#A98842" stroke-width="1.75" opacity="0.6"/>
+  <path d="M 356 700.9 L 356 615.37 A 329.44 329.44 0 0 1 640 289.07 A 329.44 329.44 0 0 1 924 615.37 L 924 700.9 Z" fill="#D2C29C"/>
+  <path d="M 414 690.15 L 414 628.27 A 262.16 262.16 0 0 1 640 368.61 A 262.16 262.16 0 0 1 866 628.27 L 866 690.15 Z" fill="#E4D8BC"/>
+  <path d="M 472 679.4 L 472 641.17 A 194.88 194.88 0 0 1 640 448.15 A 194.88 194.88 0 0 1 808 641.17 L 808 679.4 Z" fill="#F3EDDC"/>
+
+  <path d="M 472 679.4 L 472 641.17 A 194.88 194.88 0 0 1 640 448.15 A 194.88 194.88 0 0 1 808 641.17 L 808 679.4 Z" fill="url(#opening)"/>
+  <path d="M 472 679.4 L 472 641.17 A 194.88 194.88 0 0 1 640 448.15 A 194.88 194.88 0 0 1 808 641.17 L 808 679.4 Z" fill="url(#light)"/>
+  <path d="M 421.6 679.4 L 421.6 633.44 A 30.02 30.02 0 0 0 426.89 581.96 A 30.01 30.01 0 0 0 442.52 532.63 A 30.02 30.02 0 0 0 467.86 487.5 A 30.01 30.01 0 0 0 501.83 448.47 A 30.02 30.02 0 0 0 543.04 417.15 A 30.01 30.01 0 0 0 589.74 394.86 A 30.02 30.02 0 0 0 640 382.52 A 30.02 30.02 0 0 0 690.26 394.86 A 30.01 30.01 0 0 0 736.96 417.15 A 30.02 30.02 0 0 0 778.17 448.47 A 30.01 30.01 0 0 0 812.14 487.5 A 30.02 30.02 0 0 0 837.48 532.63 A 30.01 30.01 0 0 0 853.11 581.96 A 30.02 30.02 0 0 0 858.4 633.44 L 858.4 679.4" fill="none" stroke="#A98842" stroke-width="1.6" opacity="0.8"/>
+
+  <rect y="679.4" width="1280" height="180.6" fill="url(#floorG)"/>
+  <ellipse clip-path="url(#below)" cx="640" cy="679.4" rx="268.8" ry="198.66" fill="url(#reflect)"/>
+  <rect y="679.4" width="1280" height="1.25" fill="#A98842" opacity="0.5"/>
+
+  <rect width="1280" height="860" fill="url(#vig)"/>
+  <rect width="1280" height="860" filter="url(#gr)" opacity="0.05"/>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1350" width="2400" height="1350" role="img" aria-label="Arched hall opening onto warm light, wide composition">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#EFE6CE"/>
+      <stop offset="0.55" stop-color="#DDCBA0"/>
+      <stop offset="1" stop-color="#C7B482"/>
+    </linearGradient>
+    <linearGradient id="opening" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFEFA"/>
+      <stop offset="0.55" stop-color="#FAF4E4"/>
+      <stop offset="1" stop-color="#E5D8B4"/>
+    </linearGradient>
+    <radialGradient id="light" cx="0.5" cy="0.64" r="0.42">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="0.55" stop-color="#FFFCF2" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#FFFCF2" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#836F44" stop-opacity="0"/>
+      <stop offset="1" stop-color="#836F44" stop-opacity="0.6"/>
+    </linearGradient>
+    <radialGradient id="reflect" cx="0.5" cy="0" r="1">
+      <stop offset="0" stop-color="#FFF6DE" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#FFF6DE" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="leftFade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2A2210" stop-opacity="0.32"/>
+      <stop offset="0.55" stop-color="#2A2210" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#2A2210" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="jl" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M25 0 L50 25 L25 50 L0 25 Z" fill="none" stroke="#3D3424" stroke-width="1"/>
+      <circle cx="25" cy="25" r="10" fill="none" stroke="#3D3424" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="fadeTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="jmask"><rect width="2400" height="432" fill="url(#fadeTop)"/></mask>
+    <clipPath id="below"><rect y="1080" width="2400" height="270"/></clipPath>
+    <filter id="gr"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  </defs>
+
+  <rect width="2400" height="1350" fill="url(#wall)"/>
+  <g mask="url(#jmask)"><rect x="910" width="2400" height="432" fill="url(#jl)" opacity="0.14"/></g>
+
+  <path d="M 1054 1147.5 L 1054 908.92 A 614.8 614.8 0 0 1 1584 300 A 614.8 614.8 0 0 1 2114 908.92 L 2114 1147.5 Z" fill="#8C764C"/>
+  <path d="M 1130.85 1130.63 L 1130.85 929.17 A 525.65 525.65 0 0 1 1584 408.54 A 525.65 525.65 0 0 1 2037.15 929.17 L 2037.15 1130.63 Z" fill="#A08A5C"/>
+  <path d="M 1130.85 1130.63 L 1130.85 929.17 A 525.65 525.65 0 0 1 1584 408.54 A 525.65 525.65 0 0 1 2037.15 929.17 L 2037.15 1130.63 Z" fill="none" stroke="#A98842" stroke-width="2" opacity="0.55"/>
+  <path d="M 1207.7 1113.75 L 1207.7 949.42 A 436.51 436.51 0 0 1 1584 517.09 A 436.51 436.51 0 0 1 1960.3 949.42 L 1960.3 1113.75 Z" fill="#B7A374"/>
+  <path d="M 1284.55 1096.88 L 1284.55 969.67 A 347.36 347.36 0 0 1 1584 625.63 A 347.36 347.36 0 0 1 1883.45 969.67 L 1883.45 1096.88 Z" fill="#CFBF96"/>
+  <path d="M 1361.4 1080 L 1361.4 989.92 A 258.22 258.22 0 0 1 1584 734.18 A 258.22 258.22 0 0 1 1806.6 989.92 L 1806.6 1080 Z" fill="#E8DCB8"/>
+
+  <path d="M 1361.4 1080 L 1361.4 989.92 A 258.22 258.22 0 0 1 1584 734.18 A 258.22 258.22 0 0 1 1806.6 989.92 L 1806.6 1080 Z" fill="url(#opening)"/>
+  <path d="M 1361.4 1080 L 1361.4 989.92 A 258.22 258.22 0 0 1 1584 734.18 A 258.22 258.22 0 0 1 1806.6 989.92 L 1806.6 1080 Z" fill="url(#light)"/>
+  <path d="M 1294.62 1080 L 1294.62 979.69 A 39.77 39.77 0 0 0 1301.62 911.48 A 39.77 39.77 0 0 0 1322.34 846.11 A 39.77 39.77 0 0 0 1355.91 786.32 A 39.77 39.77 0 0 0 1400.93 734.6 A 39.77 39.77 0 0 0 1455.52 693.1 A 39.77 39.77 0 0 0 1517.41 663.57 A 39.77 39.77 0 0 0 1584 647.22 A 39.77 39.77 0 0 0 1650.59 663.57 A 39.77 39.77 0 0 0 1712.48 693.1 A 39.77 39.77 0 0 0 1767.07 734.6 A 39.77 39.77 0 0 0 1812.09 786.32 A 39.77 39.77 0 0 0 1845.66 846.11 A 39.77 39.77 0 0 0 1866.38 911.48 A 39.77 39.77 0 0 0 1873.38 979.69 L 1873.38 1080" fill="none" stroke="#A98842" stroke-width="2" opacity="0.7"/>
+
+  <rect y="1080" width="2400" height="270" fill="url(#floorG)"/>
+  <ellipse clip-path="url(#below)" cx="1584" cy="1080" rx="356.16" ry="297" fill="url(#reflect)"/>
+
+  <rect width="2400" height="1350" fill="url(#leftFade)"/>
+  <rect width="2400" height="1350" filter="url(#gr)" opacity="0.045"/>
+</svg>
