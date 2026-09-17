@@ -1,6 +1,6 @@
 import { useId, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { AlertCircle, Check, ChevronDown, Send } from 'lucide-react'
+import { AlertCircle, Check, Send } from 'lucide-react'
 import { interestOptions } from '../data/site'
 import { EASE } from '../lib/motion'
 
@@ -33,18 +33,22 @@ function validate(values) {
 }
 
 const fieldBase =
-  'w-full rounded-lg border bg-white px-4 py-3.5 text-[0.9375rem] text-charcoal transition-colors duration-300 placeholder:text-muted/50 focus:outline-none'
+  'w-full rounded-xl border bg-cream/40 px-4 py-3.5 text-base sm:text-[0.9375rem] text-charcoal transition-[border-color,background-color,box-shadow] duration-300 placeholder:text-muted/50 hover:bg-white focus:bg-white focus:shadow-[0_0_0_4px_rgba(169,136,66,0.14)] focus:outline-none'
 
-/** Label + control + inline error, wired up for screen readers. */
-function Field({ id, label, error, children, hint }) {
+/**
+ * Label + control + inline error, wired up for screen readers. Pass `as="p"`
+ * when the label names a group (the interest pills) rather than one control.
+ */
+function Field({ id, label, error, children, hint, as = 'label' }) {
+  const Label = as
   return (
     <div>
-      <label
-        htmlFor={id}
+      <Label
+        {...(as === 'label' ? { htmlFor: id } : { id })}
         className="block text-[0.6875rem] font-medium tracking-[0.16em] text-forest uppercase"
       >
         {label}
-      </label>
+      </Label>
       {hint && <p className="mt-1.5 text-[0.75rem] text-muted">{hint}</p>}
       <div className="mt-2.5">{children}</div>
       <AnimatePresence initial={false}>
@@ -106,7 +110,8 @@ export default function ContactForm() {
     if (Object.keys(found).length > 0) {
       // Move focus to the first field that needs attention.
       const first = Object.keys(EMPTY).find((k) => found[k])
-      formRef.current?.querySelector(`#${CSS.escape(fid(first))}`)?.focus()
+      const target = first === 'interest' ? `${fid('interest')}-first` : fid(first)
+      formRef.current?.querySelector(`#${CSS.escape(target)}`)?.focus()
       return
     }
 
@@ -136,10 +141,11 @@ export default function ContactForm() {
         initial={reduced ? false : { opacity: 0, y: 12 }}
         animate={reduced ? {} : { opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: EASE }}
-        className="rounded-xl border border-line bg-white p-8 sm:p-10"
+        className="rounded-2xl border border-line bg-white p-8 shadow-card sm:p-10"
       >
-        <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold/50">
-          <Check aria-hidden="true" className="h-5 w-5 text-forest" strokeWidth={1.5} />
+        <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-forest text-gold-soft">
+          <span aria-hidden="true" className="animate-ripple absolute inset-0 rounded-full border border-gold motion-reduce:hidden" />
+          <Check aria-hidden="true" className="h-6 w-6" strokeWidth={1.75} />
         </span>
         <h3 className="mt-6 font-display text-[1.75rem] leading-tight text-forest">
           Thank you — your enquiry has been recorded.
@@ -164,8 +170,20 @@ export default function ContactForm() {
       ref={formRef}
       noValidate
       onSubmit={onSubmit}
-      className="rounded-xl border border-line bg-ivory p-6 sm:p-8 lg:p-10"
+      className="relative overflow-hidden rounded-2xl border border-line bg-white p-6 shadow-card sm:p-8 lg:p-10"
     >
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-gold via-gold-soft to-transparent"
+      />
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-3 border-b border-line pb-6">
+        <div>
+          <p className="eyebrow">Send an enquiry</p>
+          <h3 className="mt-2 font-display text-[1.75rem] leading-tight text-forest">Tell us where to start</h3>
+        </div>
+        <p className="text-[0.75rem] text-muted">All fields are required.</p>
+      </div>
+
       <p className="sr-only" aria-live="polite">
         {Object.keys(errors).length > 0 && Object.keys(touched).length > 0
           ? `${Object.keys(errors).length} field${Object.keys(errors).length > 1 ? 's need' : ' needs'} attention.`
@@ -220,35 +238,55 @@ export default function ContactForm() {
           />
         </Field>
 
-        <Field
-          id={fid('interest')}
-          label="I’m interested in"
-          error={touched.interest ? errors.interest : undefined}
-        >
-          <div className="relative">
-            <select
-              id={fid('interest')}
-              name="interest"
-              value={values.interest}
-              onChange={update('interest')}
-              onBlur={blur('interest')}
-              className={`${control('interest')} appearance-none pr-11`}
-              {...aria('interest')}
+        <div className="sm:col-span-2">
+          <Field
+            id={fid('interest')}
+            as="p"
+            label="I’m interested in"
+            error={touched.interest ? errors.interest : undefined}
+          >
+            <div
+              role="radiogroup"
+              aria-labelledby={fid('interest')}
+              aria-invalid={Boolean(errors.interest && touched.interest)}
+              aria-describedby={errors.interest && touched.interest ? `${fid('interest')}-error` : undefined}
+              className="flex flex-wrap gap-2"
             >
-              <option value="">Select an area</option>
-              {interestOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            <ChevronDown
-              aria-hidden="true"
-              className="pointer-events-none absolute top-1/2 right-4 h-4 w-4 -translate-y-1/2 text-forest/60"
-              strokeWidth={1.5}
-            />
-          </div>
-        </Field>
+              {interestOptions.map((option, i) => {
+                const selected = values.interest === option
+                return (
+                  <label
+                    key={option}
+                    className={`relative cursor-pointer rounded-full border px-4 py-2 text-[0.8125rem] transition-[background-color,border-color,color,box-shadow] duration-300 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-forest ${
+                      selected
+                        ? 'border-forest bg-forest text-ivory shadow-[0_0_0_3px_rgba(169,136,66,0.2)]'
+                        : errors.interest && touched.interest
+                          ? 'border-[#C08878] bg-white text-forest hover:border-forest'
+                          : 'border-line bg-white text-forest hover:border-gold/60 hover:bg-cream'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="interest"
+                      value={option}
+                      checked={selected}
+                      {...(i === 0 ? { id: `${fid('interest')}-first` } : {})}
+                      onChange={(event) => {
+                        const next = { ...values, interest: event.target.value }
+                        setValues(next)
+                        setTouched((t) => ({ ...t, interest: true }))
+                        setErrors(validate(next))
+                      }}
+                      className="sr-only"
+                    />
+                    {selected && <Check aria-hidden="true" className="-ml-1 mr-1.5 inline h-3.5 w-3.5 text-gold-soft" strokeWidth={2} />}
+                    {option}
+                  </label>
+                )
+              })}
+            </div>
+          </Field>
+        </div>
 
         <div className="sm:col-span-2">
           <Field
@@ -267,6 +305,9 @@ export default function ContactForm() {
               className={`${control('message')} resize-y`}
               {...aria('message')}
             />
+            <p aria-hidden="true" className="mt-1.5 text-right text-[0.6875rem] text-muted tabular-nums">
+              {values.message.trim().length} characters
+            </p>
           </Field>
         </div>
       </div>
@@ -274,8 +315,12 @@ export default function ContactForm() {
       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <button
           type="submit"
-          className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-forest px-7 py-3.5 text-[0.8125rem] font-medium tracking-[0.06em] text-white uppercase transition-all duration-300 ease-[cubic-bezier(0.22,0.61,0.36,1)] hover:bg-forest-soft hover:shadow-lift motion-safe:hover:-translate-y-0.5"
+          className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full bg-forest px-7 py-3.5 text-[0.8125rem] font-medium tracking-[0.06em] text-white uppercase transition-all duration-300 ease-[cubic-bezier(0.22,0.61,0.36,1)] hover:bg-forest-soft hover:shadow-lift motion-safe:hover:-translate-y-0.5"
         >
+          <span
+            aria-hidden="true"
+            className="animate-shimmer pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/25 to-transparent motion-reduce:hidden"
+          />
           Send Enquiry
           <Send
             aria-hidden="true"

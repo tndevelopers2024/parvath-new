@@ -24,7 +24,7 @@ export default function CalculatorField({ field, value, onChange }) {
           </label>
           <output
             htmlFor={id}
-            className="min-w-[3.5rem] rounded-md bg-forest px-2.5 py-1 text-center text-[0.8125rem] font-medium tabular-nums text-white"
+            className="min-w-[3.5rem] rounded-full bg-forest px-3 py-1 text-center text-[0.8125rem] font-medium tabular-nums text-white shadow-[0_0_0_3px_rgba(169,136,66,0.18)]"
           >
             {value}
             {suffix}
@@ -38,11 +38,21 @@ export default function CalculatorField({ field, value, onChange }) {
           step={step}
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="mt-3 h-1.5 w-full cursor-pointer appearance-none rounded-full outline-none [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-forest [&::-moz-range-thumb]:bg-white [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-forest [&::-webkit-slider-thumb]:bg-white"
+          className="mt-3 h-1.5 w-full cursor-pointer appearance-none rounded-full outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-forest [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:cursor-grab [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-forest [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:shadow-[0_0_0_4px_rgba(169,136,66,0.25)] [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-forest [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-[0_0_0_4px_rgba(169,136,66,0.25)] [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:duration-200 active:[&::-webkit-slider-thumb]:scale-110 active:[&::-webkit-slider-thumb]:cursor-grabbing"
           style={{
             background: `linear-gradient(to right, #173F35 ${pct}%, #DDD7C9 ${pct}%)`,
           }}
         />
+        <div aria-hidden="true" className="mt-1.5 flex justify-between text-[0.6875rem] text-muted/80 tabular-nums">
+          <span>
+            {min}
+            {suffix}
+          </span>
+          <span>
+            {max}
+            {suffix}
+          </span>
+        </div>
       </div>
     )
   }
@@ -77,7 +87,7 @@ export default function CalculatorField({ field, value, onChange }) {
             const clamped = Math.min(max, Math.max(min, Number(e.target.value) || 0))
             onChange(clamped)
           }}
-          className={`w-full rounded-lg border border-line bg-white py-3 text-[0.9375rem] text-charcoal transition-colors duration-300 focus:border-forest focus:outline-none ${prefix ? 'pl-9' : 'pl-4'} pr-4`}
+          className={`w-full rounded-lg border border-line bg-white py-3 text-base sm:text-[0.9375rem] text-charcoal transition-colors duration-300 focus:border-forest focus:outline-none ${prefix ? 'pl-9' : 'pl-4'} pr-4`}
         />
       </div>
     </div>

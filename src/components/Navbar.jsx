@@ -82,23 +82,29 @@ const socialLinks = [
   },
 ]
 
-/** Text wordmark — classic brand styling */
+/**
+ * Brand lockup: the Parvath mark, then "Financial Services" set beside it.
+ * Over the hero photo the light mark (ivory wordmark) is swapped in.
+ */
 function Wordmark({ isTransparent = false, compact = false }) {
   return (
-    <span className="flex flex-col leading-none">
+    <span className="flex items-center gap-3">
+      <img
+        src={isTransparent ? '/brand/parvath-logo-light.png' : '/brand/parvath-logo.png'}
+        alt="Parvath"
+        width="640"
+        height="479"
+        className={`w-auto transition-[height] duration-300 ${compact ? 'h-11' : 'h-12 sm:h-14'}`}
+        decoding="async"
+      />
       <span
-        className={`font-display font-bold tracking-[0.18em] transition-all duration-300 ${
-          compact ? 'text-[1.25rem] sm:text-xl' : 'text-[1.375rem] sm:text-2xl'
-        } ${isTransparent ? 'text-white' : 'text-forest'}`}
+        className={`hidden border-l pl-3 text-[0.5625rem] leading-[1.5] font-semibold tracking-[0.26em] uppercase transition-colors duration-300 sm:block ${
+          isTransparent ? 'border-ivory/30 text-gold-soft' : 'border-line text-gold-ink'
+        }`}
       >
-        PARVATH
-      </span>
-      <span
-        className={`flex items-center gap-1.5 text-[0.5625rem] font-semibold tracking-[0.26em] uppercase transition-all duration-300 ${
-          compact ? 'mt-0.5' : 'mt-1 sm:text-[0.625rem]'
-        } ${isTransparent ? 'text-gold-soft' : 'text-gold-ink'}`}
-      >
-        Financial Services
+        Financial
+        <br />
+        Services
       </span>
     </span>
   )
@@ -127,7 +133,19 @@ export default function Navbar() {
   }
 
   const scheduleCloseMenu = () => {
-    closeTimer.current = setTimeout(() => setOpenDropdown(null), 180)
+    // Clear any pending close first — leaving the panel and its <li> fires two
+    // mouseleaves, and an untracked timer could close the *next* menu opened.
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    closeTimer.current = setTimeout(() => {
+      closeTimer.current = null
+      setOpenDropdown(null)
+    }, 180)
+  }
+
+  const closeMenu = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    closeTimer.current = null
+    setOpenDropdown(null)
   }
 
   // Close any open dropdown/accordion on route change, and clear pending timers on unmount
@@ -151,7 +169,7 @@ export default function Navbar() {
   }, [openDropdown])
 
   // Track scroll position via Lenis smooth scroll
-  useLenis((instance) => {
+  const lenis = useLenis((instance) => {
     setIsScrolled(instance.scroll > 25)
   })
 
@@ -167,11 +185,14 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Lock body scroll and trap escape when mobile menu is active
+  // Lock page scroll and trap escape when mobile menu is active. Lenis drives
+  // scrolling, so body overflow alone doesn't hold the page still — pause it too.
+  // (On a route change the preloader's own stop() runs after this cleanup.)
   useEffect(() => {
     if (!open) return
     const { overflow } = document.body.style
     document.body.style.overflow = 'hidden'
+    lenis?.stop()
 
     const onKey = (e) => {
       if (e.key === 'Escape') {
@@ -183,8 +204,18 @@ export default function Navbar() {
 
     return () => {
       document.body.style.overflow = overflow
+      lenis?.start()
       document.removeEventListener('keydown', onKey)
     }
+  }, [open, lenis])
+
+  // The mobile menu only exists below `lg`; close it if the viewport grows past that
+  useEffect(() => {
+    if (!open) return
+    const mq = window.matchMedia('(min-width: 1024px)')
+    const onChange = (e) => e.matches && setOpen(false)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
   }, [open])
 
   return (
@@ -211,7 +242,7 @@ export default function Navbar() {
             Skip to content
           </a>
 
-          <nav aria-label="Primary" className="w-full pl-8 pr-2 sm:pl-8 sm:pr-3">
+          <nav aria-label="Primary" className="w-full pl-4 pr-2 sm:pl-8 sm:pr-3">
             <div
               className={`flex items-center justify-between transition-all duration-300 ${
                 compact ? 'py-1.5' : 'py-2 sm:py-2.5'
@@ -238,6 +269,10 @@ export default function Navbar() {
                       className="relative"
                       onMouseEnter={() => menu && openMenu(link.to)}
                       onMouseLeave={() => menu && scheduleCloseMenu()}
+                      onBlur={(e) => {
+                        // Tabbing out of the link and its panel closes the menu
+                        if (menu && !e.currentTarget.contains(e.relatedTarget)) closeMenu()
+                      }}
                     >
                       <NavLink
                         to={link.to}
@@ -274,9 +309,8 @@ export default function Navbar() {
                               animate={reduced ? {} : { opacity: 1, y: 0 }}
                               exit={reduced ? {} : { opacity: 0, y: 8 }}
                               transition={{ duration: 0.22, ease: EASE }}
-                              onMouseEnter={() => openMenu(link.to)}
-                              onMouseLeave={scheduleCloseMenu}
-                              className={`absolute left-1/2 top-full z-50 mt-4 -translate-x-1/2 rounded-2xl border border-line/70 bg-white/98 p-5 shadow-[0_24px_48px_-12px_rgba(23,63,53,0.22),0_8px_24px_-4px_rgba(23,63,53,0.1)] backdrop-blur-md ${
+                              onClick={(e) => e.target.closest('a') && closeMenu()}
+                              className={`absolute left-1/2 top-full z-50 mt-4 -translate-x-1/2 rounded-2xl before:absolute before:inset-x-0 before:-top-4 before:h-4 before:content-[''] border border-line/70 bg-white/98 p-5 shadow-[0_24px_48px_-12px_rgba(23,63,53,0.22),0_8px_24px_-4px_rgba(23,63,53,0.1)] backdrop-blur-md ${
                                 menu.kind === 'services' ? 'w-[560px]' : 'w-[680px]'
                               }`}
                             >
@@ -410,7 +444,8 @@ export default function Navbar() {
                 transition={{ duration: 0.45, ease: EASE }}
               >
                 <div
-                  className="shell flex max-h-[calc(100dvh-5rem)] flex-col gap-1 overflow-y-auto py-6 sm:max-h-[calc(100dvh-7rem)]"
+                  data-lenis-prevent
+                  className="shell flex max-h-[calc(100dvh-5rem)] flex-col gap-1 overflow-y-auto overscroll-contain py-6 sm:max-h-[calc(100dvh-7rem)]"
                   onClick={(e) => {
                     if (e.target.closest('a')) setOpen(false)
                   }}
@@ -418,11 +453,7 @@ export default function Navbar() {
                   {navLinks.map((link, i) => {
                     const menu = dropdownMenus[link.to]
                     const isExpanded = menu && mobileExpanded === link.to
-                    const subItems = menu
-                      ? menu.kind === 'services'
-                        ? menu.items
-                        : menu.groups.flatMap((group) => group.items)
-                      : []
+                    const subItems = menu?.kind === 'services' ? menu.items : []
 
                     return (
                       <motion.div
@@ -473,15 +504,36 @@ export default function Navbar() {
                                 transition={{ duration: 0.3, ease: EASE }}
                                 className="overflow-hidden border-b border-line/70"
                               >
-                                <ul className="flex flex-col gap-0.5 py-2 pl-9">
-                                  {subItems.map((item) => (
-                                    <li key={item.slug}>
-                                      <Link to={item.path} className="block py-2 text-[0.9375rem] text-charcoal/80">
-                                        {item.title.replace(' Calculator', '')}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
+                                {menu.kind === 'calculators' ? (
+                                  <div className="py-2 pl-9">
+                                    {menu.groups.map((group) => (
+                                      <div key={group.key}>
+                                        <p className="text-[0.625rem] font-semibold tracking-[0.12em] text-gold-ink uppercase mt-3 first:mt-0 mb-1 pl-1">
+                                          {group.label}
+                                        </p>
+                                        <ul className="flex flex-col gap-0.5">
+                                          {group.items.map((item) => (
+                                            <li key={item.slug}>
+                                              <Link to={item.path} className="block py-2 text-[0.9375rem] text-charcoal/80">
+                                                {item.title.replace(' Calculator', '')}
+                                              </Link>
+                                            </li>
+                                          ))}
+                                        </ul>
+                                      </div>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <ul className="flex flex-col gap-0.5 py-2 pl-9">
+                                    {subItems.map((item) => (
+                                      <li key={item.slug}>
+                                        <Link to={item.path} className="block py-2 text-[0.9375rem] text-charcoal/80">
+                                          {item.title.replace(' Calculator', '')}
+                                        </Link>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
                               </motion.div>
                             )}
                           </AnimatePresence>

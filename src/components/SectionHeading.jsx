@@ -1,4 +1,4 @@
-import Reveal from './Reveal'
+import Reveal, { SplitWords } from './Reveal'
 import { GoldRule } from './Ornaments'
 
 /** Section label in tracked caps, framed by a hairline on each side. */
@@ -17,7 +17,8 @@ export function Eyebrow({ children, tone = 'dark', className = '' }) {
 
 /**
  * Label → headline → description, centred. Opens every section on the site.
- * Titles are a single plain line of copy — no split or accented phrases.
+ * Titles are a single plain line of copy — no split or accented phrases. The
+ * title rises in word by word; its eyebrow and lede fade up around it.
  */
 export default function SectionHeading({
   eyebrow,
@@ -35,16 +36,14 @@ export default function SectionHeading({
       {eyebrow && <Eyebrow tone={tone}>{eyebrow}</Eyebrow>}
 
       {title && (
-        <Reveal y={20} delay={0.08}>
-          <Level className={`${eyebrow ? 'mt-5' : ''} display-2 ${light ? 'text-ivory' : 'text-forest'}`}>
-            {title}
-          </Level>
-        </Reveal>
+        <Level className={`${eyebrow ? 'mt-3' : ''} display-2 ${light ? 'text-ivory' : 'text-forest'}`}>
+          <SplitWords text={title} delay={0.08} />
+        </Level>
       )}
 
       {lede && (
-        <Reveal y={16} delay={0.14}>
-          <p className={`lede mx-auto mt-5 max-w-xl ${light ? 'text-ivory/80' : ''}`}>{lede}</p>
+        <Reveal y={16} delay={0.3}>
+          <p className={`lede mx-auto mt-3 max-w-xl ${light ? 'text-ivory/80' : ''}`}>{lede}</p>
         </Reveal>
       )}
 

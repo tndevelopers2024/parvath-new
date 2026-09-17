@@ -67,7 +67,7 @@ export default function Intro() {
   return (
     <section className="section bg-cream">
       <div className="shell">
-        <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-14 xl:gap-16">
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
           {/* Left Column: Narrative & Philosophy */}
           <div className="lg:col-span-5 xl:col-span-5">
             <SectionHeading
@@ -100,8 +100,8 @@ export default function Intro() {
             </Reveal>
 
             <Reveal y={16} delay={0.2} className="mt-7 flex flex-wrap items-center gap-3.5">
-              <Button to="/approach" variant="primary">
-                Our Approach
+              <Button to="/about" variant="primary">
+                About Parvath
               </Button>
               <Button to="/services" variant="secondary" withArrow={false}>
                 Explore Services

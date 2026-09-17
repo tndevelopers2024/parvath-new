@@ -92,15 +92,23 @@ export default function Footer() {
 
       <div className="shell relative z-10">
         {/* Main Footer Multi-Column Grid */}
-        <div className="grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:py-16">
+        <div className="grid gap-10 py-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:py-12">
           {/* Column 1: Brand & Founder — 4 cols */}
           <div className="lg:col-span-4">
-            <Link to="/" className="inline-flex flex-col leading-none">
-              <span className="font-display text-2xl font-semibold tracking-[0.18em] text-white sm:text-3xl">
-                PARVATH
-              </span>
-              <span className="mt-1.5 text-[0.625rem] font-medium tracking-[0.28em] text-gold-soft uppercase">
-                Financial Services
+            <Link to="/" className="inline-flex items-center gap-4" aria-label="Parvath Financial Services — home">
+              <img
+                src="/brand/parvath-logo-light.png"
+                alt=""
+                width="640"
+                height="479"
+                loading="lazy"
+                decoding="async"
+                className="h-16 w-auto sm:h-20"
+              />
+              <span className="border-l border-ivory/20 pl-4 text-[0.625rem] leading-[1.6] font-medium tracking-[0.28em] text-gold-soft uppercase">
+                Financial
+                <br />
+                Services
               </span>
             </Link>
 
@@ -314,7 +322,7 @@ export default function Footer() {
         </div>
 
         {/* Compliance & Regulatory Notice */}
-        <div className="mt-10 rounded-xl border border-white/10 bg-white/[0.02] p-5 text-xs text-ivory/65 sm:p-6">
+        <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.02] p-5 text-xs text-ivory/65 sm:p-6">
           <h3 className="font-heading text-[0.6875rem] font-semibold tracking-wider text-gold-soft uppercase">
             Regulatory Disclosure &amp; Risk Notice
           </h3>
@@ -327,7 +335,7 @@ export default function Footer() {
         </div>
 
         {/* Sub-Footer / Copyright & Legal Bar */}
-        <div className="mt-10 border-t border-white/10 py-8 text-xs text-ivory/60">
+        <div className="mt-6 border-t border-white/10 py-6 text-xs text-ivory/60">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p>&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-ivory/70">

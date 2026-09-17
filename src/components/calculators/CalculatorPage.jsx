@@ -24,10 +24,12 @@ import Seo from '../Seo'
 import PageHeader from '../PageHeader'
 import CTA from '../CTA'
 import Reveal, { RevealGroup, RevealItem } from '../Reveal'
-import { Diamond } from '../Ornaments'
-import ResultStat from './ResultStat'
+import { Diamond, JaaliField } from '../Ornaments'
+import Breakdown from './Breakdown'
+import ResultStat, { AnimatedValue } from './ResultStat'
 import CalculatorField from './CalculatorField'
 import { getCalculator, calculators, calculatorDisclaimer } from '../../data/calculators'
+import { trackPointer } from '../../lib/motion'
 
 const calculatorIconMap = {
   GraduationCap,
@@ -81,7 +83,11 @@ export default function CalculatorPage({ slug }) {
   const reset = () => setValues(defaults)
 
   const Icon = calculatorIconMap[calculator.icon] ?? Calculator
-  const otherCalculators = calculators.filter((c) => c.slug !== slug).slice(0, 5)
+  // Same-category calculators first, then the rest, so the suggestions stay relevant
+  const otherCalculators = [
+    ...calculators.filter((c) => c.slug !== slug && c.category === calculator.category),
+    ...calculators.filter((c) => c.slug !== slug && c.category !== calculator.category),
+  ].slice(0, 5)
   const emphasisResults = calculator.results.filter((r) => r.emphasis)
   const detailResults = calculator.results.filter((r) => !r.emphasis)
 
@@ -89,9 +95,14 @@ export default function CalculatorPage({ slug }) {
     <>
       <Seo title={calculator.title} path={calculator.path} description={calculator.summary} />
 
-      <PageHeader eyebrow="Calculators" title={calculator.title} lede={calculator.intro}>
+      <PageHeader
+        eyebrow="Calculators"
+        title={calculator.title}
+        lede={calculator.intro}
+        crumb={calculator.title}
+      >
         <Reveal y={14} delay={0.24} className="mt-8">
-          <p className="inline-flex items-center gap-2.5 rounded-sm border border-line bg-ivory px-3.5 py-2.5 text-[0.75rem] tracking-[0.06em] text-muted">
+          <p className="inline-flex items-center gap-2.5 rounded-full border border-ivory/20 bg-ivory/5 px-4 py-2 text-[0.75rem] tracking-[0.06em] text-ivory/80 backdrop-blur-sm">
             <Diamond size={6} />
             An illustrative estimate — not a quote or a guarantee
           </p>
@@ -100,15 +111,48 @@ export default function CalculatorPage({ slug }) {
 
       <section className="section bg-ivory">
         <div className="shell">
-          <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+          {/* ---- Sticky mobile result bar: shows the primary figure while adjusting inputs ---- */}
+          {emphasisResults.length > 0 && (
+            <div className="fixed inset-x-0 bottom-0 z-30 border-t border-gold/30 bg-forest/[0.97] px-4 py-3 text-ivory shadow-[0_-8px_24px_-6px_rgba(23,63,53,0.35)] backdrop-blur-md lg:hidden">
+              <div className="mx-auto flex max-w-lg items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="truncate text-[0.625rem] font-medium tracking-[0.14em] text-gold-soft uppercase">
+                    {emphasisResults[0].label}
+                  </p>
+                  <AnimatedValue
+                    value={results[emphasisResults[0].key]}
+                    format={emphasisResults[0].format}
+                    className="block text-xl font-semibold tabular-nums text-ivory"
+                  />
+                </div>
+                <a
+                  href="#calculator-results"
+                  className="shrink-0 rounded-full border border-ivory/20 bg-ivory/10 px-3.5 py-2 text-[0.6875rem] font-medium tracking-[0.04em] text-ivory transition-colors hover:bg-ivory/20"
+                >
+                  Full breakdown ↓
+                </a>
+              </div>
+            </div>
+          )}
+
+          <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-12">
             {/* ---- Inputs ---- */}
             <div className="lg:col-span-7">
               <Reveal y={16}>
-                <div className="rounded-xl border border-line bg-white p-6 shadow-card sm:p-8">
+                <div className="relative overflow-hidden rounded-2xl border border-line bg-white p-6 shadow-card sm:p-8">
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-gold via-gold-soft to-transparent"
+                  />
                   <div className="flex items-center justify-between gap-4">
-                    <h2 className="text-[0.6875rem] font-medium tracking-[0.18em] text-forest uppercase">
-                      Your numbers
-                    </h2>
+                    <div className="flex items-center gap-3">
+                      <span className="animate-float flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 bg-cream text-forest">
+                        <Icon aria-hidden="true" className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.5} />
+                      </span>
+                      <h2 className="text-[0.6875rem] font-medium tracking-[0.18em] text-forest uppercase">
+                        Your numbers
+                      </h2>
+                    </div>
                     <button
                       type="button"
                       onClick={reset}
@@ -138,29 +182,62 @@ export default function CalculatorPage({ slug }) {
             </div>
 
             {/* ---- Live results ---- */}
-            <div className="lg:col-span-5 lg:sticky lg:top-28">
+            <div id="calculator-results" className="lg:col-span-5 lg:sticky lg:top-28">
               <Reveal y={16} delay={0.1}>
-                <div className="rounded-xl border border-gold/45 bg-cream p-6 sm:p-8">
-                  <div className="flex items-center gap-2.5">
-                    <Icon aria-hidden="true" className="h-5 w-5 text-forest" strokeWidth={1.5} />
-                    <p className="text-[0.6875rem] font-medium tracking-[0.18em] text-forest uppercase">
+                <div
+                  data-cursor-theme="dark"
+                  onPointerMove={trackPointer}
+                  className="spotlight relative isolate overflow-hidden rounded-2xl bg-forest p-6 text-ivory shadow-lift sm:p-8"
+                >
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_100%_0%,black,transparent_70%)]"
+                  >
+                    <div className="animate-drift absolute top-0 left-0 -right-[40px] -bottom-[40px] [--drift:40px]">
+                      <JaaliField opacity={0.1} scale={40} tone="#E4D2A6" />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="flex items-center gap-2 text-[0.6875rem] font-medium tracking-[0.18em] text-gold-soft uppercase">
+                      <span aria-hidden="true" className="relative flex h-2 w-2">
+                        <span className="animate-ping-soft absolute inset-0 rounded-full bg-gold-soft motion-reduce:hidden" />
+                        <span className="relative h-2 w-2 rounded-full bg-gold-soft" />
+                      </span>
                       Estimated result
                     </p>
+                    <span className="text-[0.625rem] tracking-[0.14em] text-ivory/50 uppercase">Updates live</span>
                   </div>
 
                   <div className="mt-6 space-y-6">
                     {emphasisResults.map((r) => (
-                      <ResultStat key={r.key} label={r.label} value={results[r.key]} format={r.format} emphasis />
+                      <ResultStat key={r.key} label={r.label} value={results[r.key]} format={r.format} emphasis tone="dark" />
                     ))}
                   </div>
 
+                  {calculator.breakdown && (
+                    <Breakdown title={calculator.breakdownTitle} parts={calculator.breakdown(results)} />
+                  )}
+
                   {detailResults.length > 0 && (
-                    <dl className="mt-6 border-t border-line pt-1">
+                    <dl className="mt-6 border-t border-ivory/10 pt-4">
                       {detailResults.map((r) => (
-                        <ResultStat key={r.key} label={r.label} value={results[r.key]} format={r.format} />
+                        <ResultStat key={r.key} label={r.label} value={results[r.key]} format={r.format} tone="dark" />
                       ))}
                     </dl>
                   )}
+
+                  <Link
+                    to="/contact"
+                    className="group mt-6 flex items-center justify-between gap-3 rounded-xl border border-ivory/15 bg-ivory/5 px-4 py-3 text-[0.8125rem] text-ivory/85 transition-colors duration-300 hover:border-gold-soft/50 hover:bg-ivory/10 hover:text-ivory"
+                  >
+                    Talk this number through with an adviser
+                    <ArrowRight
+                      aria-hidden="true"
+                      className="h-4 w-4 shrink-0 text-gold-soft transition-transform duration-300 motion-safe:group-hover:translate-x-1"
+                      strokeWidth={1.5}
+                    />
+                  </Link>
                 </div>
               </Reveal>
 
@@ -179,8 +256,18 @@ export default function CalculatorPage({ slug }) {
                         to={other.path}
                         className="group flex items-center justify-between gap-4 border-b border-line py-4 transition-colors duration-500 hover:border-gold/50"
                       >
-                        <span className="font-display text-lg text-forest transition-colors duration-300 group-hover:text-gold-ink">
-                          {other.title}
+                        <span className="flex items-center gap-3">
+                          {(() => {
+                            const OtherIcon = calculatorIconMap[other.icon] ?? Calculator
+                            return (
+                              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-cream text-forest transition-colors duration-300 group-hover:bg-forest group-hover:text-gold-soft">
+                                <OtherIcon aria-hidden="true" className="h-4 w-4" strokeWidth={1.5} />
+                              </span>
+                            )
+                          })()}
+                          <span className="font-display text-lg text-forest transition-colors duration-300 group-hover:text-gold-ink">
+                            {other.title}
+                          </span>
                         </span>
                         <ArrowRight
                           aria-hidden="true"

@@ -33,7 +33,7 @@ function validate(values) {
 }
 
 const fieldBase =
-  'w-full rounded-lg border bg-white px-4 py-3 text-[0.9375rem] text-charcoal transition-colors duration-300 placeholder:text-muted/50 focus:outline-none'
+  'w-full rounded-lg border bg-white px-4 py-3 text-base sm:text-[0.9375rem] text-charcoal transition-colors duration-300 placeholder:text-muted/50 focus:outline-none'
 
 /**
  * A single, session-scoped invitation to talk — not a marketing takeover.
@@ -144,20 +144,20 @@ export default function WelcomePopup() {
             animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
             exit={reduced ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.96 }}
             transition={{ duration: 0.45, ease: EASE }}
-            className="relative grid max-h-[92vh] w-full max-w-3xl grid-cols-1 overflow-y-auto rounded-3xl border border-gold/20 bg-ivory shadow-[0_40px_80px_-24px_rgba(12,28,23,0.55)] lg:grid-cols-[1fr_1.15fr] lg:overflow-hidden"
+            className="relative grid max-h-[92dvh] w-full max-w-3xl grid-cols-1 overflow-y-auto rounded-3xl border border-gold/20 bg-ivory shadow-[0_40px_80px_-24px_rgba(12,28,23,0.55)] lg:grid-cols-[1fr_1.15fr] lg:overflow-hidden"
           >
             <button
               ref={closeRef}
               type="button"
               onClick={close}
               aria-label="Close"
-              className="absolute top-4 right-4 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/10 text-white backdrop-blur-sm transition-colors duration-300 hover:bg-black/25 lg:text-forest lg:border-forest/10 lg:bg-white/70 lg:hover:bg-white"
+              className="sticky top-3 right-4 z-10 ml-auto mr-3 flex h-9 w-9 items-center justify-center rounded-full border border-forest/10 bg-white/70 text-forest backdrop-blur-sm transition-colors duration-300 hover:bg-white lg:absolute lg:top-4 lg:right-4 lg:mr-0 lg:border-white/20 lg:bg-black/10 lg:text-white lg:hover:bg-black/25"
             >
               <X aria-hidden="true" className="h-4.5 w-4.5" strokeWidth={1.5} />
             </button>
 
-            {/* ---- Left: the pitch ---- */}
-            <div className="relative flex flex-col justify-between overflow-hidden bg-forest px-7 py-9 text-ivory sm:px-9 sm:py-10">
+            {/* ---- Left: the pitch (shown after the form on mobile) ---- */}
+            <div className="relative order-2 flex flex-col justify-between overflow-hidden bg-forest px-7 py-9 text-ivory sm:px-9 sm:py-10 lg:order-none">
               <div aria-hidden="true" className="pointer-events-none absolute inset-0">
                 <JaaliField opacity={0.12} scale={44} tone="#E4D2A6" />
               </div>
@@ -202,7 +202,7 @@ export default function WelcomePopup() {
             </div>
 
             {/* ---- Right: the form ---- */}
-            <div className="px-6 py-8 sm:px-8 sm:py-9">
+            <div className="order-1 px-6 py-8 sm:px-8 sm:py-9 lg:order-none">
               {sent ? (
                 <div className="flex h-full flex-col items-center justify-center py-4 text-center">
                   <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold/50">

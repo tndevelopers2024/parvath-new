@@ -3,6 +3,7 @@ import SectionHeading from './SectionHeading'
 import ServiceCard from './ServiceCard'
 import Button from './Button'
 import Reveal, { RevealGroup, RevealItem } from './Reveal'
+import SwipeArea from './SwipeArea'
 
 export default function Services({ withCta = true, background = 'bg-ivory' }) {
   return (
@@ -14,17 +15,19 @@ export default function Services({ withCta = true, background = 'bg-ivory' }) {
           lede="Six areas of work, approached as one plan. Most clients begin with a single question and find the rest connected to it."
         />
 
+        <SwipeArea className="mt-8 lg:mt-10">
         <RevealGroup
-          className="mt-8 grid gap-5 sm:grid-cols-2 lg:mt-10 lg:grid-cols-3 lg:gap-6"
+          className="swipe-mobile grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
           stagger={0.08}
           amount={0.12}
         >
           {services.map((service) => (
-            <RevealItem key={service.slug} className="h-full">
+            <RevealItem key={service.slug} className="h-full" y={32} scale={0.97}>
               <ServiceCard service={service} />
             </RevealItem>
           ))}
         </RevealGroup>
+        </SwipeArea>
 
         {withCta && (
           <Reveal y={16} className="mt-8 flex justify-center">

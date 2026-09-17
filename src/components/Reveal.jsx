@@ -85,7 +85,7 @@ export function RevealGroup({
   )
 }
 
-export function RevealItem({ children, as = 'div', className = '', y = 22, ...rest }) {
+export function RevealItem({ children, as = 'div', className = '', y = 22, x = 0, scale = 1, ...rest }) {
   const reduced = useReducedMotion()
   const MotionTag = motion[as] ?? motion.div
 
@@ -102,12 +102,60 @@ export function RevealItem({ children, as = 'div', className = '', y = 22, ...re
     <MotionTag
       className={className}
       variants={{
-        hidden: { opacity: 0, y },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
+        hidden: { opacity: 0, y, x, scale },
+        visible: { opacity: 1, y: 0, x: 0, scale: 1, transition: { duration: 0.65, ease: EASE } },
       }}
       {...rest}
     >
       {children}
     </MotionTag>
+  )
+}
+
+/**
+ * Line of copy that rises into view one word at a time, each word sliding up
+ * out of its own clipping mask. The full string stays in the accessibility
+ * tree; the animated words are hidden from it.
+ *
+ * `trigger="view"` fires on scroll; `trigger` as a boolean fires when true
+ * (used by the hero, which waits for the preloader).
+ */
+export function SplitWords({ text, trigger = 'view', delay = 0, stagger = 0.06, className = '' }) {
+  const reduced = useReducedMotion()
+  if (reduced || typeof text !== 'string') return text
+
+  const words = text.split(' ')
+  const play =
+    trigger === 'view'
+      ? { initial: 'hidden', whileInView: 'visible', viewport: viewportOnce }
+      : { initial: 'hidden', animate: trigger ? 'visible' : 'hidden' }
+
+  return (
+    <>
+      <span className="sr-only">{text}</span>
+      <motion.span
+        aria-hidden="true"
+        className={className}
+        variants={{ hidden: {}, visible: { transition: { staggerChildren: stagger, delayChildren: delay } } }}
+        {...play}
+      >
+        {words.map((word, i) => (
+          <span key={`${word}-${i}`}>
+            <span className="-mb-[0.14em] inline-block overflow-hidden pb-[0.14em] align-bottom">
+              <motion.span
+                className="inline-block will-change-transform"
+                variants={{
+                  hidden: { y: '105%' },
+                  visible: { y: '0%', transition: { duration: 0.9, ease: EASE } },
+                }}
+              >
+                {word}
+              </motion.span>
+            </span>
+            {i < words.length - 1 && ' '}
+          </span>
+        ))}
+      </motion.span>
+    </>
   )
 }

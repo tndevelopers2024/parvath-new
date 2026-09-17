@@ -28,6 +28,10 @@ import {
  * `emphasis: true` renders as the large headline figure; others are
  * supporting breakdown lines.
  *
+ * Optional `breakdown(results)` returns two parts that sum to a whole (e.g.
+ * invested vs growth); the page draws them as a stacked bar under
+ * `breakdownTitle`. Every part is derived from the calculator's own results.
+ *
  * These are illustrative, assumption-driven estimates, not guarantees — see
  * `calculatorDisclaimer` below, shown on every calculator page.
  */
@@ -221,6 +225,11 @@ export const calculators = [
       { key: 'invested', label: 'Total invested', format: 'currency' },
       { key: 'gain', label: 'Estimated growth', format: 'currency' },
     ],
+    breakdownTitle: 'What the projected value is made of',
+    breakdown: (r) => [
+      { label: 'Invested', value: r.invested },
+      { label: 'Growth', value: r.gain },
+    ],
   },
   {
     slug: 'lumpsum',
@@ -242,6 +251,11 @@ export const calculators = [
     results: [
       { key: 'futureValue', label: 'Projected value', format: 'currency', emphasis: true },
       { key: 'gain', label: 'Estimated growth', format: 'currency' },
+    ],
+    breakdownTitle: 'What the projected value is made of',
+    breakdown: (r) => [
+      { label: 'Invested', value: r.futureValue - r.gain },
+      { label: 'Growth', value: r.gain },
     ],
   },
   {
@@ -265,6 +279,11 @@ export const calculators = [
       { key: 'shortfall', label: 'What the delay costs you', format: 'currency', emphasis: true },
       { key: 'fvStartingNow', label: 'Value if started now', format: 'currency' },
       { key: 'fvIfDelayed', label: 'Value if delayed', format: 'currency' },
+    ],
+    breakdownTitle: 'Starting now, split by the delay',
+    breakdown: (r) => [
+      { label: 'Value if delayed', value: r.fvIfDelayed },
+      { label: 'Lost to delay', value: r.shortfall },
     ],
   },
   {
@@ -295,6 +314,11 @@ export const calculators = [
     results: [
       { key: 'futureValue', label: 'Projected value at goal date', format: 'currency', emphasis: true },
       { key: 'invested', label: 'Total invested', format: 'currency' },
+    ],
+    breakdownTitle: 'What the projected value is made of',
+    breakdown: (r) => [
+      { label: 'Invested', value: r.invested },
+      { label: 'Growth', value: r.futureValue - r.invested },
     ],
   },
   {
@@ -327,6 +351,11 @@ export const calculators = [
       { key: 'withoutStepUp', label: 'Without step-up, for comparison', format: 'currency' },
       { key: 'extraFromStepUp', label: 'Extra from stepping up', format: 'currency' },
     ],
+    breakdownTitle: 'How the step-up adds up',
+    breakdown: (r) => [
+      { label: 'Without step-up', value: r.withoutStepUp },
+      { label: 'Extra from step-up', value: r.extraFromStepUp },
+    ],
   },
   {
     slug: 'birthday-sip',
@@ -351,6 +380,11 @@ export const calculators = [
       { key: 'futureValue', label: 'Projected value', format: 'currency', emphasis: true },
       { key: 'invested', label: 'Total invested', format: 'currency' },
       { key: 'gain', label: 'Estimated growth', format: 'currency' },
+    ],
+    breakdownTitle: 'What the projected value is made of',
+    breakdown: (r) => [
+      { label: 'Invested', value: r.invested },
+      { label: 'Growth', value: r.gain },
     ],
   },
 
@@ -377,6 +411,11 @@ export const calculators = [
       { key: 'emi', label: 'Monthly EMI', format: 'currency', emphasis: true },
       { key: 'totalInterest', label: 'Total interest payable', format: 'currency' },
       { key: 'totalPayment', label: 'Total of all payments', format: 'currency' },
+    ],
+    breakdownTitle: 'What you repay over the loan',
+    breakdown: (r) => [
+      { label: 'Principal', value: r.totalPayment - r.totalInterest },
+      { label: 'Interest', value: r.totalInterest },
     ],
   },
   {
@@ -405,6 +444,11 @@ export const calculators = [
       { key: 'emi', label: 'Monthly home loan EMI', format: 'currency', emphasis: true },
       { key: 'sipValue', label: 'Parallel SIP, projected value', format: 'currency' },
       { key: 'sipInvested', label: 'Parallel SIP, total invested', format: 'currency' },
+    ],
+    breakdownTitle: 'What the matching SIP becomes',
+    breakdown: (r) => [
+      { label: 'SIP invested', value: r.sipInvested },
+      { label: 'SIP growth', value: r.sipValue - r.sipInvested },
     ],
   },
 

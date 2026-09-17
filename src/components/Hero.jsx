@@ -1,26 +1,17 @@
-import { Link } from 'react-router-dom'
-import { motion, useReducedMotion } from 'motion/react'
+import { useRef } from 'react'
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { EASE } from '../lib/motion'
 import { usePreloaderDone } from '../lib/preloader'
 import { heroBanner } from '../data/images'
 import Button from './Button'
-
-const stripItems = [
-  { text: 'Wealth Creation & Strategy', to: '/services/wealth-creation' },
-  { text: 'Retirement & Pension Architecture', to: '/services/retirement-planning' },
-  { text: 'Comprehensive Life Insurance', to: '/services/life-insurance' },
-  { text: 'Generational Legacy Planning', to: '/services/legacy-planning' },
-  { text: 'Employee Benefits & Retention', to: '/services/employee-benefits' },
-  { text: 'Group Gratuity Valuation & Schemes', to: '/services/group-gratuity' },
-  { text: '20+ Years Corporate Experience', to: '/about' },
-  { text: '200+ Families & Businesses Served', to: '/contact' },
-  { text: 'Unbiased Goal-Based Advisory', to: '/approach' },
-]
+import { SplitWords } from './Reveal'
 
 const slide = heroBanner
 
 /**
- * Editorial hero banner — a single, still frame rather than a slider.
+ * Editorial hero banner — a single frame rather than a slider. On arrival the
+ * photograph settles from a slow push-in and the headline rises word by word;
+ * on scroll the photograph drifts slower than the page and the copy eases out.
  */
 export default function Hero() {
   const reduced = useReducedMotion()
@@ -28,25 +19,50 @@ export default function Hero() {
   const ready = usePreloaderDone()
   const enter = reduced ? {} : ready ? { opacity: 1, y: 0 } : undefined
 
+  const sectionRef = useRef(null)
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] })
+  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -90])
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+
   return (
     <section
+      ref={sectionRef}
       data-cursor-theme="dark"
-      className="relative isolate flex h-screen min-h-[100vh] items-center overflow-hidden pb-12 lg:pb-0"
+      className="relative isolate flex h-dvh min-h-dvh items-start overflow-hidden lg:items-center"
     >
       {/* ---- Background banner image ---- */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <img
-          src={slide.src}
-          alt={slide.alt}
-          className={`h-full w-full object-cover ${slide.position || 'object-center'}`}
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
+        <motion.div className="h-full w-full" style={reduced ? undefined : { y: imageY }}>
+          <div className="animate-breathe h-full w-full">
+          <picture className="block h-full w-full">
+          {slide.mobileSrc && <source media={slide.mobileMedia} srcSet={slide.mobileSrc} type="image/avif" />}
+          <motion.img
+            src={slide.src}
+            alt={slide.alt}
+            className={`h-full w-full object-cover ${slide.position || 'object-center'}`}
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            initial={reduced ? false : { scale: 1.14 }}
+            animate={reduced ? undefined : ready ? { scale: 1.04 } : undefined}
+            transition={{ duration: 2.8, ease: EASE }}
+          />
+          </picture>
+          </div>
+        </motion.div>
+        {/* Small screens: the headline sits over the photo, so shade the top half */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 via-45% to-transparent to-60% lg:hidden"
         />
       </div>
 
       {/* ---- Content Block ---- */}
-      <div className="shell relative z-10 flex flex-col items-start pt-28 pb-14 sm:pt-32 sm:pb-16 lg:pt-36">
+      <motion.div
+        className="shell relative z-10 flex flex-col items-start max-[370px]:px-5 pt-[5.5rem] pb-14 min-[400px]:pt-24 sm:pt-32 sm:pb-16 lg:pt-36"
+        style={reduced ? undefined : { y: contentY, opacity: contentOpacity }}
+      >
         <div className="max-w-2xl text-left [text-shadow:0_2px_14px_rgba(0,0,0,0.85)]">
           <motion.p
             className="eyebrow text-gold-soft"
@@ -57,60 +73,42 @@ export default function Hero() {
             {slide.eyebrow}
           </motion.p>
 
-          <motion.h1
-            className="display-1 mt-4 text-ivory"
-            initial={reduced ? false : { opacity: 0, y: 16 }}
-            animate={enter}
-            transition={{ duration: 0.9, delay: 0.65, ease: EASE }}
-          >
-            {slide.title}
-          </motion.h1>
+          <h1 className="display-1 mt-3 text-ivory max-[400px]:text-[2rem] max-[370px]:text-[1.875rem] sm:mt-4">
+            <SplitWords text={slide.title} trigger={ready} delay={0.65} stagger={0.07} />
+          </h1>
 
           <motion.div
-            className="mt-6"
+            className="mt-4 sm:mt-6"
             initial={reduced ? false : { opacity: 0, y: 10 }}
             animate={enter}
-            transition={{ duration: 0.9, delay: 0.8, ease: EASE }}
+            transition={{ duration: 0.9, delay: 1.05, ease: EASE }}
           >
-            <p className="lede max-w-xl text-left text-ivory font-medium [text-shadow:0_1px_8px_rgba(0,0,0,0.85)]">
-              {slide.description}
+            <p className="lede max-w-xl text-left text-ivory font-medium [text-shadow:0_1px_8px_rgba(0,0,0,0.85)] max-[400px]:text-[0.9375rem] max-[400px]:leading-relaxed">
+              <span className="sm:hidden">{slide.mobileDescription ?? slide.description}</span>
+              <span className="hidden sm:inline">{slide.description}</span>
             </p>
 
-            <div className="mt-7 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
-              <Button to={slide.primaryCta.to} variant={slide.primaryCta.variant}>
+            <div className="mt-5 flex flex-wrap items-center gap-1.5 min-[370px]:gap-2 min-[400px]:gap-2.5 sm:mt-8 sm:gap-4">
+              <Button
+                to={slide.primaryCta.to}
+                variant={slide.primaryCta.variant}
+                shimmer
+                className="border border-transparent max-sm:px-4 max-sm:py-3 max-sm:text-[0.6875rem] max-sm:tracking-[0.04em] max-[400px]:px-3.5! max-[400px]:tracking-[0.02em]! max-[400px]:[&>svg]:hidden! max-[370px]:px-3! max-[370px]:text-[0.625rem]!"
+              >
                 {slide.primaryCta.label}
               </Button>
-              <Button to={slide.secondaryCta.to} variant={slide.secondaryCta.variant} withArrow={false}>
+              <Button
+                to={slide.secondaryCta.to}
+                variant={slide.secondaryCta.variant}
+                withArrow={false}
+                className="max-sm:px-4 max-sm:py-3 max-sm:text-[0.6875rem] max-sm:tracking-[0.04em] max-[400px]:px-3.5! max-[400px]:tracking-[0.02em]! max-[370px]:px-3! max-[370px]:text-[0.625rem]!"
+              >
                 {slide.secondaryCta.label}
               </Button>
             </div>
           </motion.div>
         </div>
-      </div>
-
-      {/* ---- Running Loop Marquee Strip at Bottom of Banner ---- */}
-      <aside
-        aria-label="Practice Highlights"
-        className="absolute inset-x-0 bottom-0 z-20 border-t border-gold-soft/20 bg-[#0c241e]/90 py-3 backdrop-blur-md"
-      >
-        <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
-          <div className="animate-marquee flex items-center gap-8 text-[0.6875rem] font-medium tracking-[0.18em] uppercase text-ivory/85 sm:text-[0.75rem]">
-            {[...stripItems, ...stripItems].map((item, idx) => (
-              <span key={`${item.text}-${idx}`} className="flex shrink-0 items-center gap-8">
-                <Link
-                  to={item.to}
-                  className="transition-colors duration-200 hover:text-gold-soft whitespace-nowrap cursor-pointer"
-                >
-                  {item.text}
-                </Link>
-                <span aria-hidden="true" className="text-gold-soft/60 text-[0.625rem] select-none">
-                  ✦
-                </span>
-              </span>
-            ))}
-          </div>
-        </div>
-      </aside>
+      </motion.div>
     </section>
   )
 }

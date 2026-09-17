@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { ArrowUp } from 'lucide-react'
 import { useLenis } from 'lenis/react'
+import { useLocation } from 'react-router-dom'
 import { site } from '../data/site'
 
 function WhatsAppIcon({ className = 'h-6 w-6 fill-current' }) {
@@ -15,28 +16,31 @@ function WhatsAppIcon({ className = 'h-6 w-6 fill-current' }) {
 /**
  * Floating action controls:
  * 1. Scroll-to-top button: appears smoothly when scrolling past 300px and scrolls up using Lenis.
- * 2. WhatsApp floating icon: persistent, accessible instant messaging trigger with the official brand icon and tooltip.
+ * 2. WhatsApp floating icon in the site palette (forest with a gold ring). On
+ *    the home page it stays out of the way while the hero banner is on screen,
+ *    and eases in once the visitor scrolls past most of it.
  */
 export default function FloatingActions() {
-  const [showScrollTop, setShowScrollTop] = useState(false)
+  const [scrollY, setScrollY] = useState(0)
+  const { pathname } = useLocation()
   const lenis = useLenis()
 
   // Track scroll position via Lenis hook
   useLenis((instance) => {
-    setShowScrollTop(instance.scroll > 300)
+    setScrollY(instance.scroll)
   })
 
   // Window scroll fallback for non-Lenis or native events
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY || document.documentElement.scrollTop
-      setShowScrollTop(scrollY > 300)
-    }
-
+    const handleScroll = () => setScrollY(window.scrollY || document.documentElement.scrollTop)
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [pathname])
+
+  const showScrollTop = scrollY > 300
+  // Home hero fills the viewport; keep WhatsApp hidden until most of it has scrolled away
+  const onHomeHero = pathname === '/' && scrollY < (typeof window === 'undefined' ? 0 : window.innerHeight * 0.6)
 
   const scrollToTop = () => {
     if (lenis) {
@@ -49,7 +53,7 @@ export default function FloatingActions() {
   return (
     <aside
       aria-label="Quick actions"
-      className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-center gap-3 pointer-events-none"
+      className="fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-4 sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] sm:right-6 z-40 flex flex-col items-center gap-3 pointer-events-none"
     >
       <AnimatePresence>
         {showScrollTop && (
@@ -79,22 +83,35 @@ export default function FloatingActions() {
         )}
       </AnimatePresence>
 
-      <a
-        href={site.social.whatsapp}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat with us on WhatsApp"
-        className="group relative flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_6px_20px_rgba(37,211,102,0.4)] ring-4 ring-[#25D366]/20 transition-all duration-300 hover:scale-105 hover:bg-[#20ba5a] hover:ring-[#25D366]/35 hover:shadow-[0_8px_26px_rgba(37,211,102,0.55)] focus-visible:outline-2 focus-visible:outline-[#25D366] focus-visible:outline-offset-2 pointer-events-auto"
-      >
-        <WhatsAppIcon className="h-6 w-6 sm:h-7 sm:w-7 fill-white transition-transform duration-300 group-hover:scale-110" />
-        <span
-          role="tooltip"
-          className="pointer-events-none absolute right-[calc(100%+0.625rem)] top-1/2 -translate-y-1/2 hidden whitespace-nowrap rounded-md bg-forest px-2.5 py-1 text-xs font-medium text-white shadow-lg opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:block"
-        >
-          Chat on WhatsApp
-          <span className="absolute -right-1 top-1/2 -translate-y-1/2 border-4 border-transparent border-l-forest" />
-        </span>
-      </a>
+      <AnimatePresence>
+        {!onHomeHero && (
+          <motion.a
+            key="whatsapp"
+            href={site.social.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Chat with us on WhatsApp"
+            initial={{ opacity: 0, scale: 0.6, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.6, y: 16 }}
+            transition={{ duration: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
+            className="group relative flex h-12 w-12 items-center justify-center rounded-full border border-gold/60 bg-forest text-gold-soft shadow-[0_10px_28px_-6px_rgba(23,63,53,0.55),0_0_0_4px_rgba(169,136,66,0.16)] transition-[background-color,color,box-shadow,border-color] duration-300 hover:border-gold hover:bg-forest-soft hover:text-ivory hover:shadow-[0_14px_32px_-6px_rgba(23,63,53,0.6),0_0_0_6px_rgba(169,136,66,0.22)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest pointer-events-auto sm:h-13 sm:w-13"
+          >
+            <span
+              aria-hidden="true"
+              className="animate-ping-soft pointer-events-none absolute inset-0 rounded-full border border-gold motion-reduce:hidden"
+            />
+            <WhatsAppIcon className="relative h-6 w-6 fill-current transition-transform duration-300 group-hover:scale-110 sm:h-[1.625rem] sm:w-[1.625rem]" />
+            <span
+              role="tooltip"
+              className="pointer-events-none absolute right-[calc(100%+0.625rem)] top-1/2 -translate-y-1/2 hidden whitespace-nowrap rounded-md bg-forest px-2.5 py-1 text-xs font-medium text-white shadow-lg opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:block"
+            >
+              Chat on WhatsApp
+              <span className="absolute -right-1 top-1/2 -translate-y-1/2 border-4 border-transparent border-l-forest" />
+            </span>
+          </motion.a>
+        )}
+      </AnimatePresence>
     </aside>
   )
 }

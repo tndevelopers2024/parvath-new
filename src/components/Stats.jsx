@@ -1,76 +1,83 @@
-import { useEffect, useRef, useState } from 'react'
-import { animate, useInView, useReducedMotion } from 'motion/react'
+import { Briefcase, LayoutGrid, TrendingUp, Users } from 'lucide-react'
 import { stats } from '../data/site'
-import { EASE } from '../lib/motion'
+import { trackPointer } from '../lib/motion'
+import CountUp from './CountUp'
+import { JaaliField } from './Ornaments'
 import { RevealGroup, RevealItem } from './Reveal'
 
-/**
- * Counts a figure like "200+" up from zero the first time it enters view.
- * The full value is always in the accessible text, so nothing is announced
- * mid-count; with reduced motion the final figure renders directly.
- */
-function CountUp({ value }) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, amount: 0.6 })
-  const reduced = useReducedMotion()
-  const [, target, suffix] = value.match(/^(\d+)(.*)$/) ?? [null, null, value]
-  const [shown, setShown] = useState(reduced || target === null ? value : `0${suffix}`)
-
-  useEffect(() => {
-    if (!inView || reduced || target === null) return
-    const controls = animate(0, Number(target), {
-      duration: 1.2,
-      ease: EASE,
-      onUpdate: (n) => setShown(`${Math.round(n)}${suffix}`),
-    })
-    return () => controls.stop()
-  }, [inView, reduced, target, suffix])
-
-  return (
-    <span ref={ref} className="stat-figure block">
-      <span aria-hidden="true">{shown}</span>
-      <span className="sr-only">{value}</span>
-    </span>
-  )
-}
+// In data order: corporate experience, advisory, families served, planning areas.
+const icons = [Briefcase, TrendingUp, Users, LayoutGrid]
 
 /**
- * Trust strip. Large figures separated by hairlines — a ledger, not a row of
- * KPI cards.
+ * Trust strip, set as a compact forest band between the light ticker and the
+ * founder section. Each cell pairs a seal with its figure side by side so the
+ * row reads full rather than airy; the "+" is picked out in gold, and hovering
+ * a cell draws a gold rule along its top and warms it with a pointer glow.
  *
  * The grid is 2-up on small screens and 4-up from `lg`, so the dividing rules
- * have to follow the column count: a cell gets a left rule only when it is not
- * first in its row at that breakpoint.
+ * follow the column count.
  */
 export default function Stats() {
   return (
-    <section aria-label="Practice at a glance" className="border-b border-line bg-ivory">
+    <section
+      aria-label="Practice at a glance"
+      data-cursor-theme="dark"
+      className="relative isolate overflow-hidden bg-forest"
+    >
+      {/* Drifting lattice and a soft light from above */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_50%_0%,black,transparent_75%)]"
+      >
+        <div className="animate-drift absolute top-0 left-0 -right-[56px] -bottom-[56px] [--drift:56px]">
+          <JaaliField opacity={0.08} scale={56} tone="#E4D2A6" />
+        </div>
+      </div>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent"
+      />
+
       <div className="shell">
-        <RevealGroup
-          as="dl"
-          className="grid grid-cols-2 py-8 md:py-10 lg:grid-cols-4 lg:py-12"
-          stagger={0.1}
-        >
+        <RevealGroup as="dl" className="grid grid-cols-2 lg:grid-cols-4" stagger={0.1}>
           {stats.map((stat, i) => {
-            const firstInSmallRow = i % 2 === 0
+            const Icon = icons[i]
             const rules = [
-              firstInSmallRow ? 'pr-5' : 'border-l border-line pl-5 sm:pl-8',
-              i === 0 ? 'lg:border-l-0 lg:pl-0' : 'lg:border-l lg:border-line lg:pl-8 xl:pl-10',
-              'lg:pr-8 xl:pr-10',
-              i > 1 ? 'mt-10 lg:mt-0' : '',
+              i % 2 === 1 ? 'border-l border-ivory/10' : '',
+              i > 1 ? 'border-t border-ivory/10 lg:border-t-0' : '',
+              i > 0 ? 'lg:border-l lg:border-ivory/10' : '',
             ].join(' ')
 
             return (
-              <RevealItem key={stat.label} className={rules}>
+              <RevealItem
+                key={stat.label}
+                y={24}
+                onPointerMove={trackPointer}
+                className={`spotlight group relative px-4 py-6 sm:px-6 md:py-7 lg:justify-center lg:py-8 xl:px-8 ${rules} lg:flex`}
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gold-soft transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:scale-x-100"
+                />
                 <dt className="sr-only">{stat.label}</dt>
-                <dd>
-                  <CountUp value={stat.value} />
+                <dd className="flex items-center gap-3 sm:gap-4">
                   <span
                     aria-hidden="true"
-                    className="mt-4 block h-px w-8 bg-gold"
-                  />
-                  <span className="mt-3 block max-w-[11rem] text-[0.6875rem] leading-relaxed font-medium tracking-[0.14em] text-muted uppercase">
-                    {stat.label}
+                    className="animate-float hidden h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold-soft/30 bg-ivory/5 text-gold-soft transition-colors duration-500 group-hover:border-gold group-hover:bg-gold group-hover:text-forest sm:flex"
+                    style={{ animationDelay: `${i * -1.5}s` }}
+                  >
+                    <Icon className="h-5 w-5" strokeWidth={1.5} />
+                  </span>
+
+                  <span className="min-w-0">
+                    <CountUp
+                      value={stat.value}
+                      className="block font-display text-[2.25rem] leading-none font-normal tracking-[-0.02em] text-ivory tabular-nums sm:text-[2.75rem] xl:text-[3.25rem]"
+                      suffixClassName="text-gold-soft"
+                    />
+                    <span className="mt-2 block text-[0.625rem] leading-snug font-medium tracking-[0.14em] text-ivory/75 uppercase transition-colors duration-500 group-hover:text-ivory sm:text-[0.6875rem]">
+                      {stat.label}
+                    </span>
                   </span>
                 </dd>
               </RevealItem>

@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
-import { animate, motion, useMotionValue, useReducedMotion, useTransform } from 'motion/react'
+import { animate, motion, useMotionValue, useReducedMotion } from 'motion/react'
 import { useLenis } from 'lenis/react'
 import { heroBanner } from '../data/images'
 import { useLocation } from 'react-router-dom'
 import { isInitialLoad, markPreloaderDone } from '../lib/preloader'
 import { JaaliField } from './Ornaments'
 
-const WORD = 'PARVATH'
 /** Slow in, slow out — the curtain should feel weighted, not snappy. */
 const CURTAIN = [0.76, 0, 0.24, 1]
 const INTRO = [0.22, 0.61, 0.36, 1]
@@ -19,7 +18,9 @@ function assetsReady() {
   const hero = new Promise((resolve) => {
     const img = new Image()
     img.onload = img.onerror = resolve
-    img.src = heroBanner.src
+    // Wait for the same file the hero's <picture> will pick on this screen
+    const mobile = heroBanner.mobileSrc && window.matchMedia(heroBanner.mobileMedia).matches
+    img.src = mobile ? heroBanner.mobileSrc : heroBanner.src
     if (img.complete) resolve()
   })
   const page =
@@ -34,8 +35,9 @@ function assetsReady() {
 const ROUTE_HOLD_S = 2
 
 /**
- * Brand intro: a drawn monogram seal, the wordmark rising letter by letter over
- * a gold progress hairline, then a two-layer curtain lift.
+ * Brand intro: the logo wipes up and settles, "Financial Services" eases in
+ * beneath it, then a two-layer curtain lift. Progress is tracked internally to
+ * time the lift but is not shown.
  *
  * The first load waits for fonts and the hero image; every later route change
  * (the component is keyed by pathname) holds for a fixed ROUTE_HOLD_S with the
@@ -51,8 +53,6 @@ export default function Preloader() {
   const k = initial ? 1 : 0.5
   const lenis = useLenis()
   const progress = useMotionValue(0)
-  const counter = useTransform(progress, (v) => String(Math.round(v)).padStart(3, '0'))
-  const scaleX = useTransform(progress, [0, 100], [0, 1])
 
   // Hand over from the static boot screen in index.html
   useEffect(() => {
@@ -116,7 +116,7 @@ export default function Preloader() {
         transition={{ duration: 0.4 }}
         onAnimationComplete={() => exiting && finish()}
       >
-        <span className="font-display text-3xl font-bold tracking-[0.3em] text-ivory">{WORD}</span>
+        <img src="/brand/parvath-logo-light.png" alt="" width="640" height="479" className="h-32 w-auto" />
       </motion.div>
     )
   }
@@ -159,83 +159,28 @@ export default function Preloader() {
           animate={exiting ? { opacity: 0, y: -28 } : { opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: INTRO }}
         >
-          {/* Monogram seal */}
-          <svg aria-hidden="true" viewBox="0 0 96 96" className="h-20 w-20 sm:h-24 sm:w-24">
-            <motion.circle
-              cx="48"
-              cy="48"
-              r="46"
-              fill="none"
-              stroke="#E4D2A6"
-              strokeOpacity="0.55"
-              strokeWidth="0.75"
-              transform="rotate(-90 48 48)"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1.4 * k, ease: INTRO }}
-            />
-            <motion.circle
-              cx="48"
-              cy="48"
-              r="40"
-              fill="none"
-              stroke="#E4D2A6"
-              strokeOpacity="0.25"
-              strokeWidth="0.5"
-              strokeDasharray="1 3"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 * k, delay: 0.6 * k }}
-            />
-            <motion.path
-              d="M48 20 L76 48 L48 76 L20 48 Z"
-              fill="none"
-              stroke="#A98842"
-              strokeWidth="0.9"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1.1 * k, delay: 0.35 * k, ease: INTRO }}
-            />
-            <motion.text
-              x="48"
-              y="49"
-              textAnchor="middle"
-              dominantBaseline="central"
-              fill="#FFFFFF"
-              fontFamily="Raleway, sans-serif"
-              fontSize="26"
-              fontWeight="500"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 * k, delay: 0.75 * k, ease: INTRO }}
-            >
-              P
-            </motion.text>
-          </svg>
-
-          {/* Wordmark, letter by letter */}
-          <p
+          {/* Logo: wipes up from its base while settling out of a slight zoom */}
+          <motion.div
             aria-hidden="true"
-            className="mt-8 flex font-display text-[2rem] font-semibold tracking-[0.32em] text-ivory sm:text-[2.75rem]"
-            style={{ marginRight: '-0.32em' }}
+            initial={{ clipPath: 'inset(100% 0 0 0)' }}
+            animate={{ clipPath: 'inset(0% 0 0 0)' }}
+            transition={{ duration: 1.1 * k, delay: 0.2 * k, ease: INTRO }}
           >
-            {WORD.split('').map((letter, i) => (
-              <span key={i} className="inline-block overflow-hidden pb-1">
-                <motion.span
-                  className="inline-block"
-                  initial={{ y: '110%' }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 0.9 * k, delay: (0.55 + i * 0.07) * k, ease: INTRO }}
-                >
-                  {letter}
-                </motion.span>
-              </span>
-            ))}
-          </p>
+            <motion.img
+              src="/brand/parvath-logo-light.png"
+              alt=""
+              width="640"
+              height="479"
+              className="h-32 w-auto sm:h-40"
+              initial={{ scale: 1.12, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1.4 * k, delay: 0.2 * k, ease: INTRO }}
+            />
+          </motion.div>
 
           <motion.p
             aria-hidden="true"
-            className="mt-3 text-[0.625rem] font-medium text-gold-soft uppercase sm:text-[0.6875rem]"
+            className="mt-6 text-[0.625rem] font-medium text-gold-soft uppercase sm:text-[0.6875rem]"
             initial={{ opacity: 0, letterSpacing: '0.7em' }}
             animate={{ opacity: 1, letterSpacing: '0.42em' }}
             transition={{ duration: 1.4 * k, delay: 1.05 * k, ease: INTRO }}
@@ -243,36 +188,7 @@ export default function Preloader() {
           >
             Financial Services
           </motion.p>
-
-          {/* Progress hairline */}
-          <motion.div
-            className="mt-12 flex w-56 items-center gap-4 sm:w-64"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 * k, delay: initial ? 1.2 : 0.1 }}
-          >
-            <span className="relative h-px flex-1 overflow-hidden bg-ivory/15">
-              <motion.span
-                className="absolute inset-0 origin-left bg-linear-to-r from-gold to-gold-soft"
-                style={{ scaleX }}
-              />
-            </span>
-            <motion.span className="w-8 text-right font-sans text-[0.6875rem] tracking-[0.12em] text-ivory/60 tabular-nums">
-              {counter}
-            </motion.span>
-          </motion.div>
         </motion.div>
-
-        {/* Footer line */}
-        <motion.p
-          aria-hidden="true"
-          className="absolute bottom-8 text-[0.625rem] tracking-[0.36em] text-ivory/40 uppercase"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: exiting ? 0 : 1 }}
-          transition={{ duration: 0.8 * k, delay: exiting ? 0 : 1.4 * k }}
-        >
-          Plan &middot; Protect &middot; Grow
-        </motion.p>
       </motion.div>
     </div>
   )

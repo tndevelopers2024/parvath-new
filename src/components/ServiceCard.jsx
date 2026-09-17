@@ -8,6 +8,7 @@ import {
   TrendingUp,
   Users,
 } from 'lucide-react'
+import { trackPointer } from '../lib/motion'
 
 const iconMap = { TrendingUp, Sunrise, ShieldCheck, Landmark, Users, Building2 }
 
@@ -22,7 +23,8 @@ export default function ServiceCard({ service }) {
   return (
     <Link
       to={service.path}
-      className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white p-7 transition-[transform,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] hover:border-gold/60 hover:shadow-card sm:p-8 motion-safe:hover:-translate-y-1"
+      onPointerMove={trackPointer}
+      className="spotlight group relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white p-7 transition-[translate,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] hover:border-gold/60 hover:shadow-card sm:p-8 motion-safe:hover:-translate-y-1"
     >
       {/* Oversized ghost numeral, sitting behind the content */}
       <span
@@ -34,8 +36,15 @@ export default function ServiceCard({ service }) {
 
       <div className="relative flex items-start justify-between gap-4">
         {Icon && (
-          <span className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/40 bg-cream text-forest transition-colors duration-500 group-hover:border-forest group-hover:bg-forest group-hover:text-gold-soft">
-            <Icon aria-hidden="true" className="h-5 w-5" strokeWidth={1.5} />
+          <span
+            className="animate-float flex h-12 w-12 items-center justify-center rounded-full border border-gold/40 bg-cream text-forest transition-colors duration-500 group-hover:border-forest group-hover:bg-forest group-hover:text-gold-soft"
+            style={{ animationDelay: `${(Number(service.number) - 1) * -1}s` }}
+          >
+            <Icon
+              aria-hidden="true"
+              className="h-5 w-5 transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)] motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-[8deg]"
+              strokeWidth={1.5}
+            />
           </span>
         )}
         <ArrowUpRight

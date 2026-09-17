@@ -13,3 +13,14 @@ export const EASE = [0.22, 0.61, 0.36, 1]
 
 /** Reveal once, a quarter of the way in, with a little bottom slack. */
 export const viewportOnce = { once: true, amount: 0.25, margin: '0px 0px -10% 0px' }
+
+/**
+ * Pointer handler for `.spotlight` cards: writes the cursor position into
+ * --mx / --my so the CSS glow can follow it. No React state, no re-render.
+ */
+export function trackPointer(event) {
+  const el = event.currentTarget
+  const rect = el.getBoundingClientRect()
+  el.style.setProperty('--mx', `${event.clientX - rect.left}px`)
+  el.style.setProperty('--my', `${event.clientY - rect.top}px`)
+}

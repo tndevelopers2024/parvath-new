@@ -4,50 +4,66 @@ import { processSteps } from '../data/site'
 import { EASE, viewportOnce } from '../lib/motion'
 import SectionHeading from './SectionHeading'
 import { RevealGroup, RevealItem } from './Reveal'
+import SwipeArea from './SwipeArea'
 
 const iconMap = { Search, ClipboardList, Rocket, RefreshCcw }
 
-/** Icon-in-circle marker that sits on the connecting spine. */
-function Marker({ Icon, size = 'lg' }) {
-  const dims = size === 'lg' ? 'h-11 w-11' : 'h-8 w-8'
+/** Icon-in-circle marker that sits on the rail. The review step is inverted to gold. */
+function Marker({ Icon, accent = false, size = 'lg' }) {
+  const dims = size === 'lg' ? 'h-11 w-11' : 'h-9 w-9'
   const icon = size === 'lg' ? 'h-4 w-4' : 'h-3.5 w-3.5'
+  const tone = accent
+    ? 'border-gold bg-gold text-forest'
+    : 'border-gold/60 bg-forest text-gold-soft'
   return (
     <span
-      className={`flex ${dims} shrink-0 items-center justify-center rounded-full border border-gold/60 bg-forest text-gold-soft shadow-[0_0_0_6px_rgba(169,136,66,0.12)]`}
+      className={`relative z-10 flex ${dims} shrink-0 items-center justify-center rounded-full border ${tone} shadow-[0_0_0_6px_rgba(169,136,66,0.12)]`}
     >
-      <Icon aria-hidden="true" className={icon} strokeWidth={1.75} />
+      {accent && (
+        <span
+          aria-hidden="true"
+          className="animate-ripple absolute inset-0 rounded-full border border-gold motion-reduce:hidden"
+        />
+      )}
+      <Icon
+        aria-hidden="true"
+        className={`${icon} ${accent ? 'animate-spin-slow [animation-duration:9s]' : ''}`}
+        strokeWidth={1.75}
+      />
     </span>
   )
 }
 
+/** Hairline that draws itself in along one axis on first view. */
+function Rail({ className, axis = 'x' }) {
+  const reduced = useReducedMotion()
+  const origin = axis === 'x' ? 'origin-left' : 'origin-top'
+  if (reduced) return <span aria-hidden="true" className={`${className} ${origin}`} />
+
+  const from = axis === 'x' ? { scaleX: 0 } : { scaleY: 0 }
+  const to = axis === 'x' ? { scaleX: 1 } : { scaleY: 1 }
+  return (
+    <motion.span
+      aria-hidden="true"
+      className={`${className} ${origin}`}
+      initial={from}
+      whileInView={to}
+      viewport={viewportOnce}
+      transition={{ duration: 1.1, ease: EASE }}
+    />
+  )
+}
+
 /**
- * Four-step journey down a connecting spine: steps alternate left/right of a
- * centred line from `lg`, each landing on a marker; below `lg` the same spine
- * moves to a left rail and every card stacks full-width.
+ * Four steps as one continuous path. From `lg` the steps run left to right
+ * along a rail, and a dashed return line loops Review back to Understand, since
+ * the process repeats. Below `lg` the same rail runs down the left edge.
+ *
+ * Review is the step that keeps the others honest, so it is set in forest
+ * rather than white.
  */
 export default function Process({ eyebrow = 'Our Process', background = 'bg-ivory', className = '' }) {
-  const reduced = useReducedMotion()
-
-  const spine = (orientation) => {
-    const centered = orientation === 'centered'
-    const shared = 'absolute bg-line'
-    const position = centered
-      ? `${shared} top-2 bottom-2 left-1/2 hidden w-px origin-top -translate-x-1/2 lg:block`
-      : `${shared} top-2 bottom-2 left-4 w-px origin-top lg:hidden`
-
-    if (reduced) return <span aria-hidden="true" className={position} />
-
-    return (
-      <motion.span
-        aria-hidden="true"
-        className={position}
-        initial={{ scaleY: 0 }}
-        whileInView={{ scaleY: 1 }}
-        viewport={viewportOnce}
-        transition={{ duration: 1, ease: EASE }}
-      />
-    )
-  }
+  const last = processSteps.length - 1
 
   return (
     <section className={`section ${background} ${className}`}>
@@ -58,79 +74,116 @@ export default function Process({ eyebrow = 'Our Process', background = 'bg-ivor
           lede="Four steps, repeated for as long as we work together. The fourth is the one that keeps the first three honest."
         />
 
-        <div className="relative mt-14 lg:mt-16">
-          {spine('centered')}
-          {spine('left')}
+        <div className="relative mt-8 lg:mt-10">
+          {/* Desktop rail: first marker centre → last marker centre (4 cols, gap-6) */}
+          <Rail className="absolute top-[1.375rem] right-[calc(25%_-_2.5rem)] left-[1.375rem] hidden h-px bg-line lg:block" />
+          {/* A gold bead travelling the rail, from Understand toward Review */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute top-[1.375rem] right-[calc(25%_-_2.5rem)] left-[1.375rem] hidden lg:block motion-reduce:hidden"
+          >
+            <span className="animate-travel absolute top-0 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold shadow-[0_0_0_4px_rgba(169,136,66,0.18)]" />
+          </span>
+          {/* Mobile rail, down the left edge */}
+          <Rail axis="y" className="absolute top-4 bottom-4 left-[1.125rem] hidden w-px bg-line sm:block lg:hidden" />
 
-          <RevealGroup as="ol" className="flex flex-col gap-10 lg:gap-0" stagger={0.16} amount={0.12}>
+          <SwipeArea>
+          <RevealGroup
+            as="ol"
+            className="swipe-mobile relative grid grid-cols-1 gap-5 lg:grid-cols-4 lg:gap-6"
+            stagger={0.12}
+            amount={0.15}
+          >
             {processSteps.map((step, i) => {
               const Icon = iconMap[step.icon]
-              const isRight = i % 2 === 1
+              const accent = i === last
 
               return (
-                <RevealItem
-                  as="li"
-                  key={step.number}
-                  className={`relative pl-12 lg:pl-0 ${i > 0 ? 'lg:-mt-12' : ''}`}
-                  y={18}
-                >
-                  {/* Mobile marker, on the left rail */}
-                  <span className="absolute top-1 left-0 lg:hidden">
-                    <Marker Icon={Icon} size="sm" />
+                <RevealItem as="li" key={step.number} className="relative flex max-sm:pl-0 sm:pl-14 lg:flex-col lg:pl-0" y={18}>
+                  <span className="absolute top-5 left-0 max-sm:hidden lg:hidden">
+                    <Marker Icon={Icon} accent={accent} size="sm" />
+                  </span>
+                  <span className="hidden lg:block">
+                    <Marker Icon={Icon} accent={accent} />
                   </span>
 
-                  <div className="lg:grid lg:grid-cols-2 lg:items-center lg:gap-x-16">
-                    {/* Desktop marker, centred on the spine at this step's height */}
-                    <span className="absolute top-1/2 left-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 lg:block">
-                      <Marker Icon={Icon} />
-                    </span>
-
-                    {/* Cards hug the spine: left steps align right, right steps align left */}
-                    <div
-                      className={
-                        isRight ? 'lg:col-start-2 lg:flex lg:justify-start' : 'lg:col-start-1 lg:flex lg:justify-end'
-                      }
+                  <article
+                    className={`group flex w-full flex-1 flex-col rounded-2xl border p-6 transition-[border-color,box-shadow,transform] duration-500 hover:-translate-y-1 sm:p-7 lg:mt-7 ${
+                      accent
+                        ? 'border-forest bg-forest text-ivory hover:shadow-lift'
+                        : 'border-line bg-white hover:border-gold/60 hover:shadow-card'
+                    }`}
+                  >
+                    <p
+                      className={`text-[0.6875rem] font-medium tracking-[0.2em] uppercase ${
+                        accent ? 'text-gold-soft' : 'text-gold-ink'
+                      }`}
                     >
-                      <div className="group relative flex w-full flex-col overflow-hidden rounded-2xl border border-line bg-white p-6 transition-[border-color,box-shadow] duration-500 hover:border-gold/60 hover:shadow-card sm:p-7 lg:max-w-md">
-                        <span
-                          aria-hidden="true"
-                          className="pointer-events-none absolute -right-2 -bottom-6 font-display text-[5rem] leading-none font-semibold text-forest/[0.05] select-none sm:text-[6rem]"
-                        >
-                          {step.number}
-                        </span>
+                      Step {step.number}
+                      <span className={accent ? 'text-ivory/50' : 'text-muted/70'}> / 0{processSteps.length}</span>
+                    </p>
 
-                        <div className="relative flex items-start justify-between gap-4">
-                          <h3 className="font-display text-[1.5rem] leading-tight text-forest sm:text-[1.625rem]">
-                            {step.title}
-                          </h3>
-                          <span className="mt-1 shrink-0 text-[0.6875rem] font-medium tracking-[0.14em] text-muted uppercase">
-                            {step.number}/04
-                          </span>
-                        </div>
+                    <h3
+                      className={`mt-4 font-display text-[1.5rem] leading-tight sm:text-[1.625rem] ${
+                        accent ? 'text-ivory' : 'text-forest'
+                      }`}
+                    >
+                      {step.title}
+                    </h3>
 
-                        <p className="relative mt-3 max-w-md text-[0.9375rem] leading-relaxed text-muted">
-                          {step.body}
-                        </p>
+                    <span aria-hidden="true" className={`mt-4 block h-px w-8 ${accent ? 'bg-gold-soft' : 'bg-gold'}`} />
 
-                        {step.tags?.length > 0 && (
-                          <div className="relative mt-5 flex flex-wrap gap-2 pr-16">
-                            {step.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className="rounded-full border border-line px-3 py-1 text-[0.625rem] font-medium tracking-[0.08em] text-muted uppercase"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+                    <p
+                      className={`mt-4 text-[0.9375rem] leading-relaxed ${accent ? 'text-ivory/80' : 'text-muted'}`}
+                    >
+                      {step.body}
+                    </p>
+
+                    {step.tags?.length > 0 && (
+                      <ul className="mt-auto flex flex-wrap gap-2 pt-6">
+                        {step.tags.map((tag) => (
+                          <li
+                            key={tag}
+                            className={`rounded-full border px-3 py-1 text-[0.625rem] font-medium tracking-[0.08em] uppercase ${
+                              accent ? 'border-ivory/25 text-ivory/80' : 'border-line text-muted'
+                            }`}
+                          >
+                            {tag}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </article>
                 </RevealItem>
               )
             })}
           </RevealGroup>
+          </SwipeArea>
+
+          {/* Desktop return loop: under Review, back along the bottom, up into Understand */}
+          <div className="relative mt-3 hidden h-10 lg:block">
+            <div className="absolute top-0 right-[calc(25%_-_2.5rem)] bottom-0 left-[1.375rem] rounded-b-2xl border border-t-0 border-dashed border-gold/70">
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 10 6"
+                className="absolute -top-1 left-0 h-1.5 w-2.5 -translate-x-1/2 fill-gold"
+              >
+                <path d="M5 0 10 6H0z" />
+              </svg>
+              <p
+                className={`absolute bottom-0 left-1/2 flex -translate-x-1/2 translate-y-1/2 items-center gap-2 px-4 text-[0.6875rem] font-medium tracking-[0.18em] whitespace-nowrap text-gold-ink uppercase ${background}`}
+              >
+                <RefreshCcw aria-hidden="true" className="animate-spin-slow h-3.5 w-3.5 [animation-duration:9s]" strokeWidth={1.75} />
+                Then back to step 01, as life changes
+              </p>
+            </div>
+          </div>
+
+          {/* Mobile return note */}
+          <p className="mt-5 flex items-center gap-2 pl-14 text-[0.6875rem] font-medium tracking-[0.18em] text-gold-ink uppercase lg:hidden">
+            <RefreshCcw aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />
+            Then back to step 01
+          </p>
         </div>
       </div>
     </section>

@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { ReactLenis } from 'lenis/react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -20,8 +20,7 @@ const LifeInsurance = lazy(() => import('./pages/LifeInsurance'))
 const LegacyPlanning = lazy(() => import('./pages/LegacyPlanning'))
 const EmployeeBenefits = lazy(() => import('./pages/EmployeeBenefits'))
 const GroupGratuity = lazy(() => import('./pages/GroupGratuity'))
-const Approach = lazy(() => import('./pages/Approach'))
-const InsightsPage = lazy(() => import('./pages/Insights'))
+// Insights is hidden until real articles exist; the page file stays in src/pages.
 const Contact = lazy(() => import('./pages/Contact'))
 
 const Calculators = lazy(() => import('./pages/calculators/Calculators'))
@@ -80,8 +79,9 @@ export default function App() {
               <Route path="/services/legacy-planning" element={<LegacyPlanning />} />
               <Route path="/services/employee-benefits" element={<EmployeeBenefits />} />
               <Route path="/services/group-gratuity" element={<GroupGratuity />} />
-              <Route path="/approach" element={<Approach />} />
-              <Route path="/insights" element={<InsightsPage />} />
+              {/* Approach was folded into About; keep old links working */}
+              <Route path="/approach" element={<Navigate to="/about" replace />} />
+              <Route path="/insights" element={<Navigate to="/" replace />} />
               <Route path="/contact" element={<Contact />} />
 
               <Route path="/calculators" element={<Calculators />} />

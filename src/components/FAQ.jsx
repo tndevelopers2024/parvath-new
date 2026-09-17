@@ -62,11 +62,18 @@ function FAQItem({ item, isOpen, onToggle }) {
 }
 
 /**
- * Single-open accordion, centred as the closing note of the homepage. Answers
+ * Single-open accordion, centred as the closing note of the homepage. Service
+ * pages pass their own `items` and heading copy. Answers
  * stay grounded in what's stated elsewhere on the site (process, services,
  * contact channels) rather than introducing new claims.
  */
-export default function FAQ({ background = 'bg-ivory' }) {
+export default function FAQ({
+  background = 'bg-ivory',
+  items = faqs,
+  eyebrow = 'FAQ',
+  title = 'Frequently Asked Questions',
+  lede = 'Answers to the questions we hear most often before a first planning conversation.',
+}) {
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
@@ -78,13 +85,13 @@ export default function FAQ({ background = 'bg-ivory' }) {
 
       <div className="shell">
         <SectionHeading
-          eyebrow="FAQ"
-          title="Frequently Asked Questions"
-          lede="Answers to the questions we hear most often before a first planning conversation."
+          eyebrow={eyebrow}
+          title={title}
+          lede={lede}
         />
 
-        <RevealGroup className="mx-auto mt-10 flex max-w-3xl flex-col gap-3 sm:gap-3.5 lg:mt-14" stagger={0.06}>
-          {faqs.map((item, i) => (
+        <RevealGroup className="mx-auto mt-8 flex max-w-3xl flex-col gap-3 sm:gap-3.5 lg:mt-10" stagger={0.06}>
+          {items.map((item, i) => (
             <RevealItem key={item.question}>
               <FAQItem
                 item={item}

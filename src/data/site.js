@@ -78,6 +78,32 @@ export const services = [
       },
     ],
     forWhom: 'Professionals, families and business owners building long-term capital.',
+    signs: [
+      'You are saving regularly, but without a clear idea of what each investment is for.',
+      'Your investments have grown piecemeal over the years and no longer add up to a plan.',
+      'A large goal — a home, a child’s education, a business expansion — is within ten years.',
+      'Market swings make you want to stop investing, or to change course every few months.',
+    ],
+    deliverables: [
+      { title: 'A goal map', body: 'Every objective written down with a horizon, a priority and an indicative amount.' },
+      { title: 'An allocation that fits', body: 'A structure across asset classes matched to your timelines and to the volatility you can live with.' },
+      { title: 'A review rhythm', body: 'Agreed check-in points so the plan is adjusted deliberately, not reactively.' },
+    ],
+    calculators: ['sip', 'lumpsum', 'sip-top-up', 'cost-of-delay'],
+    faqs: [
+      {
+        question: 'How much do I need to start?',
+        answer: 'There is no fixed minimum for a planning conversation. The plan is built around your cash flow as it is today, and a modest amount invested consistently is often more useful than a large amount invested once.',
+      },
+      {
+        question: 'Will you recommend specific investments in the first meeting?',
+        answer: 'No. The first conversation is about understanding your goals, timelines and existing holdings. Recommendations only make sense once that picture is clear.',
+      },
+      {
+        question: 'What happens when markets fall?',
+        answer: 'A plan built around your real tolerance for volatility is designed to be held through difficult periods. Reviews are the place to adjust it — calmly, and against your goals rather than the headlines.',
+      },
+    ],
   },
   {
     number: '02',
@@ -112,6 +138,32 @@ export const services = [
       },
     ],
     forWhom: 'Salaried professionals and business owners planning financial independence.',
+    signs: [
+      'You have a retirement age in mind, but no clear number to go with it.',
+      'Most of your retirement savings sit in one place — often the business or a single account.',
+      'You are within fifteen years of stopping work and want to know whether you are on track.',
+      'You are unsure how income will actually be drawn once the salary or business income stops.',
+    ],
+    deliverables: [
+      { title: 'Your retirement number', body: 'An inflation-adjusted estimate of the corpus your intended lifestyle requires.' },
+      { title: 'A gap and a path', body: 'A clear view of what exists today, what still needs to be built, and how.' },
+      { title: 'An income plan', body: 'A structure for drawing income once accumulation stops, planned for a long retirement.' },
+    ],
+    calculators: ['dream-retirement', 'swp', 'limited-period-sip', 'cost-of-delay'],
+    faqs: [
+      {
+        question: 'When should I start planning for retirement?',
+        answer: 'As early as possible, because time does much of the work. That said, a plan made later is still far better than none — it simply needs to be more deliberate about the gap.',
+      },
+      {
+        question: 'I own a business. Is my business my retirement plan?',
+        answer: 'For many owners it is, in practice. Planning helps reduce the dependence on a single sale or exit, so retirement does not rest entirely on one event going well.',
+      },
+      {
+        question: 'How do you account for inflation and longer retirements?',
+        answer: 'Retirement costs are estimated in future terms, not today’s, and the plan assumes a retirement that could run for decades rather than a few years.',
+      },
+    ],
   },
   {
     number: '03',
@@ -145,6 +197,32 @@ export const services = [
       },
     ],
     forWhom: 'Anyone whose income supports another person — or a business.',
+    signs: [
+      'Someone depends on your income — a partner, children, parents or a business.',
+      'You have taken on a home loan or another large liability.',
+      'Your family has grown, or your income has changed, since your cover was last reviewed.',
+      'You hold several policies but are unsure what they add up to, or who is nominated.',
+    ],
+    deliverables: [
+      { title: 'A needs figure', body: 'The cover your family would actually require, sized against liabilities and commitments.' },
+      { title: 'A gap reading', body: 'Existing policies set against that figure, so you know what is missing — or duplicated.' },
+      { title: 'A tidy structure', body: 'Ownership and nominations reviewed so proceeds reach the people they are meant for.' },
+    ],
+    calculators: ['life-insurance-need', 'child-education'],
+    faqs: [
+      {
+        question: 'How much life cover do I need?',
+        answer: 'It depends on what the cover has to do — clear liabilities, replace income for a period, and fund commitments such as education. A needs assessment turns those into a figure rather than a rule of thumb.',
+      },
+      {
+        question: 'I already have cover through my employer. Is that enough?',
+        answer: 'Sometimes, but employer cover is usually tied to the job and may not match your family’s full needs. It is worth reading it alongside everything else you hold.',
+      },
+      {
+        question: 'Do you only look at new policies?',
+        answer: 'No. Reviewing existing policies, nominations and ownership is often as valuable as adding cover.',
+      },
+    ],
   },
   {
     number: '04',
@@ -178,6 +256,32 @@ export const services = [
       },
     ],
     forWhom: 'Families and business owners thinking one generation ahead.',
+    signs: [
+      'Your assets are spread across several banks, institutions or properties.',
+      'Nominations and beneficiary details have not been checked in years.',
+      'You own a business with no stated plan for who takes it forward.',
+      'Your family would struggle to find everything if something happened unexpectedly.',
+    ],
+    deliverables: [
+      { title: 'One complete picture', body: 'A single, current record of what is held, where it sits and who it is meant for.' },
+      { title: 'Clear intentions', body: 'Succession wishes articulated, with the gaps that need formalising identified.' },
+      { title: 'A family that understands', body: 'Support in explaining the plan to the next generation before they need it.' },
+    ],
+    calculators: ['child-education', 'grand-wedding', 'life-insurance-need'],
+    faqs: [
+      {
+        question: 'Is legacy planning only for very wealthy families?',
+        answer: 'No. Any family with property, investments, insurance or a business benefits from making the transfer orderly. Complications tend to come from disorganisation more than from size.',
+      },
+      {
+        question: 'Do you draft wills or legal documents?',
+        answer: 'Where formal legal or tax work is needed, we work alongside qualified professionals rather than in place of them. Our role is to bring the picture together and make intentions clear.',
+      },
+      {
+        question: 'When should the next generation be involved?',
+        answer: 'Usually earlier than people expect. A plan that heirs already understand is far easier to carry out.',
+      },
+    ],
   },
   {
     number: '05',
@@ -211,6 +315,32 @@ export const services = [
       },
     ],
     forWhom: 'Employers building or restructuring a benefits programme.',
+    signs: [
+      'Your benefits have been added one policy at a time, without a common design.',
+      'Employees do not seem to know — or value — what the company provides.',
+      'You are growing quickly and want benefits that help attract and retain people.',
+      'You are unsure what the programme costs the business over time.',
+    ],
+    deliverables: [
+      { title: 'A coherent programme', body: 'Benefits designed around your workforce and obligations, rather than accumulated by accident.' },
+      { title: 'Cost clarity', body: 'A clear view of what the programme costs today and how that changes as you grow.' },
+      { title: 'Benefits people understand', body: 'Communication that helps employees know what they have and how to use it.' },
+    ],
+    calculators: [],
+    faqs: [
+      {
+        question: 'We are a small business. Is a benefits programme relevant?',
+        answer: 'Often more so. A well-designed programme can help a smaller employer compete for and keep good people, and it can be scaled as the team grows.',
+      },
+      {
+        question: 'Can you work with the benefits we already have?',
+        answer: 'Yes. The starting point is usually a review of what is already in place, so the programme is improved rather than rebuilt for its own sake.',
+      },
+      {
+        question: 'How often should the programme be reviewed?',
+        answer: 'Typically once a year, and whenever the organisation changes meaningfully — a jump in headcount, a new location or a change in workforce profile.',
+      },
+    ],
   },
   {
     number: '06',
@@ -245,6 +375,32 @@ export const services = [
       },
     ],
     forWhom: 'Employers with a growing gratuity obligation.',
+    signs: [
+      'Gratuity is paid from cash flow when employees leave or retire.',
+      'A number of long-serving employees are approaching retirement.',
+      'You are unsure how large the gratuity obligation on your books actually is.',
+      'Administering gratuity payments takes more effort than it should.',
+    ],
+    deliverables: [
+      { title: 'A clear liability view', body: 'An understanding of the gratuity obligation the business is carrying today.' },
+      { title: 'A funded structure', body: 'An evaluation of how a funded scheme would work for your size and workforce profile.' },
+      { title: 'Simpler administration', body: 'Support setting up the operational side so the scheme runs smoothly year to year.' },
+    ],
+    calculators: [],
+    faqs: [
+      {
+        question: 'Why fund gratuity in advance?',
+        answer: 'Because the obligation grows every year an employee stays. Funding it gradually turns an unpredictable cash outflow into a planned, predictable commitment.',
+      },
+      {
+        question: 'Does a funded scheme suit smaller employers?',
+        answer: 'It can. The right arrangement depends on headcount, tenure profile and cash flow, which is what the evaluation is for.',
+      },
+      {
+        question: 'What does ongoing support involve?',
+        answer: 'Revisiting the arrangement as headcount and tenure change, and helping with the administration so the scheme does not become a burden.',
+      },
+    ],
   },
 ]
 
@@ -433,8 +589,6 @@ export const navLinks = [
   { label: 'About', to: '/about' },
   { label: 'Services', to: '/services' },
   { label: 'Calculators', to: '/calculators' },
-  { label: 'Approach', to: '/approach' },
-  { label: 'Insights', to: '/insights' },
   { label: 'Contact', to: '/contact' },
 ]
 

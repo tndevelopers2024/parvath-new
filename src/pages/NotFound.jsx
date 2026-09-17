@@ -23,9 +23,9 @@ const destinations = [
     icon: Calculator,
   },
   {
-    to: '/approach',
-    label: 'Our Approach',
-    body: 'How a planning relationship works, step by step.',
+    to: '/about',
+    label: 'About Parvath',
+    body: 'The practice, the journey, and what to expect.',
     icon: Compass,
   },
   {

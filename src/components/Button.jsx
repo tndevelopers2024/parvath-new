@@ -39,6 +39,7 @@ export default function Button({
   variant = 'primary',
   size = 'md',
   withArrow = true,
+  shimmer = false,
   disabled = false,
   onClick,
   className = '',
@@ -48,11 +49,20 @@ export default function Button({
 
   const content = (
     <>
-      <span>{children}</span>
+      {shimmer && (
+        <span aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+          <span
+            className={`animate-shimmer absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent to-transparent motion-reduce:hidden ${
+              variant === 'light' ? 'via-gold/35' : 'via-white/30'
+            }`}
+          />
+        </span>
+      )}
+      <span className="relative">{children}</span>
       {withArrow && (
         <ArrowRight
           aria-hidden="true"
-          className="h-4 w-4 shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.22,0.61,0.36,1)] motion-safe:group-hover:translate-x-1"
+          className="relative h-4 w-4 shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.22,0.61,0.36,1)] motion-safe:group-hover:translate-x-1"
           strokeWidth={1.5}
         />
       )}

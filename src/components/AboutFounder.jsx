@@ -1,9 +1,79 @@
 import { ShieldCheck, Briefcase, Users } from 'lucide-react'
+import { motion, useReducedMotion } from 'motion/react'
+import { EASE, viewportOnce } from '../lib/motion'
 import Reveal, { RevealGroup, RevealItem } from './Reveal'
+import CountUp from './CountUp'
 import { founderStats, site } from '../data/site'
 import { images } from '../data/images'
 import { JaaliField } from './Ornaments'
 import SectionHeading from './SectionHeading'
+
+const commitments = [
+  {
+    Icon: ShieldCheck,
+    title: 'Client-First Standard',
+    body: 'Goal-based guidance that starts from your priorities, not from a product.',
+  },
+  {
+    Icon: Briefcase,
+    title: 'Corporate Insight',
+    body: 'Practical understanding of business cashflows, risk shielding, and promoter continuity.',
+  },
+  {
+    Icon: Users,
+    title: 'Boutique Attention',
+    body: 'A deliberately small clientele ensuring direct access to senior advisory at every review.',
+  },
+]
+
+/**
+ * Portrait plate. The gold frame settles in from an offset, then the photograph
+ * wipes up from the bottom while easing out of a slight zoom.
+ */
+function Portrait() {
+  const reduced = useReducedMotion()
+  const play = reduced ? {} : { initial: 'hidden', whileInView: 'visible', viewport: viewportOnce }
+
+  return (
+    <motion.div className="relative mx-auto max-w-sm lg:mx-0 lg:max-w-none" {...play}>
+      {/* Outer decorative gold frame */}
+      <motion.span
+        aria-hidden="true"
+        className="pointer-events-none absolute -inset-2.5 -z-10 hidden rounded-3xl border border-gold/40 sm:block"
+        variants={{
+          hidden: { opacity: 0, x: -18, y: 18 },
+          visible: { opacity: 1, x: 0, y: 0, transition: { duration: 1.1, ease: EASE, delay: 0.1 } },
+        }}
+      />
+
+      {/* Card Container */}
+      <div className="relative rounded-2xl border border-line/70 bg-gradient-to-b from-[#FAF8F5] to-white p-3.5 sm:p-4 shadow-[0_20px_50px_-24px_rgba(23,63,53,0.18)]">
+        {/* Main image presentation */}
+        <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-forest/5 ring-1 ring-line/60">
+          <motion.div
+            className="h-full w-full"
+            variants={{
+              hidden: { clipPath: 'inset(100% 0 0 0)' },
+              visible: { clipPath: 'inset(0% 0 0 0)', transition: { duration: 1.2, ease: EASE, delay: 0.2 } },
+            }}
+          >
+            <motion.img
+              src={images.founder.src}
+              alt={`Portrait of ${site.founder}`}
+              className="h-full w-full object-cover"
+              loading="lazy"
+              variants={{
+                hidden: { scale: 1.18 },
+                visible: { scale: 1, transition: { duration: 1.8, ease: EASE, delay: 0.2 } },
+              }}
+              whileHover={reduced ? undefined : { scale: 1.03, transition: { duration: 0.7, ease: EASE } }}
+            />
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
 
 /**
  * Enhanced Founder Profile Component:
@@ -22,29 +92,10 @@ export default function AboutFounder({ className = '' }) {
       </div>
 
       <div className="shell relative">
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
           {/* ---- Left: Executive Portrait & Credentials Card ---- */}
           <div className="lg:col-span-5">
-            <div className="relative mx-auto max-w-sm lg:mx-0 lg:max-w-none">
-              {/* Outer decorative gold frame */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute -inset-2.5 hidden rounded-3xl border border-gold/40 sm:block -z-10"
-              />
-
-              {/* Card Container */}
-              <div className="relative rounded-2xl border border-line/70 bg-gradient-to-b from-[#FAF8F5] to-white p-3.5 sm:p-4 shadow-[0_20px_50px_-24px_rgba(23,63,53,0.18)]">
-                {/* Main image presentation */}
-                <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-forest/5 ring-1 ring-line/60">
-                  <img
-                    src={images.founder.src}
-                    alt={`Portrait of ${site.founder}`}
-                    className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)] hover:scale-[1.02]"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-            </div>
+            <Portrait />
           </div>
 
           {/* ---- Right: Editorial Profile & Highlights ---- */}
@@ -75,39 +126,22 @@ export default function AboutFounder({ className = '' }) {
             </Reveal>
 
             {/* Three Core Advisory Commitments */}
-            <Reveal y={16} delay={0.24}>
-              <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6">
-                <div className="border-t border-line pt-3.5">
+            <RevealGroup className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6" stagger={0.12} delay={0.2}>
+              {commitments.map(({ Icon, title, body }) => (
+                <RevealItem key={title} className="group relative pt-3.5">
+                  <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-line" />
+                  <span
+                    aria-hidden="true"
+                    className="absolute top-0 left-0 h-px w-0 bg-gold transition-[width] duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:w-full"
+                  />
                   <div className="flex items-center gap-2 text-forest">
-                    <ShieldCheck className="h-4 w-4 text-gold-ink shrink-0" />
-                    <p className="text-xs font-semibold text-forest">Client-First Standard</p>
+                    <Icon className="h-4 w-4 shrink-0 text-gold-ink transition-transform duration-500 group-hover:-rotate-12 group-hover:scale-110" />
+                    <p className="text-xs font-semibold text-forest">{title}</p>
                   </div>
-                  <p className="mt-1.5 text-[0.6875rem] text-muted leading-relaxed">
-                    Goal-based guidance that starts from your priorities, not from a product.
-                  </p>
-                </div>
-
-                <div className="border-t border-line pt-3.5">
-                  <div className="flex items-center gap-2 text-forest">
-                    <Briefcase className="h-4 w-4 text-gold-ink shrink-0" />
-                    <p className="text-xs font-semibold text-forest">Corporate Insight</p>
-                  </div>
-                  <p className="mt-1.5 text-[0.6875rem] text-muted leading-relaxed">
-                    Practical understanding of business cashflows, risk shielding, and promoter continuity.
-                  </p>
-                </div>
-
-                <div className="border-t border-line pt-3.5">
-                  <div className="flex items-center gap-2 text-forest">
-                    <Users className="h-4 w-4 text-gold-ink shrink-0" />
-                    <p className="text-xs font-semibold text-forest">Boutique Attention</p>
-                  </div>
-                  <p className="mt-1.5 text-[0.6875rem] text-muted leading-relaxed">
-                    A deliberately small clientele ensuring direct access to senior advisory at every review.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
+                  <p className="mt-1.5 text-[0.6875rem] text-muted leading-relaxed">{body}</p>
+                </RevealItem>
+              ))}
+            </RevealGroup>
 
             {/* Stats — a ledger, not cards: same "hairline, not a box" treatment as
                 the site's other stat rows (see Stats.jsx). */}
@@ -117,9 +151,10 @@ export default function AboutFounder({ className = '' }) {
                   key={stat.label}
                   className={i > 0 ? 'border-l border-line pl-4 sm:pl-6' : ''}
                 >
-                  <p className="font-display text-2xl font-normal text-forest sm:text-3xl leading-none">
-                    {stat.value}
-                  </p>
+                  <CountUp
+                    value={stat.value}
+                    className="block font-display text-2xl font-normal text-forest sm:text-3xl leading-none"
+                  />
                   <p className="mt-2 text-[0.625rem] sm:text-[0.6875rem] font-medium tracking-[0.1em] text-muted uppercase leading-snug">
                     {stat.label}
                   </p>

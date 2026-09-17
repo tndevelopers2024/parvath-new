@@ -9,13 +9,19 @@
 /** Single, still hero banner — no slider. */
 export const heroBanner = {
   id: 'wealth-creation',
-  src: '/images/banner/banner-img-by-mohan.avif',
-  alt: 'Executive financial advisory desk with Varalakshmi Sridhar analyzing portfolio growth metrics and wealth strategies',
-  position: 'object-[75%_center] lg:object-center',
+  src: '/images/banner/banner.avif',
+  // Portrait crop for phones and upright tablets (see `mobileMedia`)
+  mobileSrc: '/images/banner/mobile-banner.avif',
+  mobileMedia: '(max-width: 767px), (max-width: 1023px) and (orientation: portrait)',
+  alt: 'A smiling family planning their finances together on a laptop at a desk overlooking the city at sunset',
+  position: 'object-[60%_center] lg:object-center',
   eyebrow: 'Structured Financial Planning',
   title: 'Structured Wealth. Confident Future.',
   description:
     'We partner with business owners, professionals and families to create, grow, protect and transfer wealth — across wealth creation, retirement planning, life insurance, legacy planning, employee benefits and group gratuity schemes.',
+  // Phones: the text sits over the wall above the family, so it has to be short
+  mobileDescription:
+    'We partner with business owners, professionals and families to create, grow, protect and transfer wealth.',
   primaryCta: { label: 'Book a Consultation', to: '/contact', variant: 'light' },
   secondaryCta: { label: 'Explore Services', to: '/services', variant: 'outlineLight' },
 }
@@ -23,12 +29,12 @@ export const heroBanner = {
 export const images = {
   /** Full-bleed hero background — wide, used with object-cover, no aspect lock. */
   heroWide: {
-    src: '/images/banner/banner-img-by-mohan.avif',
+    src: '/images/banner/banner.avif',
     alt: 'Parvath Financial Services Banner',
     placeholder: false,
   },
   heroMobile: {
-    src: '/images/banner/mobile-banner-img-by-mohan.avif',
+    src: '/images/banner/mobile-banner.avif',
     alt: 'Parvath Financial Services Mobile Banner',
     placeholder: false,
   },

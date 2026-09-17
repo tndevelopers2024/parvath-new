@@ -4,6 +4,7 @@ import ServiceCard from '../components/ServiceCard'
 import Process from '../components/Process'
 import CTA from '../components/CTA'
 import { RevealGroup, RevealItem } from '../components/Reveal'
+import SwipeArea from '../components/SwipeArea'
 import { services } from '../data/site'
 
 export default function Services() {
@@ -24,8 +25,9 @@ export default function Services() {
       <section className="section bg-ivory">
         <div className="shell">
           <h2 className="sr-only">All services</h2>
+          <SwipeArea>
           <RevealGroup
-            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
+            className="swipe-mobile grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
             stagger={0.08}
             amount={0.1}
           >
@@ -35,6 +37,7 @@ export default function Services() {
               </RevealItem>
             ))}
           </RevealGroup>
+          </SwipeArea>
         </div>
       </section>
 

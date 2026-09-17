@@ -20,7 +20,7 @@ export default function InsightsPage() {
         lede="Short notes on the questions that come up most often in planning conversations — written in plain language, without jargon or projections."
       >
         <Reveal y={14} delay={0.24} className="mt-8">
-          <p className="inline-flex items-center gap-2.5 rounded-sm border border-gold/55 bg-ivory px-3.5 py-2.5 text-[0.75rem] tracking-[0.06em] text-muted">
+          <p className="inline-flex items-center gap-2.5 rounded-full border border-gold-soft/35 bg-ivory/5 px-4 py-2 text-[0.75rem] tracking-[0.06em] text-ivory/80 backdrop-blur-sm">
             <span aria-hidden="true" className="h-1.5 w-1.5 rotate-45 bg-gold/70" />
             The full articles are being written. Topics and summaries are shown below.
           </p>
@@ -31,7 +31,7 @@ export default function InsightsPage() {
         <div className="shell">
           <h2 className="sr-only">All insights</h2>
           <RevealGroup
-            className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-14"
+            className="grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-10"
             stagger={0.08}
             amount={0.1}
           >
