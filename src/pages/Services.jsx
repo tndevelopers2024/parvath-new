@@ -13,12 +13,12 @@ export default function Services() {
       <Seo
         title="Services"
         path="/services"
-        description="Wealth creation, retirement planning, life insurance, legacy planning, employee benefit solutions and group gratuity schemes — six areas of financial planning, approached as one plan."
+        description="Wealth creation, retirement planning, life insurance, health insurance, bonds & deposits, legacy planning, employee benefit solutions and group gratuity schemes — eight areas of financial planning, approached as one plan."
       />
 
       <PageHeader
         eyebrow="Services"
-        title="Six areas of work. One plan."
+        title="Eight areas of work. One plan."
         lede="Most people arrive with one question — a retirement date, a policy that needs reviewing, a business that has outgrown its original structure. The work usually turns out to touch more than one of these."
       />
 
@@ -27,7 +27,7 @@ export default function Services() {
           <h2 className="sr-only">All services</h2>
           <SwipeArea>
           <RevealGroup
-            className="swipe-mobile grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
+            className="swipe-mobile grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5"
             stagger={0.08}
             amount={0.1}
           >

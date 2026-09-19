@@ -2,8 +2,10 @@
 @import 'lenis/dist/lenis.css';
 
 /* ------------------------------------------------------------------ *
- * Parvath Financial Services — design tokens
- * Light theme only. No dark mode.
+ * Parvath Life and Legacy Advisors — design tokens
+ *
+ * Light luxury palette: ivory and bone paper backgrounds, deep forest greens,
+ * warm burnished golds, hairline borders, and serif editorial display headings.
  * ------------------------------------------------------------------ */
 @theme {
   --color-ivory: #ffffff;

@@ -7,6 +7,8 @@ import {
   Landmark,
   Sparkles,
   ArrowRight,
+  HeartPulse,
+  Coins,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Reveal, { RevealGroup, RevealItem } from './Reveal'
@@ -23,31 +25,31 @@ const threads = [
   },
   {
     number: '02',
-    label: 'Family Security',
-    body: 'The people who depend on the income you earn.',
-    icon: ShieldCheck,
-    path: '/services/life-insurance',
-  },
-  {
-    number: '03',
-    label: 'Your People',
-    body: 'Benefits your team values and the business can sustain.',
-    icon: Users,
-    path: '/services/employee-benefits',
-  },
-  {
-    number: '04',
     label: 'Retirement',
     body: 'The point at which work becomes a choice.',
     icon: Sunrise,
     path: '/services/retirement-planning',
   },
   {
+    number: '03',
+    label: 'Family Security',
+    body: 'The people who depend on the income you earn.',
+    icon: ShieldCheck,
+    path: '/services/life-insurance',
+  },
+  {
+    number: '04',
+    label: 'Health Protection',
+    body: 'Shielding reserves against medical shocks.',
+    icon: HeartPulse,
+    path: '/services/health-insurance',
+  },
+  {
     number: '05',
-    label: 'Employer Obligations',
-    body: 'Gratuity funded deliberately, long before it falls due.',
-    icon: Building2,
-    path: '/services/group-gratuity',
+    label: 'Bonds & Deposits',
+    body: 'Capital preservation, sovereign safety, and yields.',
+    icon: Coins,
+    path: '/services/bonds-and-deposits',
   },
   {
     number: '06',
@@ -55,6 +57,20 @@ const threads = [
     body: 'How it all passes on, and to whom.',
     icon: Landmark,
     path: '/services/legacy-planning',
+  },
+  {
+    number: '07',
+    label: 'Your People',
+    body: 'Benefits your team values and the business can sustain.',
+    icon: Users,
+    path: '/services/employee-benefits',
+  },
+  {
+    number: '08',
+    label: 'Employer Obligations',
+    body: 'Gratuity funded deliberately, long before it falls due.',
+    icon: Building2,
+    path: '/services/group-gratuity',
   },
 ]
 
@@ -109,14 +125,14 @@ export default function Intro() {
             </Reveal>
           </div>
 
-          {/* Right Column: Six Threads, One Plan */}
+          {/* Right Column: Eight Threads, One Plan */}
           <div className="lg:col-span-7 xl:col-span-7">
             <Reveal y={14}>
               <div className="flex items-center justify-between border-b border-line pb-3">
                 <div className="flex items-center gap-2.5">
                   <span className="h-2 w-2 rounded-full bg-gold" />
                   <p className="text-[0.6875rem] font-medium tracking-[0.2em] text-muted uppercase">
-                    Six threads, one plan
+                    Eight threads, one plan
                   </p>
                 </div>
                 <span className="text-[0.6875rem] font-medium tracking-wide text-gold-ink">

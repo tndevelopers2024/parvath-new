@@ -50,8 +50,8 @@ function StatementPanel() {
       <div className="mt-6 flex items-center gap-4">
         <GoldRule width="2.5rem" delay={0.3} />
         <p className="text-sm text-forest">
-          <span className="font-medium">{site.founder}</span>
-          <span className="block text-[0.75rem] text-muted">Founder, Parvath Financial Services</span>
+          <span className="font-medium block">{site.founder}</span>
+          <span className="block text-[0.75rem] text-muted">{site.founderRole}</span>
         </p>
       </div>
     </Reveal>

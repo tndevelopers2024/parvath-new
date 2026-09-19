@@ -36,7 +36,9 @@ const channels = [
   {
     label: 'Location',
     value: site.location,
-    note: 'Consultations in person or by call',
+    note: 'Consultations in person or by appointment',
+    href: site.locationHref,
+    external: true,
     Icon: MapPin,
   },
 ]
@@ -95,7 +97,7 @@ function ChannelCard({ channel, index }) {
         )}
       </div>
       <p className="mt-4 text-[0.625rem] font-medium tracking-[0.18em] text-gold-ink uppercase sm:mt-5 sm:text-[0.6875rem]">{label}</p>
-      <p className="mt-1 font-display text-[0.9375rem] leading-snug break-words text-forest sm:mt-1.5 sm:text-[1.25rem]">{value}</p>
+      <p className={`mt-1 font-display leading-snug break-words text-forest sm:mt-1.5 ${label === 'Location' ? 'text-[0.875rem] sm:text-[1rem]' : 'text-[0.9375rem] sm:text-[1.25rem]'}`}>{value}</p>
       <p className="mt-1 hidden text-[0.8125rem] text-muted sm:block">{note}</p>
     </Tag>
   )
@@ -120,7 +122,7 @@ function NextStepsPanel() {
         <span className="relative shrink-0">
           <img
             src={images.founder.src}
-            alt=""
+            alt="K Sridhar & Varalakshmi Sridhar"
             className="h-14 w-14 rounded-full object-cover object-top ring-2 ring-gold-soft/40"
             loading="lazy"
           />
@@ -130,7 +132,7 @@ function NextStepsPanel() {
           </span>
         </span>
         <div>
-          <p className="font-display text-[1.25rem] leading-tight">{site.founder}</p>
+          <p className="font-display text-[1.125rem] leading-tight">{site.founder}</p>
           <p className="text-[0.75rem] text-ivory/65">{site.founderRole}</p>
         </div>
       </div>
@@ -177,7 +179,7 @@ export default function Contact() {
       <Seo
         title="Contact"
         path="/contact"
-        description={`Speak with ${site.founder}, Founder of ${site.name}, about wealth creation, retirement, protection, legacy planning, employee benefits or group gratuity. Call ${site.phoneDisplay}.`}
+        description={`Speak with our founders, ${site.founder}, at ${site.name}, about wealth creation, retirement, life & health insurance, bonds & deposits, legacy planning, employee benefits or group gratuity. Call ${site.phoneDisplay}.`}
       />
 
       <PageHeader

@@ -38,7 +38,7 @@ const journey = [
   {
     marker: 'Today',
     title: '200+ families & businesses',
-    body: 'Served across six planning areas — a number that grows slowly, and on purpose.',
+    body: 'Served across eight planning areas — a number that grows slowly, and on purpose.',
     Icon: Landmark,
   },
 ]
@@ -127,14 +127,14 @@ function Story() {
               </div>
               <QuoteMark className="text-[6rem] text-gold-soft/40" />
               <blockquote className="-mt-6 font-display text-[1.375rem] leading-snug sm:text-[1.625rem]">
-                I am particularly drawn to working with business owners, where personal wealth,
+                We are particularly drawn to working with business owners, where personal wealth,
                 business continuity, retirement planning and family legacy are rarely separate
                 conversations — and deserve to be planned as one.
               </blockquote>
               <figcaption className="mt-7 flex items-center gap-4 border-t border-ivory/15 pt-6">
                 <img
                   src={images.founder.src}
-                  alt=""
+                  alt="K Sridhar & Varalakshmi Sridhar"
                   className="h-12 w-12 rounded-full object-cover object-top ring-2 ring-gold-soft/40"
                   loading="lazy"
                 />
@@ -156,13 +156,13 @@ function Story() {
 
             <Reveal y={16} delay={0.2} className="mt-6 space-y-4">
               <p className="lede">
-                Parvath Financial Services was founded to start with the client&rsquo;s
+                Parvath Life and Legacy Advisors was founded to start with the client&rsquo;s
                 circumstances, understand the whole picture, and only then discuss what should
                 actually be done.
               </p>
               <p className="lede">
                 That takes time per relationship, which is why the practice stays deliberately
-                small. The perspective behind it comes from twenty years in corporate roles before
+                small. The perspective behind it comes from twenty years in corporate advisory roles before
                 the advisory practice began — the reason business owners tend to find the
                 conversation useful: the pressures of running a company are familiar ones, not
                 theoretical.
@@ -173,7 +173,7 @@ function Story() {
               {[
                 { value: '20+', label: 'Years corporate' },
                 { value: '7+', label: 'Years advisory' },
-                { value: '6', label: 'Planning areas' },
+                { value: '8', label: 'Planning areas' },
               ].map((fact, i) => (
                 <RevealItem key={fact.label} className={i > 0 ? 'border-l border-line pl-4 sm:pl-6' : ''}>
                   <CountUp
@@ -426,12 +426,12 @@ export default function About() {
       <Seo
         title="About"
         path="/about"
-        description={`${site.name} is led by ${site.founder}, who partners with business owners, professionals and families to create, grow, protect and transfer wealth through structured financial planning.`}
+        description={`${site.name} is led by ${site.founder}, who partner with business owners, professionals and families to create, grow, protect and transfer wealth through structured financial planning.`}
       />
 
       <PageHeader
         eyebrow="About Parvath"
-        title="Financial planning built on two decades of practical experience."
+        title="Financial planning built on two decades of practical corporate advisory experience."
         lede={site.positioning}
         crumb="About"
       />

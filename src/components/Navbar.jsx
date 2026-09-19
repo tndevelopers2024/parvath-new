@@ -14,13 +14,24 @@ import {
   Landmark,
   Users,
   Building2,
+  HeartPulse,
+  Coins,
 } from 'lucide-react'
 import { useLenis } from 'lenis/react'
 import { navLinks, services, site } from '../data/site'
 import { calculators, calculatorCategories } from '../data/calculators'
 import { EASE } from '../lib/motion'
 
-const serviceIconMap = { TrendingUp, Sunrise, ShieldCheck, Landmark, Users, Building2 }
+const serviceIconMap = {
+  TrendingUp,
+  Sunrise,
+  ShieldCheck,
+  Landmark,
+  Users,
+  Building2,
+  HeartPulse,
+  Coins,
+}
 
 const calculatorGroups = calculatorCategories.map((category) => ({
   ...category,
@@ -98,13 +109,13 @@ function Wordmark({ isTransparent = false, compact = false }) {
         decoding="async"
       />
       <span
-        className={`hidden border-l pl-3 text-[0.5625rem] leading-[1.5] font-semibold tracking-[0.26em] uppercase transition-colors duration-300 sm:block ${
+        className={`hidden border-l pl-3 text-[0.5625rem] leading-[1.35] font-semibold tracking-[0.2em] uppercase transition-colors duration-300 sm:block ${
           isTransparent ? 'border-ivory/30 text-gold-soft' : 'border-line text-gold-ink'
         }`}
       >
-        Financial
+        Life &amp; Legacy
         <br />
-        Services
+        Advisors
       </span>
     </span>
   )
@@ -566,7 +577,7 @@ export default function Navbar() {
                           href={social.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label={`Follow Parvath Financial Services on ${social.name}`}
+                          aria-label={`Follow Parvath Life and Legacy Advisors on ${social.name}`}
                           className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-forest shadow-xs transition-all duration-200 hover:scale-110 hover:bg-forest hover:text-gold-soft"
                         >
                           {social.icon}

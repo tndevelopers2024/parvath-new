@@ -151,7 +151,7 @@ export default function ContactForm() {
           Thank you — your enquiry has been recorded.
         </h3>
         <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted">
-          Varalakshmi will be in touch personally. If it is urgent, a call is usually quicker than
+          Our founders, K Sridhar and Varalakshmi Sridhar, will be in touch personally. If it is urgent, a call is usually quicker than
           email.
         </p>
         <button

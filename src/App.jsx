@@ -17,6 +17,8 @@ const ServicesPage = lazy(() => import('./pages/Services'))
 const WealthCreation = lazy(() => import('./pages/WealthCreation'))
 const RetirementPlanning = lazy(() => import('./pages/RetirementPlanning'))
 const LifeInsurance = lazy(() => import('./pages/LifeInsurance'))
+const HealthInsurance = lazy(() => import('./pages/HealthInsurance'))
+const BondsAndDeposits = lazy(() => import('./pages/BondsAndDeposits'))
 const LegacyPlanning = lazy(() => import('./pages/LegacyPlanning'))
 const EmployeeBenefits = lazy(() => import('./pages/EmployeeBenefits'))
 const GroupGratuity = lazy(() => import('./pages/GroupGratuity'))
@@ -76,6 +78,8 @@ export default function App() {
               <Route path="/services/wealth-creation" element={<WealthCreation />} />
               <Route path="/services/retirement-planning" element={<RetirementPlanning />} />
               <Route path="/services/life-insurance" element={<LifeInsurance />} />
+              <Route path="/services/health-insurance" element={<HealthInsurance />} />
+              <Route path="/services/bonds-and-deposits" element={<BondsAndDeposits />} />
               <Route path="/services/legacy-planning" element={<LegacyPlanning />} />
               <Route path="/services/employee-benefits" element={<EmployeeBenefits />} />
               <Route path="/services/group-gratuity" element={<GroupGratuity />} />

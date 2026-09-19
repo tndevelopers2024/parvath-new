@@ -13,7 +13,7 @@ const destinations = [
   {
     to: '/services',
     label: 'Services',
-    body: 'Six areas of planning, approached as one.',
+    body: 'Eight areas of planning, approached as one.',
     icon: Layers,
   },
   {

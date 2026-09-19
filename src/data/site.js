@@ -8,23 +8,28 @@
  */
 
 export const site = {
-  name: 'Parvath Financial Services',
+  name: 'Parvath Life and Legacy Advisors',
   shortName: 'Parvath',
-  founder: 'Varalakshmi Sridhar',
-  founderRole: 'Founder – Parvath Financial Services',
+  founders: [
+    { name: 'K Sridhar', role: 'Founder' },
+    { name: 'Varalakshmi Sridhar', role: 'Founder' },
+  ],
+  founder: 'K Sridhar & Varalakshmi Sridhar',
+  founderRole: 'Founders – Parvath Life and Legacy Advisors',
   phoneDisplay: '+91 99400 50798',
   phoneHref: 'tel:+919940050798',
-  email: 'contact@parvathfinancial.com',
-  emailHref: 'mailto:contact@parvathfinancial.com',
-  // PLACEHOLDER: replace with the firm's real published address, if any.
-  location: 'Chennai, Tamil Nadu',
+  email: 'contact@parvathfinserv.com',
+  emailHref: 'mailto:contact@parvathfinserv.com',
+  location: 'No. 46, Drowpathy Amman Koil Street, Ullagaram, Chennai - 600 091',
+  locationHref:
+    'https://maps.google.com/?q=No.+46,+Drowpathy+Amman+Koil+Street,+Ullagaram,+Chennai+-+600091',
   url: 'https://www.parvathfinancial.com',
   social: {
     facebook: 'https://www.facebook.com/parvathfinancial',
     twitter: 'https://twitter.com/parvathfinance',
     linkedin: 'https://www.linkedin.com/company/parvath-financial-services',
     whatsapp:
-      'https://wa.me/919940050798?text=Hello%20Parvath%20Financial%20Services%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services',
+      'https://wa.me/919940050798?text=Hello%20Parvath%20Life%20and%20Legacy%20Advisors%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services',
     youtube: 'https://www.youtube.com/@parvathfinancial',
   },
   positioning:
@@ -35,11 +40,11 @@ export const stats = [
   { value: '20+', label: 'Years Corporate Experience' },
   { value: '7+', label: 'Years Financial Advisory' },
   { value: '200+', label: 'Families & Businesses Served' },
-  { value: '6', label: 'Core Financial Planning Areas' },
+  { value: '8', label: 'Core Financial Planning Areas' },
 ]
 
 export const founderStats = [
-  { value: '20+ Years', label: 'Corporate Experience' },
+  { value: '20+ Years', label: 'Corporate Advisory Experience' },
   { value: '7+ Years', label: 'Financial Advisory' },
   { value: '200+', label: 'Families & Businesses' },
 ]
@@ -226,6 +231,126 @@ export const services = [
   },
   {
     number: '04',
+    slug: 'health-insurance',
+    path: '/services/health-insurance',
+    title: 'Health Insurance',
+    icon: 'HeartPulse',
+    summary:
+      'Shield your family wealth and future against medical emergencies and escalating healthcare costs.',
+    intro:
+      'A single healthcare crisis should never derail a lifetime of disciplined wealth creation.',
+    detail: [
+      'Healthcare inflation consistently outpaces general inflation. When an unexpected hospitalization or critical illness strikes, paying out of pocket can force families to liquidate long-term investments prematurely or incur debt.',
+      'We evaluate your family’s healthcare risks, decode room rent limits, disease co-pays, restoration features, and waiting periods, and structure comprehensive standalone and super top-up coverage that genuinely protects your balance sheet when you need it most.',
+    ],
+    points: [
+      {
+        title: 'Comprehensive family cover',
+        body: 'Sized against modern private healthcare costs, not generic sum-insured figures.',
+      },
+      {
+        title: 'Policy feature evaluation',
+        body: 'Clear reading of room rent limits, co-payments, restoration benefits, and consumables cover.',
+      },
+      {
+        title: 'Super top-up structuring',
+        body: 'Cost-effective coverage scaling that builds high-sum protection on top of base cover.',
+      },
+      {
+        title: 'Claim guidance & review',
+        body: 'Ensuring disclosures, nominations, and coverage limits keep pace with family healthcare needs.',
+      },
+    ],
+    forWhom: 'Families, self-employed individuals, and professionals needing resilient healthcare protection.',
+    signs: [
+      'You rely solely on corporate group health cover, which ends if you change jobs or retire.',
+      'Your family health cover has not been increased in the last three to five years.',
+      'Your current policy has severe room rent caps or co-payment clauses you are unsure about.',
+      'Senior parents have inadequate cover, leaving medical expenses to be paid from cash reserves.',
+    ],
+    deliverables: [
+      { title: 'A coverage audit', body: 'A thorough examination of current policies, identifying sub-limits, exclusions, and shortfall risks.' },
+      { title: 'A tailored structure', body: 'Base cover paired with cost-effective super top-ups tailored to your family medical history.' },
+      { title: 'Annual review cadence', body: 'Periodic evaluation to adjust sum insured as medical costs and family demographics evolve.' },
+    ],
+    calculators: [],
+    faqs: [
+      {
+        question: 'Is my employer-provided health insurance enough?',
+        answer: 'Corporate health cover is a valuable benefit, but it is tied to employment and can be revised or cancelled at the employer’s discretion. Having an independent family policy guarantees continuity irrespective of career transitions or retirement.',
+      },
+      {
+        question: 'What is the benefit of a super top-up policy?',
+        answer: 'A super top-up policy provides high sum insured at a fraction of the cost of a standard policy by applying a deductible. When combined with a modest base policy, it creates large medical protection very cost-effectively.',
+      },
+      {
+        question: 'How do you handle pre-existing conditions?',
+        answer: 'Complete and transparent medical disclosure during underwriting is critical. We ensure all disclosures are made meticulously so that claims are processed smoothly without dispute later.',
+      },
+    ],
+  },
+  {
+    number: '05',
+    slug: 'bonds-and-deposits',
+    path: '/services/bonds-and-deposits',
+    title: 'Bonds & Deposits',
+    icon: 'Coins',
+    summary:
+      'Preserve capital and generate predictable, fixed-income yields through curated debt instruments.',
+    intro:
+      'Return of capital matters just as much as return on capital. Fixed-income structuring provides the foundation of stability.',
+    detail: [
+      'Every resilient financial plan requires an anchor — capital that does not fluctuate with equity market cycles and produces reliable, predictable cash flow. However, holding all reserves in conventional savings accounts often fails to beat inflation or optimize post-tax yields.',
+      'We assist in selecting and structuring high-grade fixed income instruments — including government securities (G-Secs), sovereign gold bonds, corporate bonds, high-rated company fixed deposits, and structured debt. The aim is steady cash flows, capital preservation, and liquidity matched to your near-term obligations.',
+    ],
+    points: [
+      {
+        title: 'Capital preservation',
+        body: 'Focusing on high-credit-rating instruments that prioritize safety of principal.',
+      },
+      {
+        title: 'Predictable cash flows',
+        body: 'Structuring coupon and interest payouts to meet recurring living or business expenses.',
+      },
+      {
+        title: 'Tenure & liquidity matching',
+        body: 'Laddering maturities so funds become available exactly when near-term goals come due.',
+      },
+      {
+        title: 'Credit risk assessment',
+        body: 'Disciplined evaluation of issuer balance sheets, credit ratings, and underlying fundamentals.',
+      },
+    ],
+    forWhom: 'Retirees, conservative investors, and businesses seeking steady returns with high safety of capital.',
+    signs: [
+      'A large portion of your wealth sits in low-yielding bank accounts losing value to inflation.',
+      'You want regular, predictable income without being vulnerable to stock market volatility.',
+      'You have specific capital commitments due in 1 to 5 years and cannot afford market downside.',
+      'You hold unrated or high-risk corporate deposits and need an objective credit evaluation.',
+    ],
+    deliverables: [
+      { title: 'A fixed-income ladder', body: 'A staggered maturity framework ensuring recurring liquidity and steady coupon payments.' },
+      { title: 'Credit quality assessment', body: 'An objective review of issuers, tenures, and security types to avoid concentration risk.' },
+      { title: 'Cash flow timeline', body: 'A mapped schedule of interest payouts aligned with your lifestyle or operational needs.' },
+    ],
+    calculators: ['lumpsum', 'swp'],
+    faqs: [
+      {
+        question: 'How are bonds different from fixed deposits?',
+        answer: 'While fixed deposits are non-tradeable contracts with banks or NBFCs, bonds are debt securities issued by governments or corporations that can often be traded in secondary markets and may offer varied coupon structures and yields.',
+      },
+      {
+        question: 'What is bond laddering?',
+        answer: 'Laddering involves spreading your investments across bonds with different maturity dates (e.g., 1, 2, 3, and 5 years). This ensures regular liquidity, reduces interest-rate reinvestment risk, and provides steady cash flow.',
+      },
+      {
+        question: 'Are company fixed deposits safe?',
+        answer: 'Corporate deposits carry higher interest rates than bank FDs because they carry credit risk. We look closely at credit ratings (AAA / AA+), company track records, and balance sheet health before any allocation is considered.',
+      },
+    ],
+  },
+  {
+    number: '06',
     slug: 'legacy-planning',
     path: '/services/legacy-planning',
     title: 'Legacy Planning',
@@ -284,7 +409,7 @@ export const services = [
     ],
   },
   {
-    number: '05',
+    number: '07',
     slug: 'employee-benefits',
     path: '/services/employee-benefits',
     title: 'Employee Benefit Solutions',
@@ -343,7 +468,7 @@ export const services = [
     ],
   },
   {
-    number: '06',
+    number: '08',
     slug: 'group-gratuity',
     path: '/services/group-gratuity',
     title: 'Group Gratuity Schemes',
@@ -534,14 +659,14 @@ export const insights = [
 
 export const faqs = [
   {
-    question: 'What does the process of working with Parvath Financial Services look like?',
+    question: 'What does the process of working with Parvath Life and Legacy Advisors look like?',
     answer:
       'It follows four stages — understanding your goals, priorities, family and business context; developing a structured plan aligned with them; helping you implement the appropriate financial actions; and reviewing the plan regularly as your life and priorities evolve.',
   },
   {
     question: 'What kind of financial planning do you help with?',
     answer:
-      'Six core areas: wealth creation, retirement planning, life insurance, legacy planning, employee benefit solutions and group gratuity schemes — covering both personal and business financial planning.',
+      'Eight core areas: wealth creation, retirement planning, life insurance, health insurance, bonds & deposits, legacy planning, employee benefit solutions and group gratuity schemes — covering both personal and business financial planning.',
   },
   {
     question: 'Do you work with individuals, or only with business owners?',
@@ -596,6 +721,8 @@ export const interestOptions = [
   'Wealth Creation',
   'Retirement Planning',
   'Life Insurance',
+  'Health Insurance',
+  'Bonds & Deposits',
   'Legacy Planning',
   'Employee Benefits',
   'Group Gratuity',
@@ -603,14 +730,13 @@ export const interestOptions = [
 ]
 
 export const disclaimer =
-  'Parvath Financial Services provides financial planning guidance. Investments in securities and market-linked products are subject to market risks; please read all scheme-related documents carefully before investing. Insurance is the subject matter of solicitation. Past performance is not indicative of future results. Nothing on this website constitutes an offer, a recommendation, or tax or legal advice. PLACEHOLDER: add registration, licence and regulatory disclosure details here before publishing.'
+  'Parvath Life and Legacy Advisors provides financial planning guidance. Investments in securities and market-linked products are subject to market risks; please read all scheme-related documents carefully before investing. Insurance is the subject matter of solicitation. Past performance is not indicative of future results. Nothing on this website constitutes an offer, a recommendation, or tax or legal advice.'
 
 export const siteDescription =
   `${site.name} helps individuals, families and business owners plan, protect and grow their wealth through structured financial planning.`
 
 /**
- * Organisation data for rich results. Deliberately limited to facts that have
- * been verified — no ratings, awards, registrations or address are asserted.
+ * Organisation data for rich results.
  */
 export const organisationJsonLd = {
   '@context': 'https://schema.org',
@@ -618,13 +744,27 @@ export const organisationJsonLd = {
   name: site.name,
   url: site.url,
   telephone: '+919940050798',
+  email: site.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'No. 46, Drowpathy Amman Koil Street, Ullagaram',
+    addressLocality: 'Chennai',
+    postalCode: '600091',
+    addressRegion: 'Tamil Nadu',
+    addressCountry: 'IN',
+  },
   description: siteDescription,
-  founder: { '@type': 'Person', name: site.founder },
+  founder: [
+    { '@type': 'Person', name: 'K Sridhar' },
+    { '@type': 'Person', name: 'Varalakshmi Sridhar' },
+  ],
   areaServed: 'IN',
   knowsAbout: [
     'Wealth Creation',
     'Retirement Planning',
     'Life Insurance',
+    'Health Insurance',
+    'Bonds & Deposits',
     'Legacy Planning',
     'Employee Benefit Solutions',
     'Group Gratuity Schemes',

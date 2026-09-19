@@ -110,7 +110,7 @@ export default function Preloader() {
     return (
       <motion.div
         role="status"
-        aria-label="Loading Parvath Financial Services"
+        aria-label="Loading Parvath Life and Legacy Advisors"
         className="fixed inset-0 z-[100] flex items-center justify-center bg-forest"
         animate={{ opacity: exiting ? 0 : 1 }}
         transition={{ duration: 0.4 }}
@@ -122,7 +122,7 @@ export default function Preloader() {
   }
 
   return (
-    <div role="status" aria-label="Loading Parvath Financial Services" className="fixed inset-0 z-[100]">
+    <div role="status" aria-label="Loading Parvath Life and Legacy Advisors" className="fixed inset-0 z-[100]">
       {/* Gold under-layer: trails the main curtain for a fine edge of colour */}
       <motion.div
         aria-hidden="true"

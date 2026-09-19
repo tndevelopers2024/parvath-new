@@ -12,12 +12,12 @@ export default function Services({ withCta = true, background = 'bg-ivory' }) {
         <SectionHeading
           eyebrow="What We Do"
           title="Financial Planning, Built Around Your Life"
-          lede="Six areas of work, approached as one plan. Most clients begin with a single question and find the rest connected to it."
+          lede="Eight areas of work, approached as one plan. Most clients begin with a single question and find the rest connected to it."
         />
 
         <SwipeArea className="mt-8 lg:mt-10">
         <RevealGroup
-          className="swipe-mobile grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
+          className="swipe-mobile grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5"
           stagger={0.08}
           amount={0.12}
         >

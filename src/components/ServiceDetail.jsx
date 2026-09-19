@@ -21,6 +21,8 @@ import {
   Users,
   Wallet,
   ArrowDownToLine,
+  HeartPulse,
+  Coins,
 } from 'lucide-react'
 import Seo from './Seo'
 import PageHeader from './PageHeader'
@@ -36,7 +38,16 @@ import { calculators } from '../data/calculators'
 import SwipeArea from './SwipeArea'
 import { trackPointer } from '../lib/motion'
 
-const serviceIcons = { TrendingUp, Sunrise, ShieldCheck, Landmark, Users, Building2 }
+const serviceIcons = {
+  TrendingUp,
+  Sunrise,
+  ShieldCheck,
+  Landmark,
+  Users,
+  Building2,
+  HeartPulse,
+  Coins,
+}
 const calculatorIcons = {
   GraduationCap,
   Gem,

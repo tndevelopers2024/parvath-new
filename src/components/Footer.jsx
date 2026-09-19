@@ -95,7 +95,7 @@ export default function Footer() {
         <div className="grid gap-10 py-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:py-12">
           {/* Column 1: Brand & Founder — 4 cols */}
           <div className="lg:col-span-4">
-            <Link to="/" className="inline-flex items-center gap-4" aria-label="Parvath Financial Services — home">
+            <Link to="/" className="inline-flex items-center gap-4" aria-label="Parvath Life and Legacy Advisors — home">
               <img
                 src="/brand/parvath-logo-light.png"
                 alt=""
@@ -105,10 +105,10 @@ export default function Footer() {
                 decoding="async"
                 className="h-16 w-auto sm:h-20"
               />
-              <span className="border-l border-ivory/20 pl-4 text-[0.625rem] leading-[1.6] font-medium tracking-[0.28em] text-gold-soft uppercase">
-                Financial
+              <span className="border-l border-ivory/20 pl-4 text-[0.625rem] leading-[1.5] font-medium tracking-[0.24em] text-gold-soft uppercase">
+                Life &amp; Legacy
                 <br />
-                Services
+                Advisors
               </span>
             </Link>
 
@@ -119,16 +119,21 @@ export default function Footer() {
             {/* Founder Card */}
             <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-4.5 backdrop-blur-xs">
               <p className="text-[0.6875rem] font-medium tracking-wider text-gold-soft uppercase">
-                Principal Advisory
+                Founders &amp; Advisory
               </p>
-              <p className="mt-1 font-display text-lg font-semibold text-white">
-                {site.founder}
-              </p>
-              <p className="text-xs text-ivory/70">
+              <div className="mt-1 space-y-0.5">
+                <p className="font-display text-base font-semibold text-white">
+                  K Sridhar
+                </p>
+                <p className="font-display text-base font-semibold text-white">
+                  Varalakshmi Sridhar
+                </p>
+              </div>
+              <p className="text-xs text-ivory/70 mt-1">
                 {site.founderRole}
               </p>
               <p className="mt-2 text-[0.6875rem] font-medium text-gold-soft/90">
-                20+ Years Corporate Banking &amp; Advisory Experience
+                20+ Years Corporate Advisory Experience
               </p>
             </div>
 
@@ -144,7 +149,7 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`Follow Parvath Financial Services on ${social.name}`}
+                    aria-label={`Follow Parvath Life and Legacy Advisors on ${social.name}`}
                     className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-forest shadow-xs transition-all duration-200 hover:scale-110 hover:bg-forest-soft hover:text-gold-soft hover:shadow-md focus:outline-hidden focus:ring-2 focus:ring-gold"
                   >
                     {social.icon}
@@ -262,8 +267,15 @@ export default function Footer() {
                   <MapPin className="h-3.5 w-3.5" />
                 </span>
                 <div>
-                  <p className="font-medium text-white">{site.location}</p>
-                  <p className="text-[0.6875rem] text-ivory/60">In-person &amp; Virtual Advisory</p>
+                  <a
+                    href={site.locationHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-white hover:text-gold-soft transition-colors block text-[0.8125rem] leading-snug"
+                  >
+                    {site.location}
+                  </a>
+                  <p className="text-[0.6875rem] text-ivory/60 mt-1">In-person &amp; Virtual Advisory</p>
                 </div>
               </li>
 
@@ -302,7 +314,7 @@ export default function Footer() {
               <div>
                 <h3 className="font-heading text-sm font-semibold text-white">20+ Years Institutional Rigor</h3>
                 <p className="mt-1 text-xs leading-relaxed text-ivory/70">
-                  Corporate banking and financial advisory experience brought to personal portfolios.
+                  Corporate advisory and financial planning experience brought to personal portfolios.
                 </p>
               </div>
             </div>

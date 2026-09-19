@@ -1,7 +1,7 @@
-# Parvath Financial Services
+# Parvath Life and Legacy Advisors
 
-Marketing site for Parvath Financial Services — a boutique financial planning
-and wealth advisory practice founded by Varalakshmi Sridhar.
+Marketing site for Parvath Life and Legacy Advisors — a boutique financial planning
+and wealth advisory practice founded by K Sridhar and Varalakshmi Sridhar.
 
 React + Vite + Tailwind CSS v4, with Motion for animation and Lucide for icons.
 Light theme only; there is no dark mode and none should be added.

@@ -59,7 +59,7 @@ function Portrait() {
           >
             <motion.img
               src={images.founder.src}
-              alt={`Portrait of ${site.founder}`}
+              alt="Varalakshmi Sridhar & K Sridhar, Founders of Parvath Life and Legacy Advisors"
               className="h-full w-full object-cover"
               loading="lazy"
               variants={{
@@ -69,6 +69,10 @@ function Portrait() {
               whileHover={reduced ? undefined : { scale: 1.03, transition: { duration: 0.7, ease: EASE } }}
             />
           </motion.div>
+        </div>
+        <div className="mt-3.5 px-1 text-center sm:text-left">
+          <p className="font-display text-base font-semibold text-forest">K Sridhar &amp; Varalakshmi Sridhar</p>
+          <p className="text-[0.6875rem] font-medium tracking-wide text-gold-ink uppercase">Founders &ndash; Parvath Life and Legacy Advisors</p>
         </div>
       </div>
     </motion.div>
@@ -101,23 +105,32 @@ export default function AboutFounder({ className = '' }) {
           {/* ---- Right: Editorial Profile & Highlights ---- */}
           <div className="lg:col-span-7">
             <SectionHeading
-              eyebrow="The Founder & Practice"
-              title={`Meet ${site.founder}`}
+              eyebrow="The Founders & Practice"
+              title="Meet Our Founders"
             />
 
             {/* Editorial Profile Copy */}
             <Reveal y={16} delay={0.18}>
               <div className="mt-6 space-y-4">
+                <div className="border-b border-line/60 pb-3 mb-2">
+                  <p className="font-display text-2xl font-semibold text-forest">
+                    K Sridhar &amp; Varalakshmi Sridhar
+                  </p>
+                  <p className="mt-1 text-xs font-medium tracking-[0.14em] text-gold-ink uppercase">
+                    {site.founderRole}
+                  </p>
+                </div>
                 <p className="lede">
-                  I partner with business owners, professionals, and families to help them
+                  We partner with business owners, professionals, and families to help them
                   create, grow, protect, and transfer wealth through structured financial
-                  planning — across wealth creation, retirement planning, life insurance, legacy
-                  planning, employee benefit solutions, and group gratuity schemes.
+                  planning — across wealth creation, retirement planning, life insurance,
+                  health insurance, bonds &amp; deposits, legacy planning, employee benefit
+                  solutions, and group gratuity schemes.
                 </p>
                 <p className="lede">
-                  With over 20 years of corporate experience and 7+ years in financial advisory,
-                  I have had the privilege of working alongside 200+ families and businesses
-                  toward financial security and peace of mind. I am particularly drawn to working
+                  With over 20 years of corporate advisory experience and 7+ years in financial advisory,
+                  we have had the privilege of working alongside 200+ families and businesses
+                  toward financial security and peace of mind. We are particularly drawn to working
                   with business owners, where personal wealth, business continuity, retirement
                   planning and family legacy are rarely separate conversations — and deserve to be
                   planned as one.

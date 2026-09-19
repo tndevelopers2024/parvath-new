@@ -7,10 +7,21 @@ import {
   Sunrise,
   TrendingUp,
   Users,
+  HeartPulse,
+  Coins,
 } from 'lucide-react'
 import { trackPointer } from '../lib/motion'
 
-const iconMap = { TrendingUp, Sunrise, ShieldCheck, Landmark, Users, Building2 }
+const iconMap = {
+  TrendingUp,
+  Sunrise,
+  ShieldCheck,
+  Landmark,
+  Users,
+  Building2,
+  HeartPulse,
+  Coins,
+}
 
 /**
  * Editorial service cell. Restrained radius, hairline border, and a hover that

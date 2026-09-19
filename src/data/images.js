@@ -18,7 +18,7 @@ export const heroBanner = {
   eyebrow: 'Structured Financial Planning',
   title: 'Structured Wealth. Confident Future.',
   description:
-    'We partner with business owners, professionals and families to create, grow, protect and transfer wealth — across wealth creation, retirement planning, life insurance, legacy planning, employee benefits and group gratuity schemes.',
+    'We partner with business owners, professionals and families to create, grow, protect and transfer wealth — across wealth creation, retirement planning, life insurance, health insurance, bonds & deposits, legacy planning, employee benefits and group gratuity schemes.',
   // Phones: the text sits over the wall above the family, so it has to be short
   mobileDescription:
     'We partner with business owners, professionals and families to create, grow, protect and transfer wealth.',
@@ -30,12 +30,12 @@ export const images = {
   /** Full-bleed hero background — wide, used with object-cover, no aspect lock. */
   heroWide: {
     src: '/images/banner/banner.avif',
-    alt: 'Parvath Financial Services Banner',
+    alt: 'Parvath Life and Legacy Advisors Banner',
     placeholder: false,
   },
   heroMobile: {
     src: '/images/banner/mobile-banner.avif',
-    alt: 'Parvath Financial Services Mobile Banner',
+    alt: 'Parvath Life and Legacy Advisors Mobile Banner',
     placeholder: false,
   },
   hero: {
@@ -46,7 +46,7 @@ export const images = {
   },
   founder: {
     src: '/images/about/varalakshmi-sridhar-2.avif',
-    alt: 'Portrait of Varalakshmi Sridhar, Founder of Parvath Financial Services',
+    alt: 'Varalakshmi Sridhar & K Sridhar, Founders of Parvath Life and Legacy Advisors',
     aspect: '4 / 5',
     placeholder: false,
   },
