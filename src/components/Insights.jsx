@@ -1,16 +1,20 @@
+import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 import { insights } from '../data/site'
 import SectionHeading from './SectionHeading'
 import Reveal, { RevealGroup, RevealItem } from './Reveal'
 import Button from './Button'
 
 /**
- * Editorial note cards. These are topic summaries, not published articles —
- * the full pieces are still to be written, and the section says so rather than
- * linking to empty pages.
+ * Editorial note cards for blogs & insights.
+ * Active articles link directly to their full long-form piece;
+ * upcoming topics indicate "Article in preparation".
  */
 export function InsightCard({ insight, index }) {
-  return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white p-7 transition-[border-color,box-shadow] duration-500 hover:border-gold/60 hover:shadow-card sm:p-8">
+  const isAvailable = !insight.inPreparation
+
+  const cardContent = (
+    <>
       <span
         aria-hidden="true"
         className="absolute top-0 left-0 h-0.5 w-10 bg-gold transition-[width] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:w-full"
@@ -24,19 +28,40 @@ export function InsightCard({ insight, index }) {
         </span>
       </div>
 
-      <h3 className="mt-5 font-display text-[1.5rem] leading-tight text-forest sm:text-[1.625rem]">
+      <h3 className="mt-5 font-display text-[1.5rem] leading-tight text-forest transition-colors duration-300 group-hover:text-gold-ink sm:text-[1.625rem]">
         {insight.title}
       </h3>
 
       <p className="mt-4 grow text-[0.9375rem] leading-relaxed text-muted">{insight.excerpt}</p>
 
-      <p className="mt-6 border-t border-line pt-5 text-[0.6875rem] font-medium tracking-[0.14em] text-muted uppercase">
-        {insight.readingTime}
-        <span aria-hidden="true" className="mx-2 text-line">
-          &middot;
-        </span>
-        Article in preparation
-      </p>
+      <div className="mt-6 flex items-center justify-between border-t border-line pt-5 text-[0.6875rem] font-medium tracking-[0.14em] uppercase">
+        <span className="text-muted">{insight.readingTime}</span>
+        {isAvailable ? (
+          <span className="inline-flex items-center gap-1.5 font-semibold text-forest transition-colors duration-200 group-hover:text-gold-ink">
+            <span>Read Article</span>
+            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+          </span>
+        ) : (
+          <span className="text-muted/60">Article in preparation</span>
+        )}
+      </div>
+    </>
+  )
+
+  if (isAvailable) {
+    return (
+      <Link
+        to={`/blogs/${insight.slug}`}
+        className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white p-7 transition-all duration-500 hover:-translate-y-1 hover:border-gold/60 hover:shadow-card sm:p-8"
+      >
+        {cardContent}
+      </Link>
+    )
+  }
+
+  return (
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white p-7 opacity-85 transition-[border-color,box-shadow] duration-500 hover:border-gold/60 hover:shadow-card sm:p-8">
+      {cardContent}
     </article>
   )
 }
@@ -48,9 +73,9 @@ export default function Insights({ limit, withCta = true, background = 'bg-ivory
     <section className={`section ${background}`}>
       <div className="shell">
         <SectionHeading
-          eyebrow="Insights"
+          eyebrow="Blogs &amp; Perspectives"
           title="Insights for Better Financial Decisions"
-          lede="Short, plain-language notes on the questions that come up most often in planning conversations."
+          lede="Plain-language notes on wealth creation, retirement, protection, and business continuity."
         />
 
         <RevealGroup
@@ -67,8 +92,8 @@ export default function Insights({ limit, withCta = true, background = 'bg-ivory
 
         {withCta && (
           <Reveal y={16} className="mt-8 flex justify-center">
-            <Button to="/insights" variant="secondary" withArrow={false}>
-              All Insights
+            <Button to="/blogs" variant="secondary" withArrow={false}>
+              View All Blogs
             </Button>
           </Reveal>
         )}

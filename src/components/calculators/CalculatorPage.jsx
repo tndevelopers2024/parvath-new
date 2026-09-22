@@ -19,10 +19,12 @@ import {
   Calculator,
   RotateCcw,
   ArrowRight,
+  ArrowUpRight,
 } from 'lucide-react'
 import Seo from '../Seo'
 import PageHeader from '../PageHeader'
 import CTA from '../CTA'
+import SwipeArea from '../SwipeArea'
 import Reveal, { RevealGroup, RevealItem } from '../Reveal'
 import { Diamond, JaaliField } from '../Ornaments'
 import Breakdown from './Breakdown'
@@ -181,8 +183,8 @@ export default function CalculatorPage({ slug }) {
               </Reveal>
             </div>
 
-            {/* ---- Live results ---- */}
-            <div id="calculator-results" className="lg:col-span-5 lg:sticky lg:top-28">
+            {/* ---- Live results (Sticky) ---- */}
+            <div id="calculator-results" className="lg:col-span-5 lg:sticky lg:top-28 lg:self-start">
               <Reveal y={16} delay={0.1}>
                 <div
                   data-cursor-theme="dark"
@@ -241,53 +243,71 @@ export default function CalculatorPage({ slug }) {
                 </div>
               </Reveal>
 
-              <Reveal y={14} delay={0.16} className="mt-6">
+              <Reveal y={14} delay={0.16} className="mt-4">
                 <p className="text-[0.75rem] leading-relaxed text-muted">{calculatorDisclaimer}</p>
-              </Reveal>
-
-              <Reveal y={16} delay={0.22} className="mt-10">
-                <h2 className="text-[0.6875rem] font-medium tracking-[0.18em] text-forest uppercase">
-                  More calculators
-                </h2>
-                <RevealGroup as="ul" className="mt-5 border-t border-line" stagger={0.06}>
-                  {otherCalculators.map((other) => (
-                    <RevealItem as="li" key={other.slug}>
-                      <Link
-                        to={other.path}
-                        className="group flex items-center justify-between gap-4 border-b border-line py-4 transition-colors duration-500 hover:border-gold/50"
-                      >
-                        <span className="flex items-center gap-3">
-                          {(() => {
-                            const OtherIcon = calculatorIconMap[other.icon] ?? Calculator
-                            return (
-                              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-cream text-forest transition-colors duration-300 group-hover:bg-forest group-hover:text-gold-soft">
-                                <OtherIcon aria-hidden="true" className="h-4 w-4" strokeWidth={1.5} />
-                              </span>
-                            )
-                          })()}
-                          <span className="font-display text-lg text-forest transition-colors duration-300 group-hover:text-gold-ink">
-                            {other.title}
-                          </span>
-                        </span>
-                        <ArrowRight
-                          aria-hidden="true"
-                          className="h-4 w-4 shrink-0 text-forest/35 transition-[transform,color] duration-300 group-hover:text-gold-ink motion-safe:group-hover:translate-x-1"
-                          strokeWidth={1.5}
-                        />
-                      </Link>
-                    </RevealItem>
-                  ))}
-                </RevealGroup>
-                <Link
-                  to="/calculators"
-                  className="mt-5 inline-flex items-center gap-2 text-[0.8125rem] font-medium tracking-[0.06em] text-forest uppercase transition-colors duration-300 hover:text-gold-ink"
-                >
-                  View all calculators
-                  <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.5} />
-                </Link>
               </Reveal>
             </div>
           </div>
+
+          {/* ---- More related calculators below the main tool ---- */}
+          {otherCalculators.length > 0 && (
+            <div className="mt-14 border-t border-line pt-10 lg:mt-16 lg:pt-12">
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <span className="text-[0.6875rem] font-semibold tracking-[0.2em] text-gold-ink uppercase">
+                    Explore Further
+                  </span>
+                  <h2 className="mt-1 font-display text-2xl font-semibold text-forest sm:text-3xl">
+                    More Related Calculators
+                  </h2>
+                </div>
+                <Link
+                  to="/calculators"
+                  className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-forest uppercase transition-colors duration-300 hover:text-gold-ink"
+                >
+                  <span>View all calculators</span>
+                  <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
+                </Link>
+              </div>
+
+              <SwipeArea className="mt-6">
+                <RevealGroup
+                  className="swipe-mobile grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                  stagger={0.06}
+                >
+                  {otherCalculators.map((other) => {
+                    const OtherIcon = calculatorIconMap[other.icon] ?? Calculator
+                    return (
+                      <RevealItem key={other.slug} y={16} className="h-full">
+                        <Link
+                          to={other.path}
+                          onPointerMove={trackPointer}
+                          className="spotlight group relative flex h-full flex-col rounded-2xl border border-line bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-gold/60 hover:shadow-card"
+                        >
+                          <div className="flex items-start justify-between">
+                            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 bg-cream text-forest transition-colors duration-300 group-hover:border-forest group-hover:bg-forest group-hover:text-gold-soft">
+                              <OtherIcon aria-hidden="true" className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.5} />
+                            </span>
+                            <ArrowUpRight
+                              aria-hidden="true"
+                              className="h-4 w-4 text-forest/40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-gold-ink"
+                              strokeWidth={1.5}
+                            />
+                          </div>
+                          <h3 className="mt-4 font-display text-base font-semibold leading-snug text-forest transition-colors group-hover:text-gold-ink">
+                            {other.title}
+                          </h3>
+                          <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted">
+                            {other.summary}
+                          </p>
+                        </Link>
+                      </RevealItem>
+                    )
+                  })}
+                </RevealGroup>
+              </SwipeArea>
+            </div>
+          )}
         </div>
       </section>
 

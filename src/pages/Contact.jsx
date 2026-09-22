@@ -119,21 +119,27 @@ function NextStepsPanel() {
       </div>
 
       <div className="flex items-center gap-4">
-        <span className="relative shrink-0">
-          <img
-            src={images.founder.src}
-            alt="K Sridhar & Varalakshmi Sridhar"
-            className="h-14 w-14 rounded-full object-cover object-top ring-2 ring-gold-soft/40"
-            loading="lazy"
-          />
-          <span aria-hidden="true" className="absolute right-0 bottom-0 flex h-3.5 w-3.5">
-            <span className="animate-ping-soft absolute inset-0 rounded-full bg-[#3aa678] motion-reduce:hidden" />
-            <span className="relative h-3.5 w-3.5 rounded-full border-2 border-forest bg-[#3aa678]" />
+        <div className="flex -space-x-3 items-center shrink-0">
+          <span className="relative z-10 flex h-13 w-13 items-center justify-center rounded-full border-2 border-forest bg-[#1D4A3E] text-gold-soft ring-2 ring-gold-soft/50 font-display text-xs font-semibold shadow-md">
+            KS
           </span>
-        </span>
+          <span className="relative z-20 overflow-hidden h-13 w-13 rounded-full border-2 border-forest ring-2 ring-gold-soft/50 shadow-md">
+            <img
+              src={images.founder.src}
+              alt="Varalakshmi Sridhar"
+              className="h-full w-full object-cover object-top"
+              loading="lazy"
+            />
+            <span aria-hidden="true" className="absolute right-0 bottom-0 flex h-3.5 w-3.5">
+              <span className="animate-ping-soft absolute inset-0 rounded-full bg-[#3aa678] motion-reduce:hidden" />
+              <span className="relative h-3.5 w-3.5 rounded-full border-2 border-forest bg-[#3aa678]" />
+            </span>
+          </span>
+        </div>
         <div>
-          <p className="font-display text-[1.125rem] leading-tight">{site.founder}</p>
+          <p className="font-display text-[1.125rem] leading-tight text-white">{site.founder}</p>
           <p className="text-[0.75rem] text-ivory/65">{site.founderRole}</p>
+          <p className="mt-1 text-[0.6875rem] font-medium text-gold-soft/90">Direct Senior Founder Advisory</p>
         </div>
       </div>
 
@@ -190,7 +196,7 @@ export default function Contact() {
       />
 
       {/* ---- Channels ---- */}
-      <section className="relative z-10 -mt-8 pb-2 sm:-mt-10">
+      <section className="section border-b border-line bg-cream">
         <div className="shell">
           <RevealGroup className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4" stagger={0.08}>
             {channels.map((channel, i) => (
@@ -213,7 +219,7 @@ export default function Contact() {
               </Reveal>
             </div>
 
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5 lg:sticky lg:top-28 lg:self-start">
               <Reveal y={20} delay={0.1}>
                 <NextStepsPanel />
               </Reveal>

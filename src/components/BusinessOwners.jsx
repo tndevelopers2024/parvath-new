@@ -114,7 +114,7 @@ function Medallion() {
  */
 export default function BusinessOwners() {
   return (
-    <section className="paper section relative overflow-hidden bg-ivory">
+    <section id="business-owners" className="paper section relative overflow-hidden bg-ivory">
       <div className="shell relative">
         <SectionHeading
           eyebrow="For Business Owners"

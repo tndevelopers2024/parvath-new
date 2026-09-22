@@ -342,7 +342,7 @@ export default function ServiceDetail({ slug }) {
               </SwipeArea>
             </div>
 
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5 lg:sticky lg:top-28 lg:self-start">
               <Reveal y={20} delay={0.1}>
                 <AtAGlance service={service} />
               </Reveal>

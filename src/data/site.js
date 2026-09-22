@@ -7,12 +7,50 @@
  * `PLACEHOLDER` so they are trivial to find and replace.
  */
 
+import { blogs } from './blogs'
+
 export const site = {
   name: 'Parvath Life and Legacy Advisors',
   shortName: 'Parvath',
   founders: [
-    { name: 'K Sridhar', role: 'Founder' },
-    { name: 'Varalakshmi Sridhar', role: 'Founder' },
+    {
+      id: 'k-sridhar',
+      name: 'K Sridhar',
+      role: 'Founder & Principal Advisor',
+      shortRole: 'Founder',
+      experience: '20+ Years Corporate Advisory',
+      focus: 'Corporate Advisory, Business Continuity & Risk Shielding',
+      specialties: [
+        'Corporate Continuity & Succession',
+        'Promoter Risk Shielding & Keyman Cover',
+        'Buy-Sell Agreements & Partnership Liquidity',
+        'Executive Benefits & Group Gratuity Schemes',
+      ],
+      bio: 'Bringing over two decades of senior corporate advisory insight, K Sridhar works closely with business owners, promoters, and leadership teams to ensure personal and enterprise wealth are seamlessly shielded, capitalized, and transferred across generations.',
+      image: null,
+      initials: 'KS',
+      ctaLabel: 'Discuss Business Advisory',
+      ctaPath: '/contact?interest=business-continuity',
+    },
+    {
+      id: 'varalakshmi-sridhar',
+      name: 'Varalakshmi Sridhar',
+      role: 'Founder & Principal Advisor',
+      shortRole: 'Founder',
+      experience: '7+ Years Financial Advisory',
+      focus: 'Comprehensive Wealth Creation, Family Protection & Retirement',
+      specialties: [
+        'Structured Long-Term Wealth Creation',
+        'Multi-Generational Legacy & Succession',
+        'Retirement Freedom & Guaranteed Cashflows',
+        'Holistic Family Life & Health Risk Shielding',
+      ],
+      bio: 'With over 7 years in financial advisory and 200+ families guided, Varalakshmi Sridhar leads comprehensive portfolio planning, translating personal milestones into disciplined, resilient wealth strategies and lasting family peace of mind.',
+      image: '/images/about/varalakshmi-sridhar-2.avif',
+      initials: 'VS',
+      ctaLabel: 'Discuss Family Wealth',
+      ctaPath: '/contact?interest=wealth-creation',
+    },
   ],
   founder: 'K Sridhar & Varalakshmi Sridhar',
   founderRole: 'Founders – Parvath Life and Legacy Advisors',
@@ -606,56 +644,8 @@ export const businessPillars = [
   },
 ]
 
-export const insights = [
-  {
-    slug: 'understanding-wealth-creation',
-    category: 'Wealth',
-    title: 'Understanding Wealth Creation',
-    excerpt:
-      'Why structure, time horizon and consistency tend to matter more to long-term outcomes than the search for a single good investment.',
-    readingTime: '6 min read',
-  },
-  {
-    slug: 'planning-for-retirement',
-    category: 'Retirement',
-    title: 'Planning for Retirement',
-    excerpt:
-      'Translating the retirement you picture into a number you can plan towards — and working backwards from it.',
-    readingTime: '7 min read',
-  },
-  {
-    slug: 'protecting-your-familys-financial-future',
-    category: 'Protection',
-    title: "Protecting Your Family’s Financial Future",
-    excerpt:
-      'How a needs-based assessment produces a very different answer to “how much cover?” than a product-led one.',
-    readingTime: '5 min read',
-  },
-  {
-    slug: 'financial-planning-for-business-owners',
-    category: 'Business',
-    title: 'Financial Planning for Business Owners',
-    excerpt:
-      'Why personal wealth, business continuity, retirement and succession are one conversation rather than four.',
-    readingTime: '8 min read',
-  },
-  {
-    slug: 'building-a-family-legacy',
-    category: 'Legacy',
-    title: 'Building a Family Legacy',
-    excerpt:
-      'The practical groundwork that makes a generational transfer orderly instead of contested.',
-    readingTime: '6 min read',
-  },
-  {
-    slug: 'understanding-employee-benefits',
-    category: 'Employers',
-    title: 'Understanding Employee Benefits',
-    excerpt:
-      'What a well-designed benefits programme signals to a workforce — and what an accumulated one signals instead.',
-    readingTime: '5 min read',
-  },
-]
+export const insights = blogs
+export { blogs }
 
 export const faqs = [
   {
@@ -714,7 +704,7 @@ export const navLinks = [
   { label: 'About', to: '/about' },
   { label: 'Services', to: '/services' },
   { label: 'Calculators', to: '/calculators' },
-  { label: 'Contact', to: '/contact' },
+  { label: 'Blogs', to: '/blogs' },
 ]
 
 export const interestOptions = [

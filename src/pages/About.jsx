@@ -3,6 +3,7 @@ import { ArrowUpRight, Briefcase, Building2, Compass, HeartHandshake, Landmark, 
 import { motion, useReducedMotion } from 'motion/react'
 import Seo from '../components/Seo'
 import PageHeader from '../components/PageHeader'
+import AboutFounder from '../components/AboutFounder'
 import CTA from '../components/CTA'
 import CountUp from '../components/CountUp'
 import Reveal, { RevealGroup, RevealItem, SplitWords } from '../components/Reveal'
@@ -132,14 +133,21 @@ function Story() {
                 conversations — and deserve to be planned as one.
               </blockquote>
               <figcaption className="mt-7 flex items-center gap-4 border-t border-ivory/15 pt-6">
-                <img
-                  src={images.founder.src}
-                  alt="K Sridhar & Varalakshmi Sridhar"
-                  className="h-12 w-12 rounded-full object-cover object-top ring-2 ring-gold-soft/40"
-                  loading="lazy"
-                />
+                <div className="flex -space-x-2.5 items-center shrink-0">
+                  <span className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full border-2 border-forest bg-[#1D4A3E] text-gold-soft ring-2 ring-gold-soft/50 font-display text-xs font-semibold">
+                    KS
+                  </span>
+                  <span className="relative z-20 overflow-hidden h-11 w-11 rounded-full border-2 border-forest ring-2 ring-gold-soft/50">
+                    <img
+                      src={images.founder.src}
+                      alt="Varalakshmi Sridhar"
+                      className="h-full w-full object-cover object-top"
+                      loading="lazy"
+                    />
+                  </span>
+                </div>
                 <span>
-                  <span className="block font-medium">{site.founder}</span>
+                  <span className="block font-medium text-ivory">{site.founder}</span>
                   <span className="block text-[0.75rem] text-ivory/65">{site.founderRole}</span>
                 </span>
               </figcaption>
@@ -266,23 +274,21 @@ function Expectations() {
   return (
     <section className="section bg-ivory">
       <div className="shell">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-5">
-            <div className="lg:sticky lg:top-28">
-              <Reveal y={12}>
-                <p className="eyebrow">What to Expect</p>
-              </Reveal>
-              <h2 className="display-2 mt-3 text-forest">
-                <SplitWords text="From First Call to Ongoing Review" delay={0.08} />
-              </h2>
-              <Reveal y={16} delay={0.2}>
-                <p className="lede mt-5">
-                  There is no obligation attached to a first conversation, and no recommendation is
-                  made in it. If structured planning would not add anything to your situation, that
-                  is a reasonable outcome and we will say so.
-                </p>
-              </Reveal>
-            </div>
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-5 lg:sticky lg:top-28 lg:self-start">
+            <Reveal y={12}>
+              <p className="eyebrow">What to Expect</p>
+            </Reveal>
+            <h2 className="display-2 mt-3 text-forest">
+              <SplitWords text="From First Call to Ongoing Review" delay={0.08} />
+            </h2>
+            <Reveal y={16} delay={0.2}>
+              <p className="lede mt-5">
+                There is no obligation attached to a first conversation, and no recommendation is
+                made in it. If structured planning would not add anything to your situation, that
+                is a reasonable outcome and we will say so.
+              </p>
+            </Reveal>
           </div>
 
           <SwipeArea className="min-w-0 lg:col-span-7">
@@ -438,6 +444,7 @@ export default function About() {
 
       <Story />
       <Journey />
+      <AboutFounder className="border-t border-line" />
       <Expectations />
       <Audiences />
       <Beliefs />

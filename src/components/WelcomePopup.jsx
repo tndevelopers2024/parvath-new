@@ -1,12 +1,14 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { AlertCircle, Check, ChevronDown, Sparkles, X } from 'lucide-react'
+import { useLenis } from 'lenis/react'
+import { useLocation } from 'react-router-dom'
 import { interestOptions, site } from '../data/site'
 import { EASE } from '../lib/motion'
 import { usePreloaderDone } from '../lib/preloader'
 import { Diamond, GoldRule, JaaliField } from './Ornaments'
 
-const OPEN_DELAY_MS = 1800
+const SCROLL_POPUP_DELAY_MS = 800
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i
 const PHONE = /^(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}$/
@@ -37,7 +39,7 @@ const fieldBase =
 
 /**
  * A single, session-scoped invitation to talk — not a marketing takeover.
- * Shows once per browser session, a couple of seconds after the site loads,
+ * Shows only when the visitor reaches the Business Owners section,
  * and never reappears once dismissed or submitted.
  */
 export default function WelcomePopup() {
@@ -48,29 +50,91 @@ export default function WelcomePopup() {
   const [sent, setSent] = useState(false)
   const reduced = useReducedMotion()
   const preloaderDone = usePreloaderDone()
+  const location = useLocation()
   const uid = useId()
   const formRef = useRef(null)
   const closeRef = useRef(null)
+  const timerRef = useRef(null)
 
-  // Opens on every full page load (landing or refresh), shortly after the
-  // first preloader lifts — not again when the preloader replays on navigation
+  // Opens only when user reaches the Business Owners section
   const hasOpened = useRef(false)
+
+  const triggerOpen = () => {
+    if (hasOpened.current) return
+    hasOpened.current = true
+    timerRef.current = setTimeout(() => {
+      setOpen(true)
+    }, SCROLL_POPUP_DELAY_MS)
+  }
+
+  // Check scroll position relative to the Business Owners section via Lenis
+  const lenis = useLenis(() => {
+    if (!preloaderDone || hasOpened.current) return
+    const target = document.getElementById('business-owners')
+    if (!target) return
+    const rect = target.getBoundingClientRect()
+    if (rect.top <= window.innerHeight * 0.75 && rect.bottom >= 0) {
+      triggerOpen()
+    }
+  })
+
+  // Watch for the Business Owners section entering the viewport
   useEffect(() => {
     if (!preloaderDone || hasOpened.current) return
-    const timer = setTimeout(() => {
-      hasOpened.current = true
-      setOpen(true)
-    }, OPEN_DELAY_MS)
-    return () => clearTimeout(timer)
-  }, [preloaderDone])
 
-  const close = () => setOpen(false)
+    const target = document.getElementById('business-owners')
+    if (!target) return
+
+    let observer = null
+    if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              triggerOpen()
+              observer?.disconnect()
+              break
+            }
+          }
+        },
+        {
+          rootMargin: '0px 0px -10% 0px',
+          threshold: 0.1,
+        }
+      )
+      observer.observe(target)
+    }
+
+    const checkPosition = () => {
+      if (hasOpened.current) return
+      const rect = target.getBoundingClientRect()
+      if (rect.top <= window.innerHeight * 0.75 && rect.bottom >= 0) {
+        triggerOpen()
+        observer?.disconnect()
+      }
+    }
+
+    checkPosition()
+    window.addEventListener('scroll', checkPosition, { passive: true })
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current)
+      observer?.disconnect()
+      window.removeEventListener('scroll', checkPosition)
+    }
+  }, [preloaderDone, location.pathname])
+
+  const close = () => {
+    if (timerRef.current) clearTimeout(timerRef.current)
+    setOpen(false)
+  }
 
   useEffect(() => {
     if (!open) return
     const { overflow } = document.body.style
     document.body.style.overflow = 'hidden'
-    closeRef.current?.focus()
+    lenis?.stop()
+    closeRef.current?.focus({ preventScroll: true })
 
     const onKey = (e) => {
       if (e.key === 'Escape') close()
@@ -79,9 +143,10 @@ export default function WelcomePopup() {
 
     return () => {
       document.body.style.overflow = overflow
+      lenis?.start()
       document.removeEventListener('keydown', onKey)
     }
-  }, [open])
+  }, [open, lenis])
 
   const fid = (name) => `${uid}-${name}`
 
@@ -151,9 +216,9 @@ export default function WelcomePopup() {
               type="button"
               onClick={close}
               aria-label="Close"
-              className="sticky top-3 right-4 z-10 ml-auto mr-3 flex h-9 w-9 items-center justify-center rounded-full border border-forest/10 bg-white/70 text-forest backdrop-blur-sm transition-colors duration-300 hover:bg-white lg:absolute lg:top-4 lg:right-4 lg:mr-0 lg:border-white/20 lg:bg-black/10 lg:text-white lg:hover:bg-black/25"
+              className="sticky top-3 right-4 z-10 ml-auto mr-3 flex h-9 w-9 items-center justify-center rounded-full border border-forest/20 bg-white/90 text-forest shadow-xs backdrop-blur-sm transition-all duration-300 hover:border-forest hover:bg-forest hover:text-ivory focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 lg:absolute lg:top-4 lg:right-4 lg:mr-0"
             >
-              <X aria-hidden="true" className="h-4.5 w-4.5" strokeWidth={1.5} />
+              <X aria-hidden="true" className="h-4.5 w-4.5 transition-transform duration-300" strokeWidth={2} />
             </button>
 
             {/* ---- Left: the pitch (shown after the form on mobile) ---- */}
@@ -212,7 +277,7 @@ export default function WelcomePopup() {
                     Thank you — we’ll be in touch shortly.
                   </h3>
                   <p className="mx-auto mt-4 max-w-xs text-[0.9375rem] leading-relaxed text-muted">
-                    {site.founder} will reach out personally to schedule your first conversation.
+                    Our founders, {site.founder}, will reach out personally to schedule your first conversation.
                   </p>
                   <button
                     type="button"

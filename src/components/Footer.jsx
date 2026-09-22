@@ -10,6 +10,7 @@ import {
   Calculator,
 } from 'lucide-react'
 import { disclaimer, navLinks, services, site } from '../data/site'
+import { images } from '../data/images'
 import { JaaliField } from './Ornaments'
 
 /** Circular brand social links matching top bar styling */
@@ -116,24 +117,42 @@ export default function Footer() {
               Structured financial planning for individuals, families and business owners. Guiding you to create, protect and transfer generational wealth with clarity and confidence.
             </p>
 
-            {/* Founder Card */}
+            {/* Founders & Advisory Card */}
             <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-4.5 backdrop-blur-xs">
               <p className="text-[0.6875rem] font-medium tracking-wider text-gold-soft uppercase">
                 Founders &amp; Advisory
               </p>
-              <div className="mt-1 space-y-0.5">
-                <p className="font-display text-base font-semibold text-white">
-                  K Sridhar
-                </p>
-                <p className="font-display text-base font-semibold text-white">
-                  Varalakshmi Sridhar
-                </p>
+              <div className="mt-2.5 space-y-2.5">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gold-soft/40 bg-gold/20 font-display text-xs font-medium text-gold-soft">
+                    KS
+                  </span>
+                  <div>
+                    <p className="font-display text-sm font-semibold text-white leading-tight">
+                      K Sridhar
+                    </p>
+                    <p className="text-[0.6875rem] text-ivory/65">Founder &bull; 20+ Yrs Corporate Advisory</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-full ring-1 ring-gold-soft/40">
+                    <img
+                      src={images.founder.src}
+                      alt="Varalakshmi Sridhar"
+                      className="h-full w-full object-cover object-top"
+                      loading="lazy"
+                    />
+                  </span>
+                  <div>
+                    <p className="font-display text-sm font-semibold text-white leading-tight">
+                      Varalakshmi Sridhar
+                    </p>
+                    <p className="text-[0.6875rem] text-ivory/65">Founder &bull; 7+ Yrs Financial Advisory</p>
+                  </div>
+                </div>
               </div>
-              <p className="text-xs text-ivory/70 mt-1">
-                {site.founderRole}
-              </p>
-              <p className="mt-2 text-[0.6875rem] font-medium text-gold-soft/90">
-                20+ Years Corporate Advisory Experience
+              <p className="mt-3 border-t border-white/10 pt-2 text-[0.6875rem] font-medium text-gold-soft/90">
+                Parvath Life and Legacy Advisors
               </p>
             </div>
 

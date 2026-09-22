@@ -22,7 +22,8 @@ const BondsAndDeposits = lazy(() => import('./pages/BondsAndDeposits'))
 const LegacyPlanning = lazy(() => import('./pages/LegacyPlanning'))
 const EmployeeBenefits = lazy(() => import('./pages/EmployeeBenefits'))
 const GroupGratuity = lazy(() => import('./pages/GroupGratuity'))
-// Insights is hidden until real articles exist; the page file stays in src/pages.
+const Blogs = lazy(() => import('./pages/Insights'))
+const BlogDetail = lazy(() => import('./pages/BlogDetail'))
 const Contact = lazy(() => import('./pages/Contact'))
 
 const Calculators = lazy(() => import('./pages/calculators/Calculators'))
@@ -85,7 +86,10 @@ export default function App() {
               <Route path="/services/group-gratuity" element={<GroupGratuity />} />
               {/* Approach was folded into About; keep old links working */}
               <Route path="/approach" element={<Navigate to="/about" replace />} />
-              <Route path="/insights" element={<Navigate to="/" replace />} />
+              <Route path="/blogs" element={<Blogs />} />
+              <Route path="/blogs/:slug" element={<BlogDetail />} />
+              <Route path="/insights" element={<Navigate to="/blogs" replace />} />
+              <Route path="/insights/:slug" element={<BlogDetail />} />
               <Route path="/contact" element={<Contact />} />
 
               <Route path="/calculators" element={<Calculators />} />

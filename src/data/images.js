@@ -50,6 +50,24 @@ export const images = {
     aspect: '4 / 5',
     placeholder: false,
   },
+  founders: {
+    sridhar: {
+      src: '/images/about/k-sridhar.avif',
+      fallbackSrc: '/images/plate-founder.svg',
+      alt: 'K Sridhar, Founder of Parvath Life and Legacy Advisors',
+      aspect: '4 / 5',
+      placeholder: true,
+      initials: 'KS',
+    },
+    varalakshmi: {
+      src: '/images/about/varalakshmi-sridhar-2.avif',
+      fallbackSrc: '/images/about/varalakshmi-sridhar-2.avif',
+      alt: 'Varalakshmi Sridhar, Founder of Parvath Life and Legacy Advisors',
+      aspect: '4 / 5',
+      placeholder: false,
+      initials: 'VS',
+    },
+  },
   business: {
     src: '/images/plate-business.svg',
     alt: 'Wide arcade opening onto light',

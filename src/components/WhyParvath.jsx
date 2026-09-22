@@ -1,9 +1,10 @@
 import { Compass, PenLine, Handshake, Briefcase } from 'lucide-react'
 import { pillars, site, stats } from '../data/site'
+import { images } from '../data/images'
 import CountUp from './CountUp'
 import SectionHeading from './SectionHeading'
 import Reveal, { RevealGroup, RevealItem } from './Reveal'
-import { GoldRule, JaaliField } from './Ornaments'
+import { JaaliField } from './Ornaments'
 import SwipeArea from './SwipeArea'
 
 const iconMap = { Compass, PenLine, Handshake, Briefcase }
@@ -48,7 +49,19 @@ function StatementPanel() {
       </dl>
 
       <div className="mt-6 flex items-center gap-4">
-        <GoldRule width="2.5rem" delay={0.3} />
+        <div className="flex -space-x-2 items-center shrink-0">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-gold/40 bg-gold/20 font-display text-[0.6875rem] font-semibold text-forest">
+            KS
+          </span>
+          <span className="relative h-8 w-8 overflow-hidden rounded-full ring-1 ring-gold/50">
+            <img
+              src={images.founder.src}
+              alt="Varalakshmi Sridhar"
+              className="h-full w-full object-cover object-top"
+              loading="lazy"
+            />
+          </span>
+        </div>
         <p className="text-sm text-forest">
           <span className="font-medium block">{site.founder}</span>
           <span className="block text-[0.75rem] text-muted">{site.founderRole}</span>

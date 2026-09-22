@@ -11,7 +11,8 @@ const sectionLabels = {
   services: 'Services',
   calculators: 'Calculators',
   approach: 'Approach',
-  insights: 'Insights',
+  insights: 'Blogs',
+  blogs: 'Blogs',
   contact: 'Contact',
 }
 
