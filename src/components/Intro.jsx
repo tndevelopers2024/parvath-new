@@ -83,7 +83,7 @@ export default function Intro() {
   return (
     <section className="section bg-cream">
       <div className="shell">
-        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
+        <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-10 xl:gap-12">
           {/* Left Column: Narrative & Philosophy */}
           <div className="lg:col-span-5 xl:col-span-5">
             <SectionHeading
@@ -91,7 +91,7 @@ export default function Intro() {
               title="Planning Around the Life Behind the Numbers"
             />
 
-            <Reveal y={16} delay={0.14} className="mt-6">
+            <Reveal y={16} delay={0.14} className="mt-6 sm:mt-7">
               <div className="rounded-2xl border border-line/70 bg-white p-6 shadow-xs sm:p-7">
                 <div className="flex items-start gap-3.5">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-forest text-white shadow-xs">
@@ -115,7 +115,7 @@ export default function Intro() {
               </div>
             </Reveal>
 
-            <Reveal y={16} delay={0.2} className="mt-7 flex flex-wrap items-center gap-3.5">
+            <Reveal y={16} delay={0.2} className="mt-6 flex flex-wrap items-center gap-3.5 sm:mt-7">
               <Button to="/about" variant="primary">
                 About Parvath
               </Button>

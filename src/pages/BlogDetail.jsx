@@ -84,7 +84,7 @@ export default function BlogDetail() {
         crumb={blog.shortTitle || blog.title}
       >
         {/* Article Meta Header Strip */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4 border-t border-ivory/15 pt-6 text-[0.8125rem] text-ivory/80 sm:gap-6">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5 sm:gap-6 border-t border-ivory/15 pt-6 text-[0.8125rem] text-ivory/80">
           <div className="flex items-center gap-2">
             <span className="flex h-7 w-7 items-center justify-center rounded-full border border-gold-soft/40 bg-ivory/10 text-gold-soft">
               <User className="h-3.5 w-3.5" strokeWidth={1.75} />
@@ -92,7 +92,7 @@ export default function BlogDetail() {
             <span className="font-medium">{blog.author}</span>
           </div>
 
-          <span aria-hidden="true" className="h-1 w-1 rounded-full bg-ivory/30" />
+          <span aria-hidden="true" className="hidden sm:inline h-1 w-1 rounded-full bg-ivory/30" />
 
           <div className="flex items-center gap-1.5">
             <Clock className="h-3.5 w-3.5 text-gold-soft" strokeWidth={1.75} />
@@ -111,7 +111,7 @@ export default function BlogDetail() {
           <button
             type="button"
             onClick={handleCopy}
-            className="inline-flex items-center gap-1.5 rounded-full border border-ivory/20 bg-ivory/5 px-3 py-1 text-xs text-ivory/90 transition-colors duration-200 hover:border-gold-soft hover:text-gold-soft"
+            className="inline-flex items-center gap-1.5 rounded-full border border-ivory/20 bg-ivory/5 px-3.5 py-1.5 text-xs text-ivory/90 transition-colors duration-200 hover:border-gold-soft hover:text-gold-soft"
             aria-label="Copy link to article"
           >
             {copied ? (
@@ -140,7 +140,7 @@ export default function BlogDetail() {
               {/* Key Takeaways Box */}
               {blog.keyTakeaways && blog.keyTakeaways.length > 0 && (
                 <Reveal y={20} className="mb-12">
-                  <div className="relative overflow-hidden rounded-2xl border border-gold/40 bg-cream p-7 shadow-xs sm:p-9">
+                  <div className="relative overflow-hidden rounded-2xl border border-gold/40 bg-cream p-5 sm:p-8 lg:p-9 shadow-xs">
                     <div aria-hidden="true" className="pointer-events-none absolute -top-12 -right-12 h-44 w-44">
                       <JaaliField opacity={0.12} scale={36} />
                     </div>
@@ -196,7 +196,7 @@ export default function BlogDetail() {
 
                     {/* Optional Pull Quote */}
                     {section.quote && (
-                      <blockquote className="relative my-8 overflow-hidden rounded-2xl border border-line bg-white p-7 shadow-xs sm:my-10 sm:p-9">
+                      <blockquote className="relative my-8 overflow-hidden rounded-2xl border border-line bg-white p-5 sm:p-8 lg:p-9 shadow-xs sm:my-10">
                         <QuoteMark size={32} className="text-gold/40" />
                         <p className="mt-3 font-display text-xl leading-relaxed text-forest sm:text-2xl">
                           “{section.quote.text}”
@@ -212,13 +212,13 @@ export default function BlogDetail() {
                 ))}
               </div>
 
-              {/* Related Interactive Calculator Box */}
+              {/* Related Interactive Calculator / Advisory Consultation Box */}
               {blog.relatedCalculator && (
                 <Reveal y={20} className="mt-14 sm:mt-16">
                   <div className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-forest/15 bg-cream p-7 sm:flex-row sm:items-center sm:p-8">
                     <div>
                       <span className="text-[0.6875rem] font-medium tracking-[0.16em] text-gold-ink uppercase">
-                        Interactive Planning Tool
+                        {blog.relatedCalculator.path.startsWith('/contact') ? 'Advisory Consultation' : 'Interactive Planning Tool'}
                       </span>
                       <h3 className="mt-1 font-display text-xl text-forest sm:text-2xl">
                         {blog.relatedCalculator.title}
@@ -228,7 +228,7 @@ export default function BlogDetail() {
                       </p>
                     </div>
                     <Button to={blog.relatedCalculator.path} variant="primary">
-                      Launch Tool
+                      {blog.relatedCalculator.path.startsWith('/contact') ? 'Book Consultation' : 'Launch Tool'}
                     </Button>
                   </div>
                 </Reveal>

@@ -90,7 +90,7 @@ export default function FAQ({
           lede={lede}
         />
 
-        <RevealGroup className="mx-auto mt-8 flex max-w-3xl flex-col gap-3 sm:gap-3.5 lg:mt-10" stagger={0.06}>
+        <RevealGroup className="mx-auto mt-8 flex max-w-3xl flex-col gap-3 sm:mt-10 sm:gap-3.5 lg:mt-12" stagger={0.06}>
           {items.map((item, i) => (
             <RevealItem key={item.question}>
               <FAQItem

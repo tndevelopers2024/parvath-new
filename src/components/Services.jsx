@@ -15,7 +15,7 @@ export default function Services({ withCta = true, background = 'bg-ivory' }) {
           lede="Eight areas of work, approached as one plan. Most clients begin with a single question and find the rest connected to it."
         />
 
-        <SwipeArea className="mt-8 lg:mt-10">
+        <SwipeArea className="mt-8 sm:mt-10 lg:mt-12">
         <RevealGroup
           className="swipe-mobile grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5"
           stagger={0.08}
@@ -30,7 +30,7 @@ export default function Services({ withCta = true, background = 'bg-ivory' }) {
         </SwipeArea>
 
         {withCta && (
-          <Reveal y={16} className="mt-8 flex justify-center">
+          <Reveal y={16} className="mt-8 sm:mt-10 lg:mt-12 flex justify-center">
             <Button to="/services" variant="secondary" withArrow={false}>
               View All Services
             </Button>

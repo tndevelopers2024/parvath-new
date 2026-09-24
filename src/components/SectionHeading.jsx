@@ -36,14 +36,14 @@ export default function SectionHeading({
       {eyebrow && <Eyebrow tone={tone}>{eyebrow}</Eyebrow>}
 
       {title && (
-        <Level className={`${eyebrow ? 'mt-3' : ''} display-2 ${light ? 'text-ivory' : 'text-forest'}`}>
+        <Level className={`${eyebrow ? 'mt-3 sm:mt-4' : ''} display-2 ${light ? 'text-ivory' : 'text-forest'}`}>
           <SplitWords text={title} delay={0.08} />
         </Level>
       )}
 
       {lede && (
         <Reveal y={16} delay={0.3}>
-          <p className={`lede mx-auto mt-3 max-w-xl ${light ? 'text-ivory/80' : ''}`}>{lede}</p>
+          <p className={`lede mx-auto mt-3.5 sm:mt-4 max-w-2xl ${light ? 'text-ivory/80' : ''}`}>{lede}</p>
         </Reveal>
       )}
 

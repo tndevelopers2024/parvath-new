@@ -425,9 +425,7 @@ export default function Navbar() {
                 aria-expanded={open}
                 aria-controls="mobile-menu"
                 aria-label={open ? 'Close menu' : 'Open menu'}
-                className={`-mr-2 flex items-center justify-center rounded-full transition-all duration-300 lg:hidden ${
-                  compact ? 'h-10 w-10' : 'h-11 w-11'
-                } ${
+                className={`-mr-2 flex h-11 w-11 items-center justify-center rounded-full transition-all duration-300 lg:hidden ${
                   isTransparent
                     ? 'text-white hover:bg-white/10'
                     : 'text-forest hover:bg-forest/5'
@@ -564,13 +562,13 @@ export default function Navbar() {
 
                     <a
                       href={site.phoneHref}
-                      className="flex items-center justify-center gap-2 py-2 text-sm font-medium tracking-[0.04em] text-forest"
+                      className="flex min-h-[44px] items-center justify-center gap-2 py-2.5 text-sm font-medium tracking-[0.04em] text-forest"
                     >
                       <Phone aria-hidden="true" className="h-4 w-4" strokeWidth={1.5} />
                       {site.phoneDisplay}
                     </a>
 
-                    <div className="mt-2 flex items-center justify-center gap-2.5 border-t border-line/60 pt-4">
+                    <div className="mt-2 flex items-center justify-center gap-3 border-t border-line/60 pt-4">
                       {socialLinks.map((social) => (
                         <a
                           key={social.name}
@@ -578,7 +576,7 @@ export default function Navbar() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`Follow Parvath Life and Legacy Advisors on ${social.name}`}
-                          className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-forest shadow-xs transition-all duration-200 hover:scale-110 hover:bg-forest hover:text-gold-soft"
+                          className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-forest shadow-xs transition-all duration-200 hover:scale-110 hover:bg-forest hover:text-gold-soft"
                         >
                           {social.icon}
                         </a>

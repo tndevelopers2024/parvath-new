@@ -93,7 +93,7 @@ export default function Footer() {
 
       <div className="shell relative z-10">
         {/* Main Footer Multi-Column Grid */}
-        <div className="grid gap-10 py-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:py-12">
+        <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:py-16">
           {/* Column 1: Brand & Founder — 4 cols */}
           <div className="lg:col-span-4">
             <Link to="/" className="inline-flex items-center gap-4" aria-label="Parvath Life and Legacy Advisors — home">
@@ -169,7 +169,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Follow Parvath Life and Legacy Advisors on ${social.name}`}
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-forest shadow-xs transition-all duration-200 hover:scale-110 hover:bg-forest-soft hover:text-gold-soft hover:shadow-md focus:outline-hidden focus:ring-2 focus:ring-gold"
+                    className="flex h-10 w-10 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white text-forest shadow-xs transition-all duration-200 hover:scale-110 hover:bg-forest-soft hover:text-gold-soft hover:shadow-md focus:outline-hidden focus:ring-2 focus:ring-gold"
                   >
                     {social.icon}
                   </a>
@@ -366,7 +366,7 @@ export default function Footer() {
         </div>
 
         {/* Sub-Footer / Copyright & Legal Bar */}
-        <div className="mt-6 border-t border-white/10 py-6 text-xs text-ivory/60">
+        <div className="mt-8 border-t border-white/10 py-6 text-xs text-ivory/60">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p>&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-ivory/70">

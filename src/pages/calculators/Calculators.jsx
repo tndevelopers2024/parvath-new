@@ -114,7 +114,7 @@ function CalculatorBrowser() {
     <section className="section bg-ivory">
       <div className="shell">
         <Reveal y={16} className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div role="tablist" aria-label="Calculator categories" className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1">
+          <div role="tablist" aria-label="Calculator categories" className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {tabs.map((tab) => {
               const selected = category === tab.key
               return (
@@ -173,7 +173,7 @@ function CalculatorBrowser() {
           Showing {visible.length} of {calculators.length} calculators
         </p>
 
-        <motion.ul layout={!reduced} className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+        <motion.ul layout={!reduced} className="mt-5 grid gap-5 sm:grid-cols-2 lg:mt-6 lg:grid-cols-3 lg:gap-6">
           <AnimatePresence mode="popLayout" initial={false}>
             {visible.map((calculator, i) => (
               <motion.li

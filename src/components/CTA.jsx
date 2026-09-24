@@ -27,11 +27,11 @@ export default function CTA({
       }
 
   return (
-    <section className="bg-ivory py-8 sm:py-10 lg:py-12">
+    <section className="bg-ivory py-10 sm:py-12 lg:py-14 xl:py-16">
       <div className="shell">
         <motion.div
           {...enter}
-          className="relative isolate overflow-hidden rounded-3xl sm:rounded-[2.25rem] bg-forest px-6 py-12 text-center shadow-[0_20px_50px_-12px_rgba(23,63,53,0.3)] border border-forest-soft/40 md:py-14 lg:py-16">
+          className="relative isolate overflow-hidden rounded-3xl sm:rounded-[2.25rem] bg-forest px-6 py-10 text-center shadow-[0_20px_50px_-15px_rgba(23,63,53,0.3)] border border-forest-soft/40 sm:px-10 sm:py-12 lg:py-14">
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 motion-reduce:hidden">
             <span className="animate-wander absolute -top-24 -left-16 h-72 w-72 rounded-full bg-gold/25 blur-3xl" />
             <span className="animate-wander absolute -right-20 -bottom-28 h-80 w-80 rounded-full bg-forest-soft/70 blur-3xl [animation-delay:-9s]" />

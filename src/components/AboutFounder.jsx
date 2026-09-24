@@ -36,7 +36,7 @@ function FounderPortrait({ founder }) {
   const reduced = useReducedMotion()
 
   return (
-    <div className="relative mx-auto w-full max-w-[220px] sm:mx-0 sm:w-40 sm:max-w-none shrink-0">
+    <div className="relative mx-auto w-full max-w-[190px] sm:mx-0 sm:w-40 sm:max-w-none shrink-0">
       {/* Outer decorative gold frame */}
       <span
         aria-hidden="true"
@@ -104,11 +104,11 @@ export default function AboutFounder({ className = '' }) {
         />
 
         {/* Dual Founder Profile Cards */}
-        <RevealGroup className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10" stagger={0.15}>
+        <RevealGroup className="mt-8 grid grid-cols-1 gap-8 sm:mt-10 lg:mt-12 lg:grid-cols-2 lg:gap-10" stagger={0.15}>
           {site.founders.map((founder) => (
             <RevealItem
               key={founder.id}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-line/80 bg-white p-6 sm:p-8 shadow-[0_16px_40px_-20px_rgba(23,63,53,0.12)] transition-[border-color,box-shadow] duration-500 hover:border-gold/60 hover:shadow-card"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-line/80 bg-white p-5 sm:p-8 shadow-[0_16px_40px_-20px_rgba(23,63,53,0.12)] transition-[border-color,box-shadow] duration-500 hover:border-gold/60 hover:shadow-card"
             >
               {/* Subtle top gold gradient hairline */}
               <span
@@ -179,7 +179,7 @@ export default function AboutFounder({ className = '' }) {
         </RevealGroup>
 
         {/* Three Core Advisory Commitments */}
-        <RevealGroup className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6" stagger={0.12} delay={0.2}>
+        <RevealGroup className="mt-10 grid grid-cols-1 gap-5 sm:mt-12 sm:grid-cols-3 sm:gap-6" stagger={0.12} delay={0.2}>
           {commitments.map(({ Icon, title, body }) => (
             <RevealItem key={title} className="group relative pt-3.5">
               <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-line" />
@@ -197,17 +197,18 @@ export default function AboutFounder({ className = '' }) {
         </RevealGroup>
 
         {/* Stats — practice figures ledger */}
-        <RevealGroup as="div" className="mt-10 grid grid-cols-3 border-t border-line pt-8" stagger={0.08}>
+        <RevealGroup as="div" className="mt-10 grid grid-cols-3 border-t border-line pt-8 sm:mt-12" stagger={0.08}>
           {founderStats.map((stat, i) => (
             <RevealItem
               key={stat.label}
-              className={i > 0 ? 'border-l border-line pl-4 sm:pl-6' : ''}
+              className={i > 0 ? 'border-l border-line pl-3 sm:pl-6' : ''}
             >
               <CountUp
                 value={stat.value}
-                className="block font-display text-2xl font-normal text-forest sm:text-3xl leading-none"
+                className="block font-display text-xl sm:text-2xl lg:text-3xl font-normal text-forest leading-none whitespace-nowrap"
+                suffixClassName="text-gold"
               />
-              <p className="mt-2 text-[0.625rem] sm:text-[0.6875rem] font-medium tracking-[0.1em] text-muted uppercase leading-snug">
+              <p className="mt-2 text-[0.625rem] sm:text-[0.6875rem] font-medium tracking-[0.08em] sm:tracking-[0.1em] text-muted uppercase leading-snug">
                 {stat.label}
               </p>
             </RevealItem>
@@ -215,9 +216,9 @@ export default function AboutFounder({ className = '' }) {
         </RevealGroup>
 
         {/* Direct Consultation Callout */}
-        <Reveal y={16} delay={0.25} className="mt-10">
-          <div className="relative overflow-hidden rounded-2xl border border-line bg-gradient-to-r from-cream via-white to-cream p-6 sm:p-7">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
+        <Reveal y={16} delay={0.25} className="mt-8 sm:mt-10 lg:mt-12">
+          <div className="relative overflow-hidden rounded-2xl border border-line bg-gradient-to-r from-cream via-white to-cream p-5 sm:p-7">
+            <div className="flex flex-col items-start sm:flex-row sm:items-center justify-between gap-5">
               <div>
                 <p className="text-[0.6875rem] font-medium tracking-[0.18em] text-gold-ink uppercase">
                   Senior Founder Access
@@ -229,7 +230,7 @@ export default function AboutFounder({ className = '' }) {
                   Every relationship at Parvath is managed personally by our founders — ensuring your business succession and family wealth receive senior advisory discipline.
                 </p>
               </div>
-              <Button to="/contact" variant="primary" className="shrink-0 text-xs">
+              <Button to="/contact" variant="primary" className="w-full sm:w-auto shrink-0 text-xs">
                 Schedule a Consultation
               </Button>
             </div>

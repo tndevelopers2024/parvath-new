@@ -56,7 +56,7 @@ export default function Breakdown({ title, parts }) {
         {active !== null && (
           <div
             role="status"
-            className="pointer-events-none absolute -top-2 left-1/2 z-10 -translate-x-1/2 -translate-y-full rounded-md bg-ivory px-3 py-2 text-[0.75rem] whitespace-nowrap text-charcoal shadow-lift"
+            className="pointer-events-none absolute -top-2 left-1/2 z-10 -translate-x-1/2 -translate-y-full max-w-[calc(100vw-3rem)] rounded-md bg-ivory px-3 py-2 text-[0.75rem] whitespace-nowrap text-charcoal shadow-lift"
           >
             <span className="font-medium text-forest">{clean[active].label}</span>
             <span className="mx-1.5 text-muted">·</span>
@@ -67,7 +67,7 @@ export default function Breakdown({ title, parts }) {
       </div>
 
       {/* Legend: identity by swatch, values in text tokens */}
-      <ul className="mt-4 grid grid-cols-2 gap-3">
+      <ul className="mt-4 grid grid-cols-1 gap-2.5 min-[380px]:grid-cols-2 sm:gap-3">
         {clean.map((part, i) => (
           <li
             key={part.label}

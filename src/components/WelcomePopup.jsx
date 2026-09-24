@@ -216,7 +216,7 @@ export default function WelcomePopup() {
               type="button"
               onClick={close}
               aria-label="Close"
-              className="sticky top-3 right-4 z-10 ml-auto mr-3 flex h-9 w-9 items-center justify-center rounded-full border border-forest/20 bg-white/90 text-forest shadow-xs backdrop-blur-sm transition-all duration-300 hover:border-forest hover:bg-forest hover:text-ivory focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 lg:absolute lg:top-4 lg:right-4 lg:mr-0"
+              className="sticky top-3 right-4 z-10 ml-auto mr-3 flex h-10 w-10 sm:h-9 sm:w-9 items-center justify-center rounded-full border border-forest/20 bg-white/90 text-forest shadow-xs backdrop-blur-sm transition-all duration-300 hover:border-forest hover:bg-forest hover:text-ivory focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 lg:absolute lg:top-4 lg:right-4 lg:mr-0"
             >
               <X aria-hidden="true" className="h-4.5 w-4.5 transition-transform duration-300" strokeWidth={2} />
             </button>

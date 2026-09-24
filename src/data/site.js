@@ -82,8 +82,8 @@ export const stats = [
 ]
 
 export const founderStats = [
-  { value: '20+ Years', label: 'Corporate Advisory Experience' },
-  { value: '7+ Years', label: 'Financial Advisory' },
+  { value: '20+', label: 'Years Corporate Advisory' },
+  { value: '7+', label: 'Years Financial Advisory' },
   { value: '200+', label: 'Families & Businesses' },
 ]
 

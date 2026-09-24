@@ -117,7 +117,7 @@ function Story() {
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
           {/* Pull quote — the founder's own words from the practice profile */}
           <Reveal y={24} className="lg:col-span-5">
-            <figure className="relative isolate overflow-hidden rounded-2xl bg-forest p-7 text-ivory shadow-lift sm:p-9">
+            <figure className="relative isolate overflow-hidden rounded-2xl bg-forest p-6 sm:p-9 text-ivory shadow-lift">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_100%_0%,black,transparent_70%)]"
@@ -216,7 +216,7 @@ function Journey() {
           lede="The experience clients benefit from was built long before the first planning conversation."
         />
 
-        <div className="relative mt-10">
+        <div className="relative mt-8 sm:mt-10 lg:mt-12">
           {/* Rail: horizontal from `lg`, vertical below */}
           {reduced ? (
             <span aria-hidden="true" className="absolute top-7 right-[12.5%] left-[12.5%] hidden h-px bg-gold/50 lg:block" />
@@ -325,7 +325,7 @@ function Audiences() {
           lede="Most clients arrive with a single question. Where they are in life decides which areas of planning it connects to."
         />
 
-        <SwipeArea className="mt-8 lg:mt-10">
+        <SwipeArea className="mt-8 sm:mt-10 lg:mt-12">
         <RevealGroup className="swipe-mobile grid gap-5 md:grid-cols-3 lg:gap-6" stagger={0.12}>
           {audiences.map(({ title, Icon, body, services: slugs }, i) => (
             <RevealItem
@@ -395,7 +395,7 @@ function Beliefs() {
           tone="light"
         />
 
-        <SwipeArea className="mt-8 lg:mt-10" tone="dark">
+        <SwipeArea className="mt-8 sm:mt-10 lg:mt-12" tone="dark">
         <RevealGroup className="swipe-mobile grid gap-px overflow-hidden rounded-2xl bg-ivory/10 max-sm:rounded-none max-sm:bg-transparent sm:grid-cols-2" stagger={0.1}>
           {beliefs.map((belief, i) => (
             <RevealItem

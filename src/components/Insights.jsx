@@ -19,11 +19,11 @@ export function InsightCard({ insight, index }) {
         aria-hidden="true"
         className="absolute top-0 left-0 h-0.5 w-10 bg-gold transition-[width] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:w-full"
       />
-      <div className="flex items-center justify-between gap-4">
-        <span className="rounded-full border border-gold/40 bg-cream px-3 py-1 text-[0.625rem] font-medium tracking-[0.18em] text-gold-ink uppercase">
+      <div className="flex items-center justify-between gap-3">
+        <span className="rounded-full border border-gold/40 bg-cream px-2.5 sm:px-3 py-1 text-[0.625rem] font-medium tracking-[0.12em] sm:tracking-[0.18em] text-gold-ink uppercase">
           {insight.category}
         </span>
-        <span aria-hidden="true" className="font-display text-sm text-forest/50">
+        <span aria-hidden="true" className="font-display text-sm text-forest/50 shrink-0">
           {String(index + 1).padStart(2, '0')}
         </span>
       </div>
@@ -34,7 +34,7 @@ export function InsightCard({ insight, index }) {
 
       <p className="mt-4 grow text-[0.9375rem] leading-relaxed text-muted">{insight.excerpt}</p>
 
-      <div className="mt-6 flex items-center justify-between border-t border-line pt-5 text-[0.6875rem] font-medium tracking-[0.14em] uppercase">
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-2 border-t border-line pt-5 text-[0.6875rem] font-medium tracking-[0.14em] uppercase">
         <span className="text-muted">{insight.readingTime}</span>
         {isAvailable ? (
           <span className="inline-flex items-center gap-1.5 font-semibold text-forest transition-colors duration-200 group-hover:text-gold-ink">
@@ -52,7 +52,7 @@ export function InsightCard({ insight, index }) {
     return (
       <Link
         to={`/blogs/${insight.slug}`}
-        className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white p-7 transition-all duration-500 hover:-translate-y-1 hover:border-gold/60 hover:shadow-card sm:p-8"
+        className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white p-6 sm:p-8 transition-all duration-500 hover:-translate-y-1 hover:border-gold/60 hover:shadow-card"
       >
         {cardContent}
       </Link>
@@ -60,7 +60,7 @@ export function InsightCard({ insight, index }) {
   }
 
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white p-7 opacity-85 transition-[border-color,box-shadow] duration-500 hover:border-gold/60 hover:shadow-card sm:p-8">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white p-6 sm:p-8 opacity-85 transition-[border-color,box-shadow] duration-500 hover:border-gold/60 hover:shadow-card">
       {cardContent}
     </article>
   )
@@ -79,7 +79,7 @@ export default function Insights({ limit, withCta = true, background = 'bg-ivory
         />
 
         <RevealGroup
-          className="mt-8 grid gap-5 sm:grid-cols-2 lg:mt-10 lg:grid-cols-3 lg:gap-6"
+          className="mt-8 grid gap-5 sm:grid-cols-2 sm:mt-10 lg:mt-12 lg:grid-cols-3 lg:gap-6"
           stagger={0.08}
           amount={0.12}
         >
@@ -91,7 +91,7 @@ export default function Insights({ limit, withCta = true, background = 'bg-ivory
         </RevealGroup>
 
         {withCta && (
-          <Reveal y={16} className="mt-8 flex justify-center">
+          <Reveal y={16} className="mt-8 sm:mt-10 lg:mt-12 flex justify-center">
             <Button to="/blogs" variant="secondary" withArrow={false}>
               View All Blogs
             </Button>

@@ -30,7 +30,7 @@ export default function InsightsPage() {
 
       <section className="section bg-ivory">
         <div className="shell">
-          <div className="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-line pb-6">
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-line pb-6 sm:mb-10 lg:mb-12">
             <div>
               <h2 className="font-display text-2xl font-semibold text-forest sm:text-3xl">
                 Featured Articles
@@ -45,7 +45,7 @@ export default function InsightsPage() {
           </div>
 
           <RevealGroup
-            className="grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-10"
+            className="grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-10"
             stagger={0.08}
             amount={0.1}
           >

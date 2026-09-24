@@ -86,7 +86,7 @@ export default function WhyParvath({ background = 'bg-ivory', className = 'borde
           lede="Four things that shape how every plan is put together, and why clients stay with it."
         />
 
-        <div className="mt-8 grid gap-8 lg:mt-10 lg:grid-cols-12 lg:gap-10">
+        <div className="mt-8 grid gap-8 sm:mt-10 lg:mt-12 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5">
             <StatementPanel />
           </div>

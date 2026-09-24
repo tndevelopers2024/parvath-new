@@ -125,7 +125,7 @@ export default function PageHeader({ eyebrow, title, lede, crumb, children }) {
   return (
     <section
       data-cursor-theme="dark"
-      className="relative isolate overflow-hidden bg-forest pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-20"
+      className="relative isolate overflow-hidden bg-forest pt-28 pb-14 sm:pt-32 sm:pb-18 lg:pt-36 lg:pb-20"
     >
       {/* Ambient layers */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">

@@ -39,7 +39,7 @@ export default function BrandTicker() {
   )
 
   return (
-    <section aria-hidden="true" className="overflow-hidden border-b border-line bg-ivory py-5 sm:py-6">
+    <section aria-hidden="true" className="overflow-hidden border-b border-line bg-ivory py-5 sm:py-6 lg:py-7">
       {row(primary, false, true)}
       <div className="mt-3 sm:mt-4">{row(secondary, true, false)}</div>
     </section>

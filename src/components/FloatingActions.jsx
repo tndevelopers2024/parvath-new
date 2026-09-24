@@ -50,10 +50,16 @@ export default function FloatingActions() {
     }
   }
 
+  const isCalculatorPage = pathname.startsWith('/calculators/') && pathname !== '/calculators'
+
   return (
     <aside
       aria-label="Quick actions"
-      className="fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-4 sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] sm:right-6 z-40 flex flex-col items-center gap-3 pointer-events-none"
+      className={`fixed ${
+        isCalculatorPage
+          ? 'bottom-[calc(5.25rem+env(safe-area-inset-bottom))] lg:bottom-[calc(1.5rem+env(safe-area-inset-bottom))]'
+          : 'bottom-[calc(1.25rem+env(safe-area-inset-bottom))] sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom))]'
+      } right-4 sm:right-6 z-40 flex flex-col items-center gap-3 pointer-events-none transition-[bottom] duration-300`}
     >
       <AnimatePresence>
         {showScrollTop && (
@@ -66,7 +72,7 @@ export default function FloatingActions() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.75, y: 12 }}
             transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
-            className="group relative flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-line/70 bg-white/95 text-forest shadow-[0_4px_16px_rgba(23,63,53,0.14)] backdrop-blur-md transition-all duration-300 hover:border-forest/40 hover:bg-forest hover:text-white hover:shadow-lift focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-2 pointer-events-auto"
+            className="group relative flex h-11 w-11 items-center justify-center rounded-full border border-line/70 bg-white/95 text-forest shadow-[0_4px_16px_rgba(23,63,53,0.14)] backdrop-blur-md transition-all duration-300 hover:border-forest/40 hover:bg-forest hover:text-white hover:shadow-lift focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-2 pointer-events-auto"
           >
             <ArrowUp
               className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-300 group-hover:-translate-y-0.5"

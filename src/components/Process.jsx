@@ -74,7 +74,7 @@ export default function Process({ eyebrow = 'Our Process', background = 'bg-ivor
           lede="Four steps, repeated for as long as we work together. The fourth is the one that keeps the first three honest."
         />
 
-        <div className="relative mt-8 lg:mt-10">
+        <div className="relative mt-8 sm:mt-10 lg:mt-12">
           {/* Desktop rail: first marker centre → last marker centre (4 cols, gap-6) */}
           <Rail className="absolute top-[1.375rem] right-[calc(25%_-_2.5rem)] left-[1.375rem] hidden h-px bg-line lg:block" />
           {/* A gold bead travelling the rail, from Understand toward Review */}

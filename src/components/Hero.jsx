@@ -93,7 +93,7 @@ export default function Hero() {
                 to={slide.primaryCta.to}
                 variant={slide.primaryCta.variant}
                 shimmer
-                className="border border-transparent max-sm:px-4 max-sm:py-3 max-sm:text-[0.6875rem] max-sm:tracking-[0.04em] max-[400px]:px-3.5! max-[400px]:tracking-[0.02em]! max-[400px]:[&>svg]:hidden! max-[370px]:px-3! max-[370px]:text-[0.625rem]!"
+                className="min-h-[44px] border border-transparent max-sm:px-4 max-sm:py-3 max-sm:text-[0.6875rem] max-sm:tracking-[0.04em] max-[400px]:px-3.5! max-[400px]:tracking-[0.02em]! max-[400px]:[&>svg]:hidden! max-[370px]:px-3! max-[370px]:text-[0.625rem]!"
               >
                 {slide.primaryCta.label}
               </Button>
@@ -101,7 +101,7 @@ export default function Hero() {
                 to={slide.secondaryCta.to}
                 variant={slide.secondaryCta.variant}
                 withArrow={false}
-                className="max-sm:px-4 max-sm:py-3 max-sm:text-[0.6875rem] max-sm:tracking-[0.04em] max-[400px]:px-3.5! max-[400px]:tracking-[0.02em]! max-[370px]:px-3! max-[370px]:text-[0.625rem]!"
+                className="min-h-[44px] max-sm:px-4 max-sm:py-3 max-sm:text-[0.6875rem] max-sm:tracking-[0.04em] max-[400px]:px-3.5! max-[400px]:tracking-[0.02em]! max-[370px]:px-3! max-[370px]:text-[0.625rem]!"
               >
                 {slide.secondaryCta.label}
               </Button>

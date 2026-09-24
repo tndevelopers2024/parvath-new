@@ -140,7 +140,7 @@ function Signs({ service }) {
           lede="Most people recognise at least one of these. Any one of them is a reasonable place to start."
         />
 
-        <SwipeArea className="mx-auto mt-8 max-w-5xl lg:mt-10">
+        <SwipeArea className="mx-auto mt-8 sm:mt-10 lg:mt-12 max-w-5xl">
         <RevealGroup className="swipe-mobile grid gap-4 sm:grid-cols-2" stagger={0.09}>
           {service.signs.map((sign, i) => (
             <RevealItem
@@ -176,7 +176,7 @@ function Deliverables({ service }) {
           lede="Planning should leave you with something you can see and use — not just a meeting."
         />
 
-        <SwipeArea className="mt-8 lg:mt-10">
+        <SwipeArea className="mt-8 sm:mt-10 lg:mt-12">
         <RevealGroup as="ol" className="swipe-mobile grid gap-5 md:grid-cols-3 lg:gap-6" stagger={0.12}>
           {service.deliverables.map((item, i) => (
             <RevealItem
@@ -232,7 +232,7 @@ function RelatedCalculators({ service }) {
           lede="A quick estimate before we talk can make the first conversation more useful."
         />
 
-        <SwipeArea className="mt-8 lg:mt-10">
+        <SwipeArea className="mt-8 sm:mt-10 lg:mt-12">
         <RevealGroup
           className={`swipe-mobile mx-auto grid gap-4 sm:grid-cols-2 ${columns[Math.min(items.length, 4)]}`}
           stagger={0.08}
@@ -321,7 +321,7 @@ export default function ServiceDetail({ slug }) {
                 ))}
               </Reveal>
 
-              <SwipeArea className="mt-8">
+              <SwipeArea className="mt-8 sm:mt-10">
               <RevealGroup as="dl" className="swipe-mobile grid gap-4 sm:grid-cols-2" stagger={0.08}>
                 {service.points.map((point, i) => (
                   <RevealItem
@@ -380,7 +380,7 @@ export default function ServiceDetail({ slug }) {
             </Link>
           </div>
 
-          <SwipeArea className="mt-8">
+          <SwipeArea className="mt-8 sm:mt-10 lg:mt-12">
           <RevealGroup className="swipe-mobile grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6" stagger={0.08}>
             {others.map((other) => (
               <RevealItem key={other.slug} className="h-full">

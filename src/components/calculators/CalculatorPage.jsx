@@ -115,7 +115,7 @@ export default function CalculatorPage({ slug }) {
         <div className="shell">
           {/* ---- Sticky mobile result bar: shows the primary figure while adjusting inputs ---- */}
           {emphasisResults.length > 0 && (
-            <div className="fixed inset-x-0 bottom-0 z-30 border-t border-gold/30 bg-forest/[0.97] px-4 py-3 text-ivory shadow-[0_-8px_24px_-6px_rgba(23,63,53,0.35)] backdrop-blur-md lg:hidden">
+            <div className="fixed inset-x-0 bottom-0 z-30 border-t border-gold/30 bg-forest/[0.97] px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] text-ivory shadow-[0_-8px_24px_-6px_rgba(23,63,53,0.35)] backdrop-blur-md lg:hidden">
               <div className="mx-auto flex max-w-lg items-center justify-between gap-3">
                 <div className="min-w-0">
                   <p className="truncate text-[0.625rem] font-medium tracking-[0.14em] text-gold-soft uppercase">
@@ -137,16 +137,16 @@ export default function CalculatorPage({ slug }) {
             </div>
           )}
 
-          <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-12">
+          <div className="grid items-start gap-8 pb-16 lg:grid-cols-12 lg:gap-12 lg:pb-0">
             {/* ---- Inputs ---- */}
             <div className="lg:col-span-7">
               <Reveal y={16}>
-                <div className="relative overflow-hidden rounded-2xl border border-line bg-white p-6 shadow-card sm:p-8">
+                <div className="relative overflow-hidden rounded-2xl border border-line bg-white p-5 shadow-card sm:p-8">
                   <span
                     aria-hidden="true"
                     className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-gold via-gold-soft to-transparent"
                   />
-                  <div className="flex items-center justify-between gap-4">
+                  <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4">
                     <div className="flex items-center gap-3">
                       <span className="animate-float flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 bg-cream text-forest">
                         <Icon aria-hidden="true" className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.5} />
@@ -165,7 +165,7 @@ export default function CalculatorPage({ slug }) {
                         className="h-3.5 w-3.5 transition-transform duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:-rotate-180"
                         strokeWidth={1.5}
                       />
-                      Reset to defaults
+                      Reset<span className="hidden xs:inline sm:inline"> to defaults</span>
                     </button>
                   </div>
 
@@ -251,7 +251,7 @@ export default function CalculatorPage({ slug }) {
 
           {/* ---- More related calculators below the main tool ---- */}
           {otherCalculators.length > 0 && (
-            <div className="mt-14 border-t border-line pt-10 lg:mt-16 lg:pt-12">
+            <div className="mt-10 border-t border-line pt-8 sm:mt-12 lg:pt-10">
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
                   <span className="text-[0.6875rem] font-semibold tracking-[0.2em] text-gold-ink uppercase">
@@ -270,7 +270,7 @@ export default function CalculatorPage({ slug }) {
                 </Link>
               </div>
 
-              <SwipeArea className="mt-6">
+              <SwipeArea className="mt-6 sm:mt-8">
                 <RevealGroup
                   className="swipe-mobile grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                   stagger={0.06}

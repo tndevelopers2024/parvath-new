@@ -1,4 +1,5 @@
 import { useId, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { AlertCircle, Check, Send } from 'lucide-react'
 import { interestOptions } from '../data/site'
@@ -9,6 +10,15 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i
 const PHONE = /^(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}$/
 
 const EMPTY = { name: '', email: '', phone: '', interest: '', message: '' }
+
+function getInitialInterest(param) {
+  if (!param) return ''
+  const cleanParam = param.toLowerCase().replace(/[^a-z0-9]/g, '')
+  const matched = interestOptions.find(
+    (opt) => opt.toLowerCase().replace(/[^a-z0-9]/g, '') === cleanParam
+  )
+  return matched || ''
+}
 
 function validate(values) {
   const errors = {}
@@ -80,7 +90,9 @@ function Field({ id, label, error, children, hint, as = 'label' }) {
  * a real endpoint.
  */
 export default function ContactForm() {
-  const [values, setValues] = useState(EMPTY)
+  const [searchParams] = useSearchParams()
+  const initialInterest = getInitialInterest(searchParams.get('interest'))
+  const [values, setValues] = useState(() => ({ ...EMPTY, interest: initialInterest }))
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [sent, setSent] = useState(false)

@@ -134,7 +134,7 @@ export default function BusinessOwners() {
           </Reveal>
         </SectionHeading>
 
-        <div className="relative mx-auto mt-8 max-w-5xl lg:mt-10">
+        <div className="relative mx-auto mt-8 sm:mt-10 lg:mt-12 max-w-5xl">
           {/* Medallion: above the list on mobile, on the intersection from `lg` */}
           <Reveal
             y={0}
