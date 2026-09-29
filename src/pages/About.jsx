@@ -134,12 +134,17 @@ function Story() {
               </blockquote>
               <figcaption className="mt-7 flex items-center gap-4 border-t border-ivory/15 pt-6">
                 <div className="flex -space-x-2.5 items-center shrink-0">
-                  <span className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full border-2 border-forest bg-[#1D4A3E] text-gold-soft ring-2 ring-gold-soft/50 font-display text-xs font-semibold">
-                    KS
+                  <span className="relative z-10 overflow-hidden h-11 w-11 rounded-full border-2 border-forest ring-2 ring-gold-soft/50">
+                    <img
+                      src={images.founders.sridhar.src}
+                      alt="K Sridhar"
+                      className="h-full w-full object-cover object-top"
+                      loading="lazy"
+                    />
                   </span>
                   <span className="relative z-20 overflow-hidden h-11 w-11 rounded-full border-2 border-forest ring-2 ring-gold-soft/50">
                     <img
-                      src={images.founder.src}
+                      src={images.founders.varalakshmi.src}
                       alt="Varalakshmi Sridhar"
                       className="h-full w-full object-cover object-top"
                       loading="lazy"

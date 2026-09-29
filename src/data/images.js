@@ -53,10 +53,10 @@ export const images = {
   founders: {
     sridhar: {
       src: '/images/about/k-sridhar.avif',
-      fallbackSrc: '/images/plate-founder.svg',
+      fallbackSrc: '/images/about/k-sridhar.jpg',
       alt: 'K Sridhar, Founder of Parvath Life and Legacy Advisors',
       aspect: '4 / 5',
-      placeholder: true,
+      placeholder: false,
       initials: 'KS',
     },
     varalakshmi: {

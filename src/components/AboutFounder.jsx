@@ -30,7 +30,7 @@ const commitments = [
 /**
  * Individual Founder Portrait:
  * Renders verified photograph if present, or an executive gold monogram medallion
- * on deep forest heritage backdrop for K Sridhar.
+ * on deep forest heritage backdrop as fallback.
  */
 function FounderPortrait({ founder }) {
   const reduced = useReducedMotion()

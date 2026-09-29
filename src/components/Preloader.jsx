@@ -35,7 +35,7 @@ function assetsReady() {
 const ROUTE_HOLD_S = 2
 
 /**
- * Brand intro: the logo wipes up and settles, "Financial Services" eases in
+ * Brand intro: the logo wipes up and settles, "Life & Legacy Advisors" eases in
  * beneath it, then a two-layer curtain lift. Progress is tracked internally to
  * time the lift but is not shown.
  *
@@ -186,7 +186,7 @@ export default function Preloader() {
             transition={{ duration: 1.4 * k, delay: 1.05 * k, ease: INTRO }}
             style={{ marginRight: '-0.42em' }}
           >
-            Financial Services
+            Life &amp; Legacy Advisors
           </motion.p>
         </motion.div>
       </motion.div>

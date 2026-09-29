@@ -50,12 +50,17 @@ function StatementPanel() {
 
       <div className="mt-6 flex items-center gap-4">
         <div className="flex -space-x-2 items-center shrink-0">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-gold/40 bg-gold/20 font-display text-[0.6875rem] font-semibold text-forest">
-            KS
+          <span className="relative h-8 w-8 overflow-hidden rounded-full ring-1 ring-gold/50">
+            <img
+              src={images.founders.sridhar.src}
+              alt="K Sridhar"
+              className="h-full w-full object-cover object-top"
+              loading="lazy"
+            />
           </span>
           <span className="relative h-8 w-8 overflow-hidden rounded-full ring-1 ring-gold/50">
             <img
-              src={images.founder.src}
+              src={images.founders.varalakshmi.src}
               alt="Varalakshmi Sridhar"
               className="h-full w-full object-cover object-top"
               loading="lazy"

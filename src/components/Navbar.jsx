@@ -94,7 +94,7 @@ const socialLinks = [
 ]
 
 /**
- * Brand lockup: the Parvath mark, then "Financial Services" set beside it.
+ * Brand lockup: the Parvath mark, then "Life & Legacy Advisors" set beside it.
  * Over the hero photo the light mark (ivory wordmark) is swapped in.
  */
 function Wordmark({ isTransparent = false, compact = false }) {

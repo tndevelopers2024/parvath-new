@@ -124,8 +124,13 @@ export default function Footer() {
               </p>
               <div className="mt-2.5 space-y-2.5">
                 <div className="flex items-center gap-3">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gold-soft/40 bg-gold/20 font-display text-xs font-medium text-gold-soft">
-                    KS
+                  <span className="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-full ring-1 ring-gold-soft/40">
+                    <img
+                      src={images.founders.sridhar.src}
+                      alt="K Sridhar"
+                      className="h-full w-full object-cover object-top"
+                      loading="lazy"
+                    />
                   </span>
                   <div>
                     <p className="font-display text-sm font-semibold text-white leading-tight">

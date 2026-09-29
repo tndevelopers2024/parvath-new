@@ -50,7 +50,7 @@ as such on the page, not silently faked:
 | Founder portrait | `images.founder` | A caption under the image |
 | Insight articles | `insights` in `src/data/site.js` | "Article in preparation" on each card |
 | Regulatory disclosure | `disclaimer` in `src/data/site.js` | Inline in the footer text |
-| Address | `site.location` | Currently city-level only |
+| Address | `site.location` | Published office address |
 
 See `public/images/README.md` for how to swap the placeholder plates for real
 photography and for the art direction to brief a photographer against.

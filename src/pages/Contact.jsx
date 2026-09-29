@@ -8,7 +8,7 @@ import { images } from '../data/images'
 import { site } from '../data/site'
 import { trackPointer } from '../lib/motion'
 
-/** One-tap ways to get in touch. Location has no link — there is no published address yet. */
+/** One-tap ways to get in touch. */
 const channels = [
   {
     label: 'Call',
@@ -120,12 +120,17 @@ function NextStepsPanel() {
 
       <div className="flex items-center gap-4">
         <div className="flex -space-x-3 items-center shrink-0">
-          <span className="relative z-10 flex h-13 w-13 items-center justify-center rounded-full border-2 border-forest bg-[#1D4A3E] text-gold-soft ring-2 ring-gold-soft/50 font-display text-xs font-semibold shadow-md">
-            KS
+          <span className="relative z-10 overflow-hidden h-13 w-13 rounded-full border-2 border-forest ring-2 ring-gold-soft/50 shadow-md">
+            <img
+              src={images.founders.sridhar.src}
+              alt="K Sridhar"
+              className="h-full w-full object-cover object-top"
+              loading="lazy"
+            />
           </span>
           <span className="relative z-20 overflow-hidden h-13 w-13 rounded-full border-2 border-forest ring-2 ring-gold-soft/50 shadow-md">
             <img
-              src={images.founder.src}
+              src={images.founders.varalakshmi.src}
               alt="Varalakshmi Sridhar"
               className="h-full w-full object-cover object-top"
               loading="lazy"
