@@ -18,7 +18,7 @@ export const site = {
       name: 'K Sridhar',
       role: 'Founder & Principal Advisor',
       shortRole: 'Founder',
-      experience: '20+ Years Corporate Advisory',
+      experience: '20+ Years of Experience',
       focus: 'Corporate Advisory, Business Continuity & Risk Shielding',
       specialties: [
         'Corporate Continuity & Succession',
@@ -63,12 +63,11 @@ export const site = {
     'https://maps.google.com/?q=No.+46+Drowpathy+Amman+Koil+Street,+Ullagaram,+Chennai+-+600091',
   url: 'https://www.parvathfinancial.com',
   social: {
-    facebook: 'https://www.facebook.com/parvathfinancial',
-    twitter: 'https://twitter.com/parvathfinance',
-    linkedin: 'https://www.linkedin.com/company/parvath-financial-services',
+    facebook: 'https://www.facebook.com/share/1E5eMGadLF/',
+    instagram: 'https://www.instagram.com/finance.with.lakshmi/',
+    linkedin: 'https://www.linkedin.com/in/varalakshmi-sridhar-bb5720171/',
     whatsapp:
       'https://wa.me/919940305798?text=Hello%20Parvath%20Life%20and%20Legacy%20Advisors%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services',
-    youtube: 'https://www.youtube.com/@parvathfinancial',
   },
   positioning:
     'Partners with business owners, professionals and families to create, grow, protect and transfer wealth through structured financial planning.',
@@ -82,7 +81,7 @@ export const stats = [
 ]
 
 export const founderStats = [
-  { value: '20+', label: 'Years Corporate Advisory' },
+  { value: '20+', label: 'Years of Experience' },
   { value: '7+', label: 'Years Financial Advisory' },
   { value: '200+', label: 'Families & Businesses' },
 ]
@@ -450,9 +449,9 @@ export const services = [
     number: '07',
     slug: 'employee-benefits',
     path: '/services/employee-benefits',
-    title: 'Employee Benefit Solutions',
+    title: 'Employer-Employee Insurance Solutions',
     icon: 'Users',
-    summary: 'Help businesses create meaningful and structured employee benefit programs.',
+    summary: 'Help businesses create meaningful and structured employer-employee insurance programs.',
     intro:
       'A benefits programme is one of the clearest statements a company makes about how it regards its people.',
     detail: [
@@ -656,7 +655,7 @@ export const faqs = [
   {
     question: 'What kind of financial planning do you help with?',
     answer:
-      'Eight core areas: wealth creation, retirement planning, life insurance, health insurance, bonds & deposits, legacy planning, employee benefit solutions and group gratuity schemes — covering both personal and business financial planning.',
+      'Eight core areas: wealth creation, retirement planning, life insurance, health insurance, bonds & deposits, legacy planning, employer-employee insurance solutions and group gratuity schemes — covering both personal and business financial planning.',
   },
   {
     question: 'Do you work with individuals, or only with business owners?',
@@ -714,7 +713,7 @@ export const interestOptions = [
   'Health Insurance',
   'Bonds & Deposits',
   'Legacy Planning',
-  'Employee Benefits',
+  'Employer-Employee Insurance',
   'Group Gratuity',
   'General Enquiry',
 ]
@@ -756,7 +755,7 @@ export const organisationJsonLd = {
     'Health Insurance',
     'Bonds & Deposits',
     'Legacy Planning',
-    'Employee Benefit Solutions',
+    'Employer-Employee Insurance Solutions',
     'Group Gratuity Schemes',
   ],
 }

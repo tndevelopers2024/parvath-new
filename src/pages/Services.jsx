@@ -13,7 +13,7 @@ export default function Services() {
       <Seo
         title="Services"
         path="/services"
-        description="Wealth creation, retirement planning, life insurance, health insurance, bonds & deposits, legacy planning, employee benefit solutions and group gratuity schemes — eight areas of financial planning, approached as one plan."
+        description="Wealth creation, retirement planning, life insurance, health insurance, bonds & deposits, legacy planning, employer-employee insurance solutions and group gratuity schemes — eight areas of financial planning, approached as one plan."
       />
 
       <PageHeader

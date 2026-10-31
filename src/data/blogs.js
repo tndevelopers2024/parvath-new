@@ -434,10 +434,10 @@ export const blogs = [
   },
   {
     slug: 'understanding-employee-benefits',
-    category: 'Employee Benefits',
+    category: 'Employer-Employee Insurance',
     badge: 'Employers',
-    title: 'Understanding Employee Benefits: Signalling Value to Your Workforce',
-    shortTitle: 'Understanding Employee Benefits',
+    title: 'Understanding Employer-Employee Insurance: Signalling Value to Your Workforce',
+    shortTitle: 'Understanding Employer-Employee Insurance',
     excerpt:
       'What a well-designed benefits programme signals to a workforce — and what an accumulated one signals instead.',
     readingTime: '6 min read',
@@ -448,11 +448,11 @@ export const blogs = [
       'In competitive talent markets, employee benefits are often treated as an administrative checklist. But structured thoughtfully, they represent an organization’s most visible statement of cultural empathy and corporate stability.',
     relatedCalculator: {
       title: 'Executive Benefits Consultation',
-      path: '/contact?interest=employee-benefits',
+      path: '/contact?interest=employer-employee-insurance',
       description: 'Review your company’s Group Mediclaim, Group Term Life, and corporate retention schemes with our advisors.',
     },
     relatedService: {
-      title: 'Employee Benefit Solutions',
+      title: 'Employer-Employee Insurance Solutions',
       path: '/services/employee-benefits',
     },
     keyTakeaways: [

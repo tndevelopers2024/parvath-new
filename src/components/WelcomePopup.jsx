@@ -15,6 +15,22 @@ const PHONE = /^(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}$/
 
 const EMPTY = { name: '', phone: '', email: '', interest: '' }
 
+const WHATSAPP_NUMBER = site.phoneHref.replace(/\D/g, '')
+
+function buildPopupWhatsAppUrl({ name, phone, email, interest }) {
+  const lines = [
+    `Hello ${site.name},`,
+    '',
+    'I would like to request a callback for a 30-minute consultation.',
+    '',
+    `*Name:* ${name.trim()}`,
+    `*Phone:* ${phone.trim()}`,
+    ...(email.trim() ? [`*Email:* ${email.trim()}`] : []),
+    `*Interested in:* ${interest}`,
+  ]
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`
+}
+
 const benefits = [
   'Understand exactly where your wealth, protection and retirement plans stand today',
   'See what a structured plan could change — in plain language, not jargon',
@@ -173,8 +189,8 @@ export default function WelcomePopup() {
       return
     }
 
-    // TODO: POST `values` to the enquiry endpoint once one is available.
-    console.info('[Parvath] welcome popup enquiry ready to send', values)
+    const whatsappUrl = buildPopupWhatsAppUrl(values)
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
     setSent(true)
   }
 

@@ -2,8 +2,25 @@ import { useId, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { AlertCircle, Check, Send } from 'lucide-react'
-import { interestOptions } from '../data/site'
+import { interestOptions, site } from '../data/site'
 import { EASE } from '../lib/motion'
+
+const WHATSAPP_NUMBER = site.phoneHref.replace(/\D/g, '')
+
+function buildWhatsAppUrl({ name, email, phone, interest, message }) {
+  const lines = [
+    `Hello ${site.name},`,
+    '',
+    'I would like to schedule a consultation.',
+    '',
+    `*Name:* ${name.trim()}`,
+    `*Phone:* ${phone.trim()}`,
+    `*Email:* ${email.trim()}`,
+    `*Interested in:* ${interest}`,
+    `*Message:* ${message.trim()}`,
+  ]
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`
+}
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i
 // Indian mobile numbers, optionally with +91 / 0 prefix and spaces or dashes.
@@ -127,8 +144,8 @@ export default function ContactForm() {
       return
     }
 
-    // TODO: POST `values` to the enquiry endpoint once one is available.
-    console.info('[Parvath] enquiry ready to send', values)
+    const whatsappUrl = buildWhatsAppUrl(values)
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
     setSent(true)
     setValues(EMPTY)
     setTouched({})
