@@ -21,6 +21,7 @@ import { useLenis } from 'lenis/react'
 import { navLinks, services, site } from '../data/site'
 import { calculators, calculatorCategories } from '../data/calculators'
 import { EASE } from '../lib/motion'
+import { containDialogFocus } from '../lib/dialogFocus'
 
 const serviceIconMap = {
   TrendingUp,
@@ -131,6 +132,7 @@ export default function Navbar() {
   const compact = isScrolled && !open
   const reduced = useReducedMotion()
   const toggleRef = useRef(null)
+  const headerRef = useRef(null)
   const closeTimer = useRef(null)
 
   const openMenu = (key) => {
@@ -206,18 +208,12 @@ export default function Navbar() {
     document.body.style.overflow = 'hidden'
     lenis?.stop()
 
-    const onKey = (e) => {
-      if (e.key === 'Escape') {
-        setOpen(false)
-        toggleRef.current?.focus()
-      }
-    }
-    document.addEventListener('keydown', onKey)
+    const releaseFocus = containDialogFocus(headerRef.current, toggleRef.current, () => setOpen(false))
 
     return () => {
       document.body.style.overflow = overflow
       lenis?.start()
-      document.removeEventListener('keydown', onKey)
+      releaseFocus()
     }
   }, [open, lenis])
 
@@ -231,7 +227,7 @@ export default function Navbar() {
   }, [open])
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 transition-all duration-300">
+    <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 transition-all duration-300">
       {/* ---- Main Navigation: Transparent at top of Hero, Floating Solid Pill on scroll ---- */}
       <div
         className={`mx-auto px-3 transition-all duration-300 sm:px-6 ${

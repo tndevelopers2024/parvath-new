@@ -43,7 +43,7 @@ export function AnimatedValue({ value, format, className = '' }) {
   }, [value, fmt, reduced])
 
   return (
-    <span ref={ref} className={className} />
+    <span ref={ref} className={className}>{fmt(value)}</span>
   )
 }
 

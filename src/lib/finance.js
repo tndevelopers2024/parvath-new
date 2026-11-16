@@ -111,9 +111,12 @@ export function swpProjection({ corpus, monthlyWithdrawal, annualRatePct, years 
   let balance = corpus
   let monthsLasted = 0
   let totalWithdrawn = 0
+  if (balance <= 0) return { endingBalance: 0, monthsLasted: 0, depleted: true, totalWithdrawn: 0 }
   for (let m = 0; m < n; m++) {
-    balance = balance * (1 + i) - monthlyWithdrawal
-    totalWithdrawn += monthlyWithdrawal
+    const available = balance * (1 + i)
+    const withdrawn = Math.min(monthlyWithdrawal, Math.max(0, available))
+    balance = available - withdrawn
+    totalWithdrawn += withdrawn
     monthsLasted = m + 1
     if (balance <= 0) {
       balance = 0
@@ -123,7 +126,7 @@ export function swpProjection({ corpus, monthlyWithdrawal, annualRatePct, years 
   return {
     endingBalance: Math.max(0, balance),
     monthsLasted,
-    depleted: balance <= 0 && monthsLasted < n,
+    depleted: balance <= 0,
     totalWithdrawn,
   }
 }
@@ -150,7 +153,8 @@ export function stepUpSipFutureValue({ initialMonthly, stepUpPct, annualRatePct,
 export function limitedPeriodSipFutureValue({ monthlyAmount, annualRatePct, investYears, totalYears }) {
   const corpusAtEndOfInvesting = sipFutureValue(monthlyAmount, annualRatePct, investYears)
   const remainingYears = Math.max(0, totalYears - investYears)
-  return lumpsumFutureValue(corpusAtEndOfInvesting, annualRatePct, remainingYears)
+  // Keep monthly compounding when contributions stop; do not switch rates.
+  return corpusAtEndOfInvesting * Math.pow(1 + annualRatePct / 100 / 12, Math.round(remainingYears * 12))
 }
 
 /**
@@ -188,7 +192,7 @@ export function retirementCorpus({
   // Fisher relation: real rate from nominal post-retirement return and inflation.
   const realReturnPct =
     ((1 + postRetirementReturnPct / 100) / (1 + inflationPct / 100) - 1) * 100
-  const iReal = realReturnPct / 100 / 12
+  const iReal = Math.pow(1 + realReturnPct / 100, 1 / 12) - 1
   const nMonths = Math.round(yearsInRetirement * 12)
 
   let corpusNeeded

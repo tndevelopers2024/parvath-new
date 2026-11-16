@@ -39,9 +39,13 @@ export default function BlogDetail() {
 
   const shareUrl = typeof window !== 'undefined' ? window.location.href : `${site.url}/blogs/${slug}`
 
-  const handleCopy = () => {
+  const handleCopy = async () => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(shareUrl)
+      try {
+        await navigator.clipboard.writeText(shareUrl)
+      } catch {
+        return
+      }
       setCopied(true)
       setTimeout(() => setCopied(false), 2400)
     }

@@ -109,9 +109,55 @@ would deadlock.
 ## Deployment
 
 The app uses client-side routing, so any static host must rewrite unknown paths
-to `/index.html` or every route except `/` will 404 on refresh. `vercel.json`
-does this for Vercel; on another host configure the equivalent SPA fallback.
+to `/index.html` or every route except `/` will 404 on refresh. `public/.htaccess`
+does this on Hostinger.
 
 `public/` also carries `robots.txt`, `sitemap.xml` and the Open Graph image.
 Update the `site.url` in `src/data/site.js` and the URLs in `sitemap.xml`,
-`robots.txt` and `index.html` when the real domain is known.
+`robots.txt` and `index.html` if the domain ever changes.
+
+## Enquiry email
+
+The contact form and welcome popup submit to `/api/enquiry`. Both forms send
+each submission to `varalakshmi@parvathfinserv.com` and
+`contact@parvathfinserv.com` through `smtp.hostinger.com` (TLS, port 465). The
+visitor's email, when provided, is set as Reply-To.
+
+The route has two implementations which must stay in step:
+
+- `public/api/enquiry.php` runs in production on Hostinger.
+- `api/enquiry.js` runs inside the Vite dev server for local work.
+
+`npm test` fails if their recipients or interest options differ.
+
+Mail settings:
+
+- Local development: copy `.env.example` to `.env.local`, fill in `SMTP_USER`
+  (the full sending mailbox address) and `SMTP_PASSWORD`, and restart
+  `npm run dev`.
+- Production: copy `public/api/enquiry-config.example.php` to
+  `public/api/enquiry-config.php` and fill in the same two values. The file is
+  ignored by git and blocked by `.htaccess`; it is copied into `dist/api/` by
+  the build.
+
+## Deploying to Hostinger
+
+1. Run `npm run verify`.
+2. Upload the contents of `dist/` to `public_html`, including the hidden
+   `.htaccess` files and the `api/` folder.
+3. Check that `public_html/api/enquiry-config.php` exists on the server.
+4. In hPanel, keep PHP at 7.4 or newer and turn on "Force HTTPS".
+
+`public/.htaccess` sends every page path to `index.html`, redirects `www` to
+the bare domain, routes `/api/enquiry` to the PHP file and sets the security
+and caching headers. `vercel.json` is the equivalent for a Vercel deployment
+and is not used on Hostinger.
+
+## Checks
+
+- `npm test` runs the calculator maths and enquiry endpoint tests. The endpoint
+  tests use a stub mail transport, so no email is sent.
+- `npm run check:routes` server-renders every sitemap route and the 404 page,
+  and fails on a render error, a missing image or a page without exactly one H1.
+- `npm run verify` runs lint, tests, the route check and the production build.
+  Run it before deploying.

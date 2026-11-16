@@ -5,31 +5,17 @@ import { useLenis } from 'lenis/react'
 import { useLocation } from 'react-router-dom'
 import { interestOptions, site } from '../data/site'
 import { EASE } from '../lib/motion'
+import { submitEnquiry } from '../lib/submitEnquiry'
 import { usePreloaderDone } from '../lib/preloader'
+import { containDialogFocus } from '../lib/dialogFocus'
 import { Diamond, GoldRule, JaaliField } from './Ornaments'
 
 const SCROLL_POPUP_DELAY_MS = 800
 
-const EMAIL = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i
+const EMAIL = /^[^\s@,<>"]+@[^\s@,<>"]+\.[a-z]{2,}$/i
 const PHONE = /^(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}$/
 
-const EMPTY = { name: '', phone: '', email: '', interest: '' }
-
-const WHATSAPP_NUMBER = site.phoneHref.replace(/\D/g, '')
-
-function buildPopupWhatsAppUrl({ name, phone, email, interest }) {
-  const lines = [
-    `Hello ${site.name},`,
-    '',
-    'I would like to request a callback for a 30-minute consultation.',
-    '',
-    `*Name:* ${name.trim()}`,
-    `*Phone:* ${phone.trim()}`,
-    ...(email.trim() ? [`*Email:* ${email.trim()}`] : []),
-    `*Interested in:* ${interest}`,
-  ]
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`
-}
+const EMPTY = { name: '', phone: '', email: '', interest: '', website: '' }
 
 const benefits = [
   'Understand exactly where your wealth, protection and retirement plans stand today',
@@ -64,12 +50,15 @@ export default function WelcomePopup() {
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [sent, setSent] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitFailed, setSubmitFailed] = useState(false)
   const reduced = useReducedMotion()
   const preloaderDone = usePreloaderDone()
   const location = useLocation()
   const uid = useId()
   const formRef = useRef(null)
   const closeRef = useRef(null)
+  const dialogRef = useRef(null)
   const timerRef = useRef(null)
 
   // Opens only when user reaches the Business Owners section
@@ -150,17 +139,12 @@ export default function WelcomePopup() {
     const { overflow } = document.body.style
     document.body.style.overflow = 'hidden'
     lenis?.stop()
-    closeRef.current?.focus({ preventScroll: true })
-
-    const onKey = (e) => {
-      if (e.key === 'Escape') close()
-    }
-    document.addEventListener('keydown', onKey)
+    const releaseFocus = containDialogFocus(dialogRef.current, closeRef.current, close)
 
     return () => {
       document.body.style.overflow = overflow
       lenis?.start()
-      document.removeEventListener('keydown', onKey)
+      releaseFocus()
     }
   }, [open, lenis])
 
@@ -177,8 +161,10 @@ export default function WelcomePopup() {
     setErrors(validate(values))
   }
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault()
+    if (submitting) return
+    setSubmitFailed(false)
     const found = validate(values)
     setErrors(found)
     setTouched(Object.fromEntries(Object.keys(EMPTY).map((k) => [k, true])))
@@ -189,9 +175,15 @@ export default function WelcomePopup() {
       return
     }
 
-    const whatsappUrl = buildPopupWhatsAppUrl(values)
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
-    setSent(true)
+    setSubmitting(true)
+    try {
+      await submitEnquiry('callback', values)
+      setSent(true)
+    } catch {
+      setSubmitFailed(true)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const control = (name) =>
@@ -218,6 +210,7 @@ export default function WelcomePopup() {
           />
 
           <motion.div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby="welcome-popup-title"
@@ -312,6 +305,10 @@ export default function WelcomePopup() {
                   </p>
 
                   <form ref={formRef} noValidate onSubmit={onSubmit} className="mt-6 space-y-4">
+                    <div aria-hidden="true" className="absolute -left-[10000px] top-0">
+                      <label htmlFor={fid('website')}>Leave this field empty</label>
+                      <input id={fid('website')} name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={update('website')} />
+                    </div>
                     <div>
                       <label
                         htmlFor={fid('name')}
@@ -324,6 +321,7 @@ export default function WelcomePopup() {
                         name="name"
                         type="text"
                         autoComplete="name"
+                        maxLength={120}
                         value={values.name}
                         onChange={update('name')}
                         onBlur={blur('name')}
@@ -380,6 +378,7 @@ export default function WelcomePopup() {
                         type="email"
                         inputMode="email"
                         autoComplete="email"
+                        maxLength={254}
                         value={values.email}
                         onChange={update('email')}
                         onBlur={blur('email')}
@@ -435,10 +434,16 @@ export default function WelcomePopup() {
 
                     <button
                       type="submit"
-                      className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-forest py-3.5 text-[0.8125rem] font-medium tracking-[0.06em] text-white uppercase transition-all duration-300 ease-[cubic-bezier(0.22,0.61,0.36,1)] hover:bg-forest-soft hover:shadow-lift motion-safe:hover:-translate-y-0.5"
+                      disabled={submitting}
+                      className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-forest py-3.5 text-[0.8125rem] font-medium tracking-[0.06em] text-white uppercase transition-all duration-300 ease-[cubic-bezier(0.22,0.61,0.36,1)] hover:bg-forest-soft hover:shadow-lift motion-safe:hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-70"
                     >
-                      Request a Callback
+                      {submitting ? 'Sending…' : 'Request a Callback'}
                     </button>
+                    {submitFailed && (
+                      <p role="alert" className="text-sm text-[#8C3A2B]">
+                        We couldn’t send your request. Please try again.
+                      </p>
+                    )}
 
                     <p className="text-center text-[0.6875rem] leading-relaxed text-muted">
                       Your details are used only to arrange this callback.

@@ -57,8 +57,7 @@ export default function CalculatorField({ field, value, onChange }) {
     )
   }
 
-  // 'number' — a plain typed amount, clamped and validated on blur rather
-  // than on every keystroke so a user can clear the field and retype.
+  // Keep values in the supported range before they reach the live projection.
   return (
     <div>
       <label htmlFor={id} className="text-[0.8125rem] font-medium text-charcoal">
@@ -72,6 +71,7 @@ export default function CalculatorField({ field, value, onChange }) {
         )}
         <input
           id={id}
+          name={field.key}
           type="number"
           inputMode="numeric"
           min={min}
@@ -80,7 +80,7 @@ export default function CalculatorField({ field, value, onChange }) {
           value={value}
           onChange={(e) => {
             const next = e.target.value === '' ? 0 : Number(e.target.value)
-            if (Number.isFinite(next)) onChange(next)
+            if (Number.isFinite(next)) onChange(Math.min(max, Math.max(min, next)))
           }}
           onFocus={(e) => e.target.select()}
           onBlur={(e) => {

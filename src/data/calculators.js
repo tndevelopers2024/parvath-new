@@ -12,7 +12,7 @@ import {
   costOfDelay,
   retirementCorpus,
   lifeInsuranceNeed,
-} from '../lib/finance'
+} from '../lib/finance.js'
 
 /**
  * Every calculator on the site is described here as data — one shared page
@@ -550,6 +550,40 @@ export const calculators = [
 
 export function getCalculator(slug) {
   return calculators.find((c) => c.slug === slug)
+}
+
+/** Keep related sliders consistent with the values used by the projection. */
+export function getCalculatorFields(calculator, values) {
+  const bounds = {
+    'child-education': {
+      childAge: { max: Math.min(17, values.educationAge - 1) },
+      educationAge: { min: Math.max(16, values.childAge + 1) },
+    },
+    'dream-retirement': {
+      currentAge: { max: Math.min(58, values.retirementAge - 1) },
+      retirementAge: { min: Math.max(45, values.currentAge + 1) },
+    },
+    'limited-period-sip': {
+      investYears: { max: Math.min(25, values.totalYears) },
+      totalYears: { min: values.investYears },
+    },
+    'cost-of-delay': {
+      delayYears: { max: Math.min(15, values.years - 1) },
+      years: { min: Math.max(5, values.delayYears + 1) },
+    },
+  }
+  return calculator.fields.map((field) => ({ ...field, ...bounds[calculator.slug]?.[field.key] }))
+}
+
+export const calculatorAssumptions = {
+  'sip': 'Monthly investments are made at the start of each month. The monthly return is the assumed annual rate divided by 12.',
+  'sip-top-up': 'Monthly investments are made at the start of each month and increase once a year. The monthly return is the assumed annual rate divided by 12.',
+  'birthday-sip': 'Investments are made at the start of each year, with annual compounding.',
+  'lumpsum': 'The investment compounds annually at a constant assumed rate.',
+  'limited-period-sip': 'Investments are made at the start of each month. Monthly compounding continues after contributions stop, until the goal date.',
+  'swp': 'Growth is applied before each month-end withdrawal. The final withdrawal is capped at the available balance; the last month shown may be only partly funded. Withdrawals do not increase with inflation.',
+  'dream-retirement': 'Expenses increase with inflation. Retirement withdrawals are valued at the monthly equivalent of the inflation-adjusted annual return, starting at retirement. Existing retirement assets are not deducted.',
+  'life-insurance-need': 'Income replacement is annual income multiplied by the chosen number of years, without discounting or inflation. Liabilities and goals are added, then existing cover and assets are deducted.',
 }
 
 export const calculatorDisclaimer =

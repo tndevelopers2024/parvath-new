@@ -30,7 +30,7 @@ import { Diamond, JaaliField } from '../Ornaments'
 import Breakdown from './Breakdown'
 import ResultStat, { AnimatedValue } from './ResultStat'
 import CalculatorField from './CalculatorField'
-import { getCalculator, calculators, calculatorDisclaimer } from '../../data/calculators'
+import { getCalculator, getCalculatorFields, calculators, calculatorDisclaimer, calculatorAssumptions } from '../../data/calculators'
 import { trackPointer } from '../../lib/motion'
 
 const calculatorIconMap = {
@@ -170,7 +170,7 @@ export default function CalculatorPage({ slug }) {
                   </div>
 
                   <div className="mt-7 space-y-7">
-                    {calculator.fields.map((field) => (
+                    {getCalculatorFields(calculator, values).map((field) => (
                       <CalculatorField
                         key={field.key}
                         field={field}
@@ -179,6 +179,11 @@ export default function CalculatorPage({ slug }) {
                       />
                     ))}
                   </div>
+                  {calculatorAssumptions[slug] && (
+                    <p className="mt-6 border-t border-line pt-4 text-xs leading-relaxed text-muted">
+                      {calculatorAssumptions[slug]}
+                    </p>
+                  )}
                 </div>
               </Reveal>
             </div>

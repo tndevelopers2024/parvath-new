@@ -2,34 +2,19 @@ import { useId, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { AlertCircle, Check, Send } from 'lucide-react'
-import { interestOptions, site } from '../data/site'
+import { interestOptions } from '../data/site'
 import { EASE } from '../lib/motion'
+import { submitEnquiry } from '../lib/submitEnquiry'
 
-const WHATSAPP_NUMBER = site.phoneHref.replace(/\D/g, '')
-
-function buildWhatsAppUrl({ name, email, phone, interest, message }) {
-  const lines = [
-    `Hello ${site.name},`,
-    '',
-    'I would like to schedule a consultation.',
-    '',
-    `*Name:* ${name.trim()}`,
-    `*Phone:* ${phone.trim()}`,
-    `*Email:* ${email.trim()}`,
-    `*Interested in:* ${interest}`,
-    `*Message:* ${message.trim()}`,
-  ]
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`
-}
-
-const EMAIL = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i
+const EMAIL = /^[^\s@,<>"]+@[^\s@,<>"]+\.[a-z]{2,}$/i
 // Indian mobile numbers, optionally with +91 / 0 prefix and spaces or dashes.
 const PHONE = /^(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}$/
 
-const EMPTY = { name: '', email: '', phone: '', interest: '', message: '' }
+const EMPTY = { name: '', email: '', phone: '', interest: '', message: '', website: '' }
 
 function getInitialInterest(param) {
   if (!param) return ''
+  if (param === 'business-continuity') return 'General Enquiry'
   const cleanParam = param.toLowerCase().replace(/[^a-z0-9]/g, '')
   const matched = interestOptions.find(
     (opt) => opt.toLowerCase().replace(/[^a-z0-9]/g, '') === cleanParam
@@ -98,14 +83,6 @@ function Field({ id, label, error, children, hint, as = 'label' }) {
   )
 }
 
-/**
- * Enquiry form.
- *
- * Validation runs on submit and then live per-field once a field has been
- * touched. There is no backend wired up yet — on a valid submit the form shows
- * a confirmation and logs the payload. See the note below for where to connect
- * a real endpoint.
- */
 export default function ContactForm() {
   const [searchParams] = useSearchParams()
   const initialInterest = getInitialInterest(searchParams.get('interest'))
@@ -113,6 +90,8 @@ export default function ContactForm() {
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [sent, setSent] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitFailed, setSubmitFailed] = useState(false)
   const reduced = useReducedMotion()
   const uid = useId()
   const formRef = useRef(null)
@@ -130,8 +109,10 @@ export default function ContactForm() {
     setErrors(validate(values))
   }
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault()
+    if (submitting) return
+    setSubmitFailed(false)
     const found = validate(values)
     setErrors(found)
     setTouched(Object.fromEntries(Object.keys(EMPTY).map((k) => [k, true])))
@@ -144,11 +125,17 @@ export default function ContactForm() {
       return
     }
 
-    const whatsappUrl = buildWhatsAppUrl(values)
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
-    setSent(true)
-    setValues(EMPTY)
-    setTouched({})
+    setSubmitting(true)
+    try {
+      await submitEnquiry('contact', values)
+      setSent(true)
+      setValues(EMPTY)
+      setTouched({})
+    } catch {
+      setSubmitFailed(true)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const control = (name) =>
@@ -177,7 +164,7 @@ export default function ContactForm() {
           <Check aria-hidden="true" className="h-6 w-6" strokeWidth={1.75} />
         </span>
         <h3 className="mt-6 font-display text-[1.75rem] leading-tight text-forest">
-          Thank you — your enquiry has been recorded.
+          Thank you — your enquiry has been sent.
         </h3>
         <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted">
           Our founders, K Sridhar and Varalakshmi Sridhar, will be in touch personally. If it is urgent, a call is usually quicker than
@@ -205,6 +192,10 @@ export default function ContactForm() {
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-gold via-gold-soft to-transparent"
       />
+      <div aria-hidden="true" className="absolute -left-[10000px] top-0">
+        <label htmlFor={fid('website')}>Leave this field empty</label>
+        <input id={fid('website')} name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={update('website')} />
+      </div>
       <div className="mb-8 flex flex-wrap items-end justify-between gap-3 border-b border-line pb-6">
         <div>
           <p className="eyebrow">Send an enquiry</p>
@@ -226,6 +217,7 @@ export default function ContactForm() {
             name="name"
             type="text"
             autoComplete="name"
+            maxLength={120}
             value={values.name}
             onChange={update('name')}
             onBlur={blur('name')}
@@ -242,6 +234,7 @@ export default function ContactForm() {
             type="email"
             autoComplete="email"
             inputMode="email"
+            maxLength={254}
             value={values.email}
             onChange={update('email')}
             onBlur={blur('email')}
@@ -327,6 +320,7 @@ export default function ContactForm() {
               id={fid('message')}
               name="message"
               rows={5}
+              maxLength={2000}
               value={values.message}
               onChange={update('message')}
               onBlur={blur('message')}
@@ -344,13 +338,14 @@ export default function ContactForm() {
       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <button
           type="submit"
-          className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full bg-forest px-7 py-3.5 text-[0.8125rem] font-medium tracking-[0.06em] text-white uppercase transition-all duration-300 ease-[cubic-bezier(0.22,0.61,0.36,1)] hover:bg-forest-soft hover:shadow-lift motion-safe:hover:-translate-y-0.5"
+          disabled={submitting}
+          className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full bg-forest px-7 py-3.5 text-[0.8125rem] font-medium tracking-[0.06em] text-white uppercase transition-all duration-300 ease-[cubic-bezier(0.22,0.61,0.36,1)] hover:bg-forest-soft hover:shadow-lift motion-safe:hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-70"
         >
           <span
             aria-hidden="true"
             className="animate-shimmer pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/25 to-transparent motion-reduce:hidden"
           />
-          Send Enquiry
+          {submitting ? 'Sending…' : 'Send Enquiry'}
           <Send
             aria-hidden="true"
             className="h-4 w-4 transition-transform duration-300 motion-safe:group-hover:translate-x-1"
@@ -362,6 +357,11 @@ export default function ContactForm() {
           Your details are used only to respond to this enquiry.
         </p>
       </div>
+      {submitFailed && (
+        <p role="alert" className="mt-3 text-sm text-[#8C3A2B]">
+          We couldn’t send your enquiry. Please try again.
+        </p>
+      )}
     </form>
   )
 }

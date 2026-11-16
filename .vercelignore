@@ -1,0 +1,5 @@
+output/
+tmp/
+.env
+.env.local
+.env.*.local

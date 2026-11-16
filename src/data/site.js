@@ -7,7 +7,7 @@
  * `PLACEHOLDER` so they are trivial to find and replace.
  */
 
-import { blogs } from './blogs'
+import { blogs } from './blogs.js'
 
 export const site = {
   name: 'Parvath Life and Legacy Advisors',
@@ -61,7 +61,7 @@ export const site = {
   location: 'No. 46 Drowpathy Amman Koil Street, Ullagaram, Chennai – 600 091',
   locationHref:
     'https://maps.google.com/?q=No.+46+Drowpathy+Amman+Koil+Street,+Ullagaram,+Chennai+-+600091',
-  url: 'https://www.parvathfinancial.com',
+  url: 'https://parvathfinserv.com',
   social: {
     facebook: 'https://www.facebook.com/share/1E5eMGadLF/',
     instagram: 'https://www.instagram.com/finance.with.lakshmi/',

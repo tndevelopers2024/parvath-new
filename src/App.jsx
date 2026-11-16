@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { ReactLenis } from 'lenis/react'
+import { useReducedMotion } from 'motion/react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
@@ -52,6 +53,7 @@ const lenisOptions = {
   smoothWheel: true,
   wheelMultiplier: 0.85,
 }
+const reducedScrollOptions = { ...lenisOptions, smoothWheel: false, duration: 0, lerp: 1 }
 
 /** Holds the viewport height while a lazy route resolves, so nothing jumps. */
 function RouteFallback() {
@@ -60,9 +62,10 @@ function RouteFallback() {
 
 export default function App() {
   const location = useLocation()
+  const reduced = useReducedMotion()
 
   return (
-    <ReactLenis root options={lenisOptions}>
+    <ReactLenis root options={reduced ? reducedScrollOptions : lenisOptions}>
       {/* Keyed by path: remounts, and so replays, on every route change */}
       <Preloader key={location.pathname} />
       <CustomCursor />

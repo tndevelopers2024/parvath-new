@@ -74,6 +74,18 @@ export default function Preloader() {
 
   useEffect(() => {
     let cancelled = false
+    // Animation frames can be suspended in background tabs or by a browser.
+    // The maximum wait must cover the whole intro, not just asset loading.
+    const release = () => {
+      if (cancelled) return
+      setPhase('gone')
+      markPreloaderDone(pathname)
+    }
+    if (reduced) {
+      release()
+      return
+    }
+    const watchdog = setTimeout(release, initial ? MAX_WAIT_MS : 4000)
 
     const run = async () => {
       if (initial) {
@@ -98,6 +110,7 @@ export default function Preloader() {
     run()
     return () => {
       cancelled = true
+      clearTimeout(watchdog)
     }
   }, [progress, reduced, initial, pathname])
 

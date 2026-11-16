@@ -22,7 +22,10 @@ export default function ScrollToTop() {
 
   useLayoutEffect(() => {
     if (hash) {
-      const el = document.querySelector(hash)
+      // Hashes are URLs, not CSS selectors. Malformed links must not crash routing.
+      let id = hash.slice(1)
+      try { id = decodeURIComponent(id) } catch { /* Keep the literal fragment. */ }
+      const el = document.getElementById(id)
       if (el) {
         if (lenis) {
           lenis.scrollTo(el, { offset: -96, immediate: false, force: true })
