@@ -73,6 +73,13 @@ export const site = {
     'Partners with business owners, professionals and families to create, grow, protect and transfer wealth through structured financial planning.',
 }
 
+/** Pre-launch lock screen configuration. Set `enabled` to `false` to open the full site. */
+export const launchConfig = {
+  enabled: true,
+  targetDate: '2026-11-19T11:00:00+05:30',
+  launchDateLabel: 'November 19, 2026 · 11:00 AM IST',
+}
+
 export const stats = [
   { value: '20+', label: 'Years Corporate Experience' },
   { value: '7+', label: 'Years Financial Advisory' },

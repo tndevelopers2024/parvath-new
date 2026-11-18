@@ -10,6 +10,8 @@ import CustomCursor from './components/CustomCursor'
 import FloatingActions from './components/FloatingActions'
 import WelcomePopup from './components/WelcomePopup'
 import Preloader from './components/Preloader'
+import LaunchCountdown from './components/LaunchCountdown'
+import { launchConfig } from './data/site'
 import Home from './pages/Home'
 
 // Home ships in the initial bundle; everything else is fetched on navigation.
@@ -63,6 +65,15 @@ function RouteFallback() {
 export default function App() {
   const location = useLocation()
   const reduced = useReducedMotion()
+
+  if (launchConfig.enabled) {
+    return (
+      <>
+        <CustomCursor />
+        <LaunchCountdown />
+      </>
+    )
+  }
 
   return (
     <ReactLenis root options={reduced ? reducedScrollOptions : lenisOptions}>
